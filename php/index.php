@@ -11,5 +11,8 @@
     <?php include "alumnos.php"; ?>
 
     <p>Hola mi nombre es Daniel</p>
+    <footer>
+        <p>Sumo esto para verificar el funcionamiento de GitHub</p>
+    </footer>
 </body>
 </html>
