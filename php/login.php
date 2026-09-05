@@ -13,16 +13,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
+<?php
+    include "header.php";
+?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<body>
+<main>
     <form method="post">
         <label for="email">Correo electrónico:</label>
         <input type="email" id="email" name="email" required>
@@ -32,6 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <br>
         <button type="submit">Iniciar sesión</button>
     </form>
-</body>
+</main>
 
-</html>
+
+<?php
+    include "footer.php";
+
+?>

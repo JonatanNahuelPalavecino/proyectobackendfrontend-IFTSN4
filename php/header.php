@@ -6,6 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Reserva tu Aula (Desde HTML)</h1>
-</body>
-</html>
+    <header>
+        <nav>Holis</nav>
+    </header>
