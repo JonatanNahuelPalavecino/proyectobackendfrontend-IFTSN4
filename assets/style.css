@@ -1,0 +1,180 @@
+/* ---BASE--- */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ---VARIABLES--- */
+
+:root {
+    /* ---COLORES--- */
+    --primary-color: #049D48;
+    --secondary-color: #0A618B;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    --light-color: #f8f9fa;
+    --dark-color: #010304;
+    /* ---FUENTES--- */
+    --font-family: "Roboto", sans-serif;
+    --font-family-heading: "Caacupe One", cursive;
+}
+
+/* ---HEADER--- */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: var(--primary-color);
+    color: var(--light-color);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-img {
+    width: 50px;
+    height: 50px;
+    margin-right: 1rem;
+}
+
+.logo-title {
+    font-family: var(--font-family-heading);
+    font-size: 2rem;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+.nav {
+    display: flex;
+    gap: 1rem;
+}
+
+.nav-link {
+    color: var(--light-color);
+    text-decoration: none;
+    font-family: var(--font-family);
+    font-size: 1rem;
+}
+
+/* ---SLIDER--- */
+
+.slider {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    background: #111;
+}
+
+.slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.6s ease;
+}
+
+.slide.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.slide::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.65),
+        rgba(0, 0, 0, 0.05)
+    );
+}
+
+.slide-overlay {
+    position: absolute;
+    z-index: 2;
+    left: 40px;
+    bottom: 60px;
+    color: white;
+}
+
+.slide-overlay h2 {
+    font-size: 2.5rem;
+    max-width: 600px;
+}
+
+/* Botones */
+
+.slider-button {
+    position: absolute;
+    z-index: 3;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 0;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    color: white;
+    background: rgba(0, 0, 0, 0.45);
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+.slider-button:hover {
+    background: rgba(0, 0, 0, 0.75);
+}
+
+.previous {
+    left: 20px;
+}
+
+.next {
+    right: 20px;
+}
+
+.slider-dots {
+    position: absolute;
+    z-index: 3;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+}
+
+.dot {
+    width: 11px;
+    height: 11px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: white;
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.dot.active {
+    opacity: 1;
+}
+
+/* ---LOGIN--- */
+
+.login-page {
+    display: grid;
+    grid-template-columns: 75% 25%;
+    min-height: 100vh;
+    overflow: hidden;
+}
