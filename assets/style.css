@@ -9,7 +9,6 @@
 /* ---VARIABLES--- */
 
 :root {
-    /* ---COLORES--- */
     --primary-color: #049D48;
     --secondary-color: #0A618B;
     --success-color: #28a745;
@@ -18,20 +17,35 @@
     --info-color: #17a2b8;
     --light-color: #f8f9fa;
     --dark-color: #010304;
-    /* ---FUENTES--- */
     --font-family: "Roboto", sans-serif;
     --font-family-heading: "Caacupe One", cursive;
+    --aside-closed-width: 76px;
+    --layout-gap: 1rem;
+}
+
+body {
+    min-height: 100%;
+    padding-right: calc(
+        var(--aside-closed-width) + var(--layout-gap)
+    );
+    overflow-x: hidden;
+    font-family: var(--font-family);
 }
 
 /* ---HEADER--- */
 
 .header {
+    position: relative;
+    z-index: 10;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    min-height: 82px;
+    margin: 1rem;
     padding: 1rem 2rem;
-    background-color: var(--primary-color);
+    border-radius: 24px;
     color: var(--light-color);
+    background-color: var(--primary-color);
 }
 
 .logo {
@@ -43,25 +57,16 @@
     width: 50px;
     height: 50px;
     margin-right: 1rem;
+    object-fit: contain;
 }
 
 .logo-title {
+    margin: 0;
+    color: white;
     font-family: var(--font-family-heading);
     font-size: 2rem;
     letter-spacing: 2px;
     font-weight: bold;
-}
-
-.nav {
-    display: flex;
-    gap: 1rem;
-}
-
-.nav-link {
-    color: var(--light-color);
-    text-decoration: none;
-    font-family: var(--font-family);
-    font-size: 1rem;
 }
 
 /* ---SLIDER--- */
@@ -70,6 +75,8 @@
     position: relative;
     height: 100vh;
     overflow: hidden;
+    margin: 1rem;
+    border-radius: 25px;
     background: #111;
 }
 
@@ -112,21 +119,19 @@
 }
 
 .slide-overlay h2 {
-    font-size: 2.5rem;
     max-width: 600px;
+    font-size: 2.5rem;
 }
-
-/* Botones */
 
 .slider-button {
     position: absolute;
     z-index: 3;
     top: 50%;
     transform: translateY(-50%);
-    border: 0;
-    border-radius: 50%;
     width: 42px;
     height: 42px;
+    border: 0;
+    border-radius: 50%;
     color: white;
     background: rgba(0, 0, 0, 0.45);
     cursor: pointer;
@@ -148,11 +153,11 @@
 .slider-dots {
     position: absolute;
     z-index: 3;
-    bottom: 25px;
     left: 50%;
-    transform: translateX(-50%);
+    bottom: 25px;
     display: flex;
     gap: 8px;
+    transform: translateX(-50%);
 }
 
 .dot {
@@ -172,9 +177,310 @@
 
 /* ---LOGIN--- */
 
-.login-page {
+.auth-page {
     display: grid;
-    grid-template-columns: 75% 25%;
-    min-height: 100vh;
+    grid-template-columns: minmax(0, 70fr) minmax(260px, 30fr);
+    min-height: calc(100vh - 114px);
+    margin-left: 1rem;
     overflow: hidden;
+}
+
+.auth-page .slider {
+    width: 100%;
+    height: calc(100vh - 114px);
+    margin: 0;
+    border-radius: 24px;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    max-width: 420px;
+    min-width: 0;
+    min-height: calc(100vh - 114px);
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.auth-title {
+    margin-bottom: 2rem;
+    color: var(--primary-color);
+    font-family: var(--font-family-heading);
+    font-size: 2rem;
+    text-align: center;
+}
+
+.auth-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.2rem;
+}
+
+.auth-label {
+    color: var(--dark-color);
+    font-weight: 500;
+}
+
+.auth-input {
+    width: 100%;
+    padding: 0.85rem;
+    border: 1px solid #bfc5c9;
+    border-radius: 8px;
+    color: var(--dark-color);
+    background-color: #eeeeee;
+    font: inherit;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.auth-input:focus {
+    outline: 2px solid rgba(4, 157, 72, 0.3);
+    border-color: var(--primary-color);
+}
+
+.auth-form button {
+    width: 100%;
+    margin-top: 0.8rem;
+    padding: 0.85rem;
+    border: 0;
+    border-radius: 6px;
+    color: white;
+    background-color: var(--primary-color);
+    font: inherit;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.auth-form button:hover {
+    background-color: var(--secondary-color);
+}
+
+/* ---ASIDE--- */
+
+.side-menu {
+    position: fixed;
+    z-index: 100;
+    top: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+    width: var(--aside-closed-width);
+    overflow: hidden;
+    border-radius: 24px;
+    color: white;
+    background-color: #101c2b;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+    transition: width 0.3s ease;
+}
+
+.side-menu.is-open {
+    width: 310px;
+}
+
+.side-menu-content {
+    display: none;
+}
+
+.side-menu.is-open .side-menu-content {
+    display: block;
+    width: 310px;
+    padding: 5rem 1.5rem 1.5rem;
+}
+
+.menu-toggle {
+    position: absolute;
+    z-index: 2;
+    top: 18px;
+    right: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 46px;
+    height: 46px;
+    padding: 10px;
+    border: 0;
+    border-radius: 14px;
+    background-color: #1d3045;
+    cursor: pointer;
+}
+
+.menu-toggle:hover {
+    background-color: var(--secondary-color);
+}
+
+.menu-toggle span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    border-radius: 3px;
+    background-color: white;
+}
+
+.side-menu-title {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 2rem;
+}
+
+.side-menu-title h2 {
+    margin: 0;
+    color: white;
+    font-family: var(--font-family-heading);
+}
+
+.side-menu-symbol {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border: 2px solid var(--primary-color);
+    border-radius: 12px;
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 700;
+}
+
+.side-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.side-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-height: 58px;
+    padding: 0.7rem;
+    border-radius: 14px;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.side-nav-link:hover {
+    background-color: #1d3045;
+}
+
+.side-nav-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 42px;
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    color: white;
+    background-color: var(--secondary-color);
+    font-size: 1.3rem;
+}
+
+.side-nav-text {
+    min-width: 210px;
+}
+
+.side-nav-text strong,
+.side-nav-text small {
+    display: block;
+}
+
+.side-nav-text strong {
+    color: white;
+}
+
+.side-nav-text small {
+    margin-top: 0.2rem;
+    color: #aebdca;
+    font-size: 0.78rem;
+}
+
+/* ---FOOTER--- */
+
+.footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: start;
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 25px;
+  background-color: var(--secondary-color);
+  color: var(--light-color);
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.footer-title {
+    font-family: var(--font-family-heading);
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.footer-text {
+    font-family: var(--font-family);
+    font-size: 1rem;
+}
+
+.footer-link {
+    color: var(--light-color);
+    text-decoration: none;
+    font-family: var(--font-family);
+    font-size: 1rem;
+}
+
+.footer-map {
+    max-width: 450px;
+    height: 200px;
+    border: 0;
+    border-radius: 10px;
+}
+
+/* ---RESPONSIVE--- */
+
+@media (max-width: 800px) {
+    body {
+        padding-right: 0;
+    }
+
+    .side-menu {
+        top: 0.75rem;
+        right: 0.75rem;
+        bottom: 0.75rem;
+    }
+
+    .header {
+        margin: 0.75rem 0.75rem 0.75rem 0.75rem;
+    }
+
+    .login-page {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        margin-left: 0.75rem;
+        margin-right: 0.75rem;
+    }
+
+    .login-page .slider {
+        height: 45vh;
+        min-height: 300px;
+    }
+
+    .login-form {
+        min-height: 55vh;
+        padding: 2rem 1rem;
+    }
+
+    .logo-title {
+        font-size: 1.4rem;
+    }
+
+    .side-menu.is-open {
+        width: min(310px, calc(100vw - 1.5rem));
+    }
 }
