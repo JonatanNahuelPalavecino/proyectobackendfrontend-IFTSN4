@@ -1,12 +1,17 @@
 <?php
     require_once __DIR__ . "/config/functions.php";
     require_once __DIR__ . "/config/db.php";
+    // ACA DEBE DE MOSTRARSE LA RUTA PRINCIPAL CON ALGUN BOTON PARA CALL TO ACTION
+?>
 
-    if (isLoggedIn()) {
-        return redirect("/dashboard.php");
-    }
+<?php
+    include __DIR__ . "/components/header.php";
+?>
 
-    redirect("/login.php");
+<main>
+    <h1>HOLIS</h1>
+</main>
 
-    // REEMPLAZAR EL CODIGO DE ARRIBA POR RUTA. EL CONDICIONAMIENTO DE SI ESTA LOGUEADO O NO LO HACE EL HEADER
+<?php
+    include "./components/footer.php";
 ?>
