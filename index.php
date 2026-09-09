@@ -8,8 +8,13 @@
     include __DIR__ . "/components/header.php";
 ?>
 
-<main>
-    <h1>HOLIS</h1>
+<main class= "container-home">
+    <h1>Sistema de Reservas de Aulas</h1>
+    <div class= "container-img">
+        <div class= "img-overlay"></div>
+        <img src="<?= BASE_URL ?>/assets/images/ifts_fondo2.jpg">
+        <a class="btn-home" href="<?= BASE_URL ?>/login.php">Ingresar</a>
+    </div>
 </main>
 
 <?php
