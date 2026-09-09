@@ -442,6 +442,83 @@ body {
     border-radius: 10px;
 }
 
+/*--- HOME --- */
+
+.container-home{
+    /* border: 2px solid red; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.container-home h1 {
+    color: var(--success-color);
+    /* margin-top: 10px; */
+    font-family: var(--font-family-heading);
+    font-size: 3rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 3.5px;
+    text-align: center;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+
+}
+.container-img{
+    position: relative;
+    width: 80%;
+    height: 520px;
+    /* border: 2px solid #aaa; */
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0px 0px 20px 2px #96ba98; /* NOSE SI 'SACAR ESTA PROPIEDAD' O 'CAMBIARLO POR ESTE COLOR #aaa' */
+}
+
+.container-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.container-img::after{
+    position: absolute;
+    content: "";
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    z-index: 1;
+    transition: opacity 0.7s ease-in-out;
+}
+
+.container-img:hover::after{
+    opacity: 1;
+}
+
+
+.btn-home{
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    z-index: 2;
+    color: #fff;
+    transform: translateX(-50%);
+    text-decoration: none;
+    padding: 12px 30px;
+    border-radius: 6px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    background-color: #28a745;
+    transition: all 0.2s ease-in-out;
+    
+}
+
+.container-home a:hover{
+    /* background-color: #28a746c5 ; */
+    background-color: var(--secondary-color);
+}
+
+
+
 /* ---RESPONSIVE--- */
 
 @media (max-width: 800px) {
