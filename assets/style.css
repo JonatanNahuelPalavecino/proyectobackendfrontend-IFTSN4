@@ -23,25 +23,32 @@
     --layout-gap: 1rem;
 }
 
+/* ---LAYOUT--- */
+
 body {
-    min-height: 100%;
-    padding-right: calc(
-        var(--aside-closed-width) + var(--layout-gap)
-    );
-    overflow-x: hidden;
+    min-height: 100dvh;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) var(--aside-closed-width);
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas: "header aside" "main aside" "footer aside";
+    gap: var(--layout-gap);
+    padding: var(--layout-gap);
     font-family: var(--font-family);
+}
+
+body > main {
+    grid-area: main;
+    min-width: 0;
 }
 
 /* ---HEADER--- */
 
 .header {
-    position: relative;
-    z-index: 10;
+    grid-area: header;
     display: flex;
     justify-content: space-between;
     align-items: center;
     min-height: 82px;
-    margin: 1rem;
     padding: 1rem 2rem;
     border-radius: 24px;
     color: var(--light-color);
@@ -73,9 +80,8 @@ body {
 
 .slider {
     position: relative;
-    height: 100vh;
+    min-height: 22rem;
     overflow: hidden;
-    margin: 1rem;
     border-radius: 25px;
     background: #111;
 }
@@ -180,16 +186,7 @@ body {
 .auth-page {
     display: grid;
     grid-template-columns: minmax(0, 70fr) minmax(260px, 30fr);
-    min-height: calc(100vh - 114px);
-    margin-left: 1rem;
-    overflow: hidden;
-}
-
-.auth-page .slider {
-    width: 100%;
-    height: calc(100vh - 114px);
-    margin: 0;
-    border-radius: 24px;
+    gap: var(--layout-gap);
 }
 
 .auth-form {
@@ -199,7 +196,6 @@ body {
     width: 100%;
     max-width: 420px;
     min-width: 0;
-    min-height: calc(100vh - 114px);
     margin: 0 auto;
     padding: 2rem;
 }
@@ -260,13 +256,16 @@ body {
 /* ---ASIDE--- */
 
 .side-menu {
-    position: fixed;
+    grid-area: aside;
+    position: sticky;
+    align-self: start;
+    justify-self: end;
     z-index: 100;
-    top: 1rem;
-    right: 1rem;
-    bottom: 1rem;
+    top: var(--layout-gap);
+    height: calc(100dvh - 2 * var(--layout-gap));
     width: var(--aside-closed-width);
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
     border-radius: 24px;
     color: white;
     background-color: #101c2b;
@@ -275,17 +274,12 @@ body {
 }
 
 .side-menu.is-open {
-    width: 310px;
+    width: min(310px, calc(100vw - 2 * var(--layout-gap)));
 }
 
-.side-menu-content {
+.side-menu:not(.is-open) .side-menu-title,
+.side-menu:not(.is-open) .side-nav-text {
     display: none;
-}
-
-.side-menu.is-open .side-menu-content {
-    display: block;
-    width: 310px;
-    padding: 5rem 1.5rem 1.5rem;
 }
 
 .menu-toggle {
@@ -318,36 +312,11 @@ body {
     background-color: white;
 }
 
-.side-menu-title {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    margin-bottom: 2rem;
-}
-
-.side-menu-title h2 {
-    margin: 0;
-    color: white;
-    font-family: var(--font-family-heading);
-}
-
-.side-menu-symbol {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 42px;
-    height: 42px;
-    border: 2px solid var(--primary-color);
-    border-radius: 12px;
-    color: white;
-    font-size: 0.65rem;
-    font-weight: 700;
-}
-
 .side-nav {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    padding: 5rem 10px 1rem;
 }
 
 .side-nav-link {
@@ -355,7 +324,7 @@ body {
     align-items: center;
     gap: 1rem;
     min-height: 58px;
-    padding: 0.7rem;
+    padding: 7px;
     border-radius: 14px;
     color: white;
     text-decoration: none;
@@ -380,7 +349,7 @@ body {
 }
 
 .side-nav-text {
-    min-width: 210px;
+    min-width: 0;
 }
 
 .side-nav-text strong,
@@ -401,11 +370,12 @@ body {
 /* ---FOOTER--- */
 
 .footer {
-  display: flex;
-  justify-content: space-around;
+  grid-area: footer;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+  gap: 1rem;
   align-items: start;
   padding: 1rem;
-  margin: 1rem;
   border-radius: 25px;
   background-color: var(--secondary-color);
   color: var(--light-color);
@@ -436,16 +406,17 @@ body {
 }
 
 .footer-map {
+    width: 100%;
     max-width: 450px;
     height: 200px;
     border: 0;
     border-radius: 10px;
 }
 
-/*--- HOME --- */
+/* ---HOME--- */
 
 .container-home{
-    /* border: 2px solid red; */
+    
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -455,7 +426,7 @@ body {
 
 .container-home h1 {
     color: var(--success-color);
-    /* margin-top: 10px; */
+    
     font-family: var(--font-family-heading);
     font-size: 3rem;
     font-weight: 900;
@@ -469,10 +440,10 @@ body {
     position: relative;
     width: 80%;
     height: 520px;
-    /* border: 2px solid #aaa; */
+    
     border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0px 0px 20px 2px #96ba98; /* NOSE SI 'SACAR ESTA PROPIEDAD' O 'CAMBIARLO POR ESTE COLOR #aaa' */
+    box-shadow: 0px 0px 20px 2px #96ba98; 
 }
 
 .container-img img{
@@ -513,51 +484,6 @@ body {
 }
 
 .container-home a:hover{
-    /* background-color: #28a746c5 ; */
+    
     background-color: var(--secondary-color);
-}
-
-
-
-/* ---RESPONSIVE--- */
-
-@media (max-width: 800px) {
-    body {
-        padding-right: 0;
-    }
-
-    .side-menu {
-        top: 0.75rem;
-        right: 0.75rem;
-        bottom: 0.75rem;
-    }
-
-    .header {
-        margin: 0.75rem 0.75rem 0.75rem 0.75rem;
-    }
-
-    .login-page {
-        grid-template-columns: 1fr;
-        min-height: auto;
-        margin-left: 0.75rem;
-        margin-right: 0.75rem;
-    }
-
-    .login-page .slider {
-        height: 45vh;
-        min-height: 300px;
-    }
-
-    .login-form {
-        min-height: 55vh;
-        padding: 2rem 1rem;
-    }
-
-    .logo-title {
-        font-size: 1.4rem;
-    }
-
-    .side-menu.is-open {
-        width: min(310px, calc(100vw - 1.5rem));
-    }
 }

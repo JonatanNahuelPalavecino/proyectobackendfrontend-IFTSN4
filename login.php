@@ -29,7 +29,7 @@
 ?>
 
 <?php
-include __DIR__ . "/components/header.php";
+    include __DIR__ . "/components/header.php";
 ?>
 
 <main class="auth-page">
@@ -55,5 +55,5 @@ include __DIR__ . "/components/header.php";
 
 
 <?php
-include "./components/footer.php";
+    include "./components/footer.php";
 ?>
