@@ -29,6 +29,15 @@ $user = getUser();
 
         <?php if ($user): ?>
 
+            <a class="side-nav-link" href="<?= BASE_URL ?>/dashboard.php" aria-label="Dashboard" title="Dashboard">
+                <span class="side-nav-icon" aria-hidden="true">▦</span>
+                <span class="side-nav-text">
+                    <strong>Dashboard</strong>
+                    <small>Administrar el sistema</small>
+                </span>
+            </a>
+
+
             <?php if ($user["rol"] === "admin"): ?>
 
                 <a class="side-nav-link" href="<?= BASE_URL ?>/ver-reservas.php" aria-label="Ver reservas" title="Ver reservas">
@@ -36,14 +45,6 @@ $user = getUser();
                     <span class="side-nav-text">
                         <strong>Ver reservas</strong>
                         <small>Consultar todas las reservas</small>
-                    </span>
-                </a>
-
-                <a class="side-nav-link" href="<?= BASE_URL ?>/dashboard.php" aria-label="Dashboard" title="Dashboard">
-                    <span class="side-nav-icon" aria-hidden="true">▦</span>
-                    <span class="side-nav-text">
-                        <strong>Dashboard</strong>
-                        <small>Administrar el sistema</small>
                     </span>
                 </a>
 
