@@ -16,6 +16,7 @@
         </div>
         <iframe class="footer-map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13126.030596068034!2d-58.52010574999999!3d-34.667135099999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcc9bad47803db%3A0x82bac07416546e2!2zSUZUUyBOwrA0!5e0!3m2!1ses!2sar!4v1788824580031!5m2!1ses!2sar" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
     </footer>
+<?php include __DIR__ . '/notification.php'; ?>
 </body>
 </html>
 
