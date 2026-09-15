@@ -3,7 +3,7 @@
     require_once __DIR__ . "/config/db.php";
 
     if (isLoggedIn()) {
-        redirect('/dashboard.php');
+        redirect('/dashboard/');
     }
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -29,7 +29,7 @@
                 ];
 
                 notify("Inicio de sesión exitoso.", "success");
-                redirect('/dashboard.php');
+                redirect('/dashboard/index.php');
             } else {
                 notify("Correo electrónico o contraseña incorrectos.", "error");
             }

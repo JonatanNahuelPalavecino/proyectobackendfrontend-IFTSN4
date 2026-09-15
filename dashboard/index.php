@@ -1,6 +1,6 @@
 <?php
-    require_once __DIR__ . "/config/functions.php";
-    require_once __DIR__ . "/config/db.php";
+    require_once __DIR__ . "/../config/functions.php";
+    require_once __DIR__ . "/../config/db.php";
 
     $usuario = getUser();
 
@@ -13,7 +13,7 @@
 ?>
 
 <?php 
-    require __DIR__ . '/components/header.php';
+    require __DIR__ . '/../components/header.php';
  ?>
 
 <main class="dashboard">
@@ -27,5 +27,5 @@
 </main>
 
 <?php 
-    require __DIR__ . '/components/footer.php';
+    require __DIR__ . '/../components/footer.php';
  ?>
