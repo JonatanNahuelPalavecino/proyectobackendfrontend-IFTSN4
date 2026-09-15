@@ -2,6 +2,10 @@
     require_once __DIR__ . "/config/functions.php";
     require_once __DIR__ . "/config/db.php";
 
+    if (isLoggedIn()) {
+        redirect('/dashboard/');
+    }
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $nombre = trim($_POST['nombre']);
         $email = trim($_POST['email']);
