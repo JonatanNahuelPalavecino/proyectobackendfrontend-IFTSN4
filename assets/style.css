@@ -16,11 +16,19 @@
   --warning-color: #ffc107;
   --info-color: #17a2b8;
   --light-color: #f8f9fa;
+  --white-color: #fff;
   --dark-color: #010304;
   --font-family: "Roboto", sans-serif;
   --font-family-heading: "Caacupe One", cursive;
   --aside-closed-width: 76px;
   --layout-gap: 1rem;
+
+  --verde: #1E9E4C;
+  --verde-oscuro: #167A3B;
+  --verde-brillante: #66FF00;
+  --navy: #0F2438;
+  --navy-2: #16324A;
+
 }
 
 /* ---LAYOUT--- */
@@ -534,3 +542,72 @@ body > main {
 .container-home a:hover {
   background-color: var(--secondary-color);
 }
+
+
+/*--- DASHBOARD ---*/
+
+.dashboard-welcome{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 35px 15px 10px;
+  border-radius: 10px;
+  background-color: var( --light-color);
+  
+}
+
+.dashboard-welcome h1 {
+  font-size: 1.5rem;
+  color: var(--navy);
+  font-weight: 900;
+  letter-spacing: 1.2px;
+  
+}
+
+.dashboard-welcome p{
+  color: var(--navy-2);
+}
+.dashboard-welcome a{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 18px;
+  text-align: center;
+  /* border: 2px solid var(--primary-color); */
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--white-color);
+  font-weight: 900;
+  background-color: var(--verde);
+  transition: 0.2s ease-in-out  ;
+}
+.dashboard-welcome a:hover{
+  background-color: var(--verde-oscuro);
+}
+
+.dashboard-cards {
+  margin-top: 20px;
+  display: flex;
+  gap: 30px;   
+}
+
+/* CARDS DASHBOARD */
+.card-info{
+  border-radius: 12px;
+  border-left:3px solid var(--navy);
+  font-size: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 18px;
+  background-color: var(--light-color);
+}
+
+.cant-black {
+  color: var(--navy);
+}
+.cant-green{
+  color: var(--verde-brillante);
+  font-weight: 500;
+}
+
+
