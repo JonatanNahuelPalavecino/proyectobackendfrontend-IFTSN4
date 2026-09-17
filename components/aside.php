@@ -40,7 +40,7 @@ $user = getUser();
 
             <?php if ($user["rol"] === "admin"): ?>
 
-                <a class="side-nav-link" href="<?= BASE_URL ?>/ver-reservas.php" aria-label="Ver reservas" title="Ver reservas">
+                <a class="side-nav-link" href="<?= BASE_URL ?>/dashboard/aulas/ver-reservas.php" aria-label="Ver reservas" title="Ver reservas">
                     <span class="side-nav-icon" aria-hidden="true">▣</span>
                     <span class="side-nav-text">
                         <strong>Ver reservas</strong>
@@ -58,7 +58,7 @@ $user = getUser();
                     </span>
                 </a>
 
-                <a class="side-nav-link" href="<?= BASE_URL ?>/mis-reservas.php" aria-label="Mis reservas" title="Mis reservas">
+                <a class="side-nav-link" href="<?= BASE_URL ?>/dashboard/aulas/ver-reservas.php" aria-label="Mis reservas" title="Mis reservas">
                     <span class="side-nav-icon" aria-hidden="true">▤</span>
                     <span class="side-nav-text">
                         <strong>Mis reservas</strong>
