@@ -43,14 +43,22 @@ $user = getUser();
                 <a class="side-nav-link" href="<?= BASE_URL ?>/dashboard/aulas/ver-reservas.php" aria-label="Ver reservas" title="Ver reservas">
                     <span class="side-nav-icon" aria-hidden="true">▣</span>
                     <span class="side-nav-text">
-                        <strong>Ver reservas</strong>
-                        <small>Consultar todas las reservas</small>
+                        <strong>Ver reservas de Aulas</strong>
+                        <small>Consultar todas las reservas de las aulas</small>
+                    </span>
+                </a>
+
+                <a class="side-nav-link" href="<?= BASE_URL ?>/dashboard/carros/ver-reservas.php" aria-label="Ver reservas" title="Ver reservas">
+                    <span class="side-nav-icon" aria-hidden="true">▣</span>
+                    <span class="side-nav-text">
+                        <strong>Ver reservas de Carros</strong>
+                        <small>Consultar todas las reservas de los carros</small>
                     </span>
                 </a>
 
             <?php else: ?>
 
-                <a class="side-nav-link" href="<?= BASE_URL ?>/reservar-aula.php" aria-label="Reservar aula" title="Reservar aula">
+                <a class="side-nav-link" href="<?= BASE_URL ?>/dashboard/aula/crear-reserva.php" aria-label="Reservar aula" title="Reservar aula">
                     <span class="side-nav-icon" aria-hidden="true">＋</span>
                     <span class="side-nav-text">
                         <strong>Reservar aula</strong>

@@ -543,6 +543,74 @@ body > main {
   background-color: var(--secondary-color);
 }
 
+/* ---COMO FUNCIONA--- */
+
+.cf {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.cf-title {
+  color: var(--primary-color);
+  font-family: var(--font-family-heading);
+  font-size: 2.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-align: center;
+}
+
+.cf-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.cf-subtitle {
+  color: var(--secondary-color);
+  font-family: var(--font-family-heading);
+  font-size: 1.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.cf-article {
+  display: flex;
+  gap: 2rem;
+  color: var(--dark-color);
+  font-family: var(--font-family);
+  font-size: 1rem;
+  text-align: center;
+  line-height: 1.5rem;
+}
+
+.cf-description {
+  color: var(--dark-color);
+  font-family: var(--font-family);
+  font-size: 1rem;
+  text-align: center;
+  line-height: 1.5rem;
+  max-width: 600px;
+  background-color: var(--info-color);
+  border-radius: 25px;
+  padding: 2rem;
+}
+
+.cf-link {
+  color: var(--light-color);
+  text-decoration: none;
+  font-family: var(--font-family);
+  font-size: 1rem;
+}
 
 /*--- DASHBOARD ---*/
 

@@ -34,7 +34,10 @@
                     <p>Eres un administrador. Aquí puedes gestionar usuarios, aulas y reservas.</p>    
                 </div>
                 <div>
-                    <a href="<?= BASE_URL?>/dashboard/aulas/" class="btn reservar">+ Nueva Aula</a>
+                    <a href="<?= BASE_URL?>/dashboard/aulas/ver-aulas.php" class="btn reservar">Administar Aulas</a>
+                </div>
+                <div>
+                    <a href="<?= BASE_URL?>/dashboard/aulas/crear-aula.php" class="btn reservar">+ Nueva Aula</a>
                 </div>
 
             <?php else: ?>
