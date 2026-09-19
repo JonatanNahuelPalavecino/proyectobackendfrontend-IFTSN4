@@ -7,17 +7,18 @@
 
     if (!$usuario || $usuario['rol'] !== 'admin') {
         notify('No tenés permisos para editar aulas.', 'error');
-        redirect('/dashboard/');
+        redirect('/dashboard/aulas/ver-aulas.php');
     }
 
     $titulo = "Editar Aula | Reservá tu aula";
-    
+
     //ACA PUEDE ENTRAR SOLO ADMIN, YA QUE EL USER NO PUEDE EDITAR AULAS
 
     $id = $_GET['id'] ?? '';
 
     if (!is_numeric($id)) {
-        die('ID de aula inválido.');
+        notify('ID de aula invalido.', 'error');
+        redirect('/dashboard/aulas/ver-aulas.php');
     }
 
     $sql = 'SELECT * FROM classrooms WHERE id = ?';
@@ -26,17 +27,33 @@
     $aula = $consulta->fetch();
 
     if (!$aula) {
-        die('El aula no existe.');
+        notify('El aula no existe.', 'error');
+        redirect('/dashboard/aulas/ver-aulas.php');
     };
 
     if ($_SERVER['REQUEST_METHOD'] === "POST") {
-        $nombre = $_POST['nombre'];
-        $capacidad = $_POST['capacidad'];
+        $nombre_aula = htmlentities(addslashes(trim($_POST['nombre'])));
+        $capacidad = htmlentities(addslashes(intval($_POST['capacidad'])));
 
-        echo $nombre;
-        echo $capacidad;
+        $error = validateInputsCreateorEditClassroom($nombre_aula, $capacidad);
 
-        //FALTA AGREGAR LA LOGICA
+        if ($error) {
+            notify($error, "error");
+        } else {
+            try {
+                $sql = 'UPDATE classrooms SET nombre = ?, capacidad = ? WHERE id = ?';
+                $editarAula = $pdo->prepare($sql);
+                $editarAula->execute([$nombre_aula, $capacidad, $id]);
+
+                notify("Edicion de aula exitoso.");
+                redirect('/dashboard/aulas/ver-aulas.php');
+            } catch (Exception $error) {
+                die('Error de conexión a la base de datos: ' . $error->getMessage());
+                // notify("Algun mensje explicando el error", 'error');
+                // redirect('/Algunarutraquequieramandarlo');
+
+            }
+        }
     };
 
 ?>
@@ -51,7 +68,7 @@
     <form method="post">
         <div>
             <label for="id">ID Aula</label>
-            <input type="text" name="id" id="id" readonly value="<?php echo $aula['id'] ?>">
+            <input style="cursor: not-allowed;" type="text" name="id" id="id" readonly value="<?php echo $aula['id'] ?>">
         </div>
         <div>
             <label for="nombre">nombre Aula</label>
@@ -62,8 +79,8 @@
             <input type="text" name="capacidad" id="capacidad" value="<?php echo $aula['capacidad'] ?>">
         </div>
         <div>
-            <label for="created_at">Capacidad Aula</label>
-            <input type="text" name="created_at" id="created_at" value="<?php echo $aula['created_at'] ?>">
+            <label for="created_at">Ultima vez modificado:</label>
+            <input style="cursor: not-allowed;" type="text" name="created_at" id="created_at" readonly value="<?php echo $aula['created_at'] ?>">
         </div>
         <button type="submit">Modificar</button>
     </form>

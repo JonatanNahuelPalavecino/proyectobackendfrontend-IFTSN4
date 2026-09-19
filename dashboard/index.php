@@ -11,13 +11,22 @@
 
     $titulo = 'Dashboard | Reservá tu aula';
     
-    //Variables de consultas Usuario
-    $cantReservasUser = getCantReservActivas($pdo, $usuario['id']);
-    $cantAllReservasUser = getAllCantReserv($pdo, $usuario['id']);
+    if ($usuario['rol'] === "admin") {
 
-    var_dump($reservas);
+        //TOTAL DE AULAS BAJO VARIABLE TOTAL
+        $totalAulas = getTotalAulas($pdo);
 
-    // var_dump($cantReservasUser);
+        //TOTAL DE PROFES BAJO VARIABLE TOTAL
+        $totalUsers = getTotalUsers($pdo);
+
+    } else {
+        $cantReservasUser = getCantReservActivas($pdo, $usuario['id']);
+        $cantAllReservasUser = getAllCantReserv($pdo, $usuario['id']);
+    
+        // var_dump($reservas);
+    
+        // var_dump($cantReservasUser);
+    }
 
 ?>
 
@@ -55,13 +64,14 @@
     <?php if($usuario["rol"] =="admin"):?>
         <section class= "dashboard-cards">
             <article class="card-info">
-                <span>0</span>
+                <span><?php echo $totalAulas ?></span>
                 <small>Aulas Totales</small>
-                
+                                    
+                    
             </article>
                 
             <article class="card-info">
-                <span>0</span>
+                <span><?php echo $totalUsers?></span>
                 <small>Profesores Registrados</small>
             </article>
             

@@ -18,6 +18,8 @@
 
     try {
         $pdo = new PDO($dsn, $username, $password);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $pdo->exec("SET CHARACTER SET utf8");
 
     } catch (PDOException $error) {
         die('Error de conexión a la base de datos: ' . $error->getMessage());
