@@ -1,6 +1,6 @@
 <?php
 
-    function validateInputsCreateClassroom ($nombre_aula, $capacidad) {
+    function validateInputsCreateorEditClassroom ($nombre_aula, $capacidad) {
         if ($nombre_aula == "" || $capacidad == "") {
             return "Todos los campos son obligatorios.";
         }
@@ -10,11 +10,11 @@
         }
 
         
-        if ($capacidad <= 0) {
+        if ($capacidad <= 0 || !is_numeric($capacidad)) {
             return "La capacidad del aula debe ser mayor a cero.";
         }
 
-        return null;
+        return null;    
     } 
 
     function validateInputsRegister ($nombre, $email, $password) {

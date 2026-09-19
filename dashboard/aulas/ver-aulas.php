@@ -14,7 +14,7 @@
     
     //ACA PUEDE ENTRAR SOLO ADMIN, YA QUE EL USER NO PUEDE ADMINISTRAR AULAS
 
-    $consulta = $pdo->query('SELECT * FROM classrooms ORDER BY id');
+    $consulta = $pdo->query('SELECT `classrooms`.id, nombre, capacidad, `classrooms`.created_at, dia_desde, dia_hasta, hora_inicio, hora_fin FROM classrooms LEFT JOIN classroom_schedules ON classroom_schedules.classroom_id = classrooms.id ORDER BY `classrooms`.id');
     $aulas = $consulta->fetchAll();
 
 ?>
@@ -35,7 +35,11 @@
                     <th>ID Aula</th>
                     <th>Nombre</th>
                     <th>Capacidad</th>
-                    <th colspan="2">Ultima vez Modificado</th>
+                    <th>Disponible desde el dia</th>
+                    <th>Hasta el dia</th>
+                    <th>Disponible desde el horario</th>
+                    <th>Hasta el horario</th>
+                    <th colspan="2">Ultima modificacion del aula</th>
                 </tr>
             </thead>
             <tbody>
@@ -44,12 +48,25 @@
                         <td><?php echo htmlspecialchars($aula['id']) ?></td>
                         <td><?php echo htmlspecialchars($aula['nombre']) ?></td>
                         <td><?php echo htmlspecialchars($aula['capacidad']) ?></td>
+                        <td><?php echo htmlspecialchars( getDayString(intval($aula['dia_desde']))) ?></td>
+                        <td><?php echo htmlspecialchars( getDayString(intval($aula['dia_hasta']))) ?></td>
+                        <td><?php echo htmlspecialchars($aula['hora_inicio'] ?? "No Seteado") ?></td>
+                        <td><?php echo htmlspecialchars($aula['hora_fin']  ?? "No Seteado") ?></td>
                         <td><?php echo htmlspecialchars($aula['created_at']) ?></td>
                         <td>
-                            <a href="<?php echo BASE_URL; ?>/dashboard/aulas/editar-aula.php?id=<?php echo $aula['id']; ?>">EDITAR</a>
+                            <a href="<?php echo BASE_URL; ?>/dashboard/aulas/editar-aula.php?id=<?php echo $aula['id']; ?>">EDITAR AULA</a>
                         </td>
+                        <?php if (!$aula['dia_desde'] || !$aula['dia_hasta'] || !$aula['hora_inicio'] || !$aula['hora_fin']): ?>
+                            <td>
+                                <a href="<?php echo BASE_URL; ?>/dashboard/disponibilidad/crear-disponibilidad.php?id=<?php echo $aula['id']; ?>">CONFIGURAR DISPONIBILIDAD</a>
+                            </td>    
+                        <?php else: ?>
+                            <td>
+                                <a href="<?php echo BASE_URL; ?>/dashboard/disponibilidad/editar-disponibilidad.php?id=<?php echo $aula['id']; ?>">EDITAR DISPONIBILIDAD</a>
+                            </td>
+                        <?php endif; ?>
                         <td>
-                            <a href="<?php echo BASE_URL; ?>/dashboard/aulas/eliminar-aula.php?id=<?php echo $aula['id']; ?>">ELIMINAR</a>
+                            <button popovertarget="eliminar-aula-<?php echo $aula['id'] ?>">ELIMINAR AULA</button>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -58,6 +75,14 @@
         </table>
     <?php endif; ?>
 </main>
+
+<?php foreach ($aulas as $aula): ?>
+    <section id="eliminar-aula-<?php echo $aula['id'] ?>" popover>
+        <p>¿estas seguro que queres eliminar el <?php echo $aula['nombre'] ?> del sistema?</p>
+        <a href="<?php echo BASE_URL; ?>/dashboard/aulas/eliminar-aula.php?id=<?php echo $aula['id']; ?>">Eliminar</a>
+        <button type="button" popovertarget="eliminar-aula-<?php echo $aula['id'] ?>" popovertargetaction="hide">Cancelar</button>
+    </section>
+<?php endforeach ?>
 
 <?php
     include __DIR__ . "/../../components/footer.php";

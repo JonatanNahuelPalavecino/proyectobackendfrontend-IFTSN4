@@ -18,17 +18,21 @@
         $nombre_aula = trim($_POST['nombre']);
         $capacidad = intval($_POST['capacidad']);
 
-        $error = validateInputsCreateClassroom($nombre_aula, $capacidad);
+        $error = validateInputsCreateorEditClassroom($nombre_aula, $capacidad);
 
         if ($error) {
             notify($error, "error");
         } else {
-            $sql = 'INSERT INTO classrooms (nombre, capacidad) VALUES (?, ?)';
-            $crearAula = $pdo->prepare($sql);
-            $crearAula->execute([$nombre_aula, $capacidad]);
-
-            notify("creacion de aula exitoso.", 'success');
-            redirect('/dashboard/aulas/crear.php');
+            try {
+                $sql = 'INSERT INTO classrooms (nombre, capacidad) VALUES (?, ?)';
+                $crearAula = $pdo->prepare($sql);
+                $crearAula->execute([$nombre_aula, $capacidad]);
+    
+                notify("creacion de aula exitoso.", 'success');
+                redirect('/dashboard/aulas/crear-aula.php');
+            } catch (Exception $error) {
+                die('Error de conexión a la base de datos: ' . $error->getMessage());
+            }
         }
     }
 
@@ -49,7 +53,7 @@
         <div>
             <label for="capacidad">Capacidad</label>
             <input type="number" name="capacidad" id="capacidad" placeholder="Ingresa la capacidad del aula" min="0" required>
-        </div>
+        </div>  
         <button type="submit">Crear Aula</button>
     </form>
 </main>

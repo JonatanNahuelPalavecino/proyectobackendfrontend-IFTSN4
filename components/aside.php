@@ -29,7 +29,7 @@ $user = getUser();
 
         <?php if ($user): ?>
 
-            <a class="side-nav-link" href="<?= BASE_URL ?>/dashboard.php" aria-label="Dashboard" title="Dashboard">
+            <a class="side-nav-link" href="<?= BASE_URL ?>/dashboard/index.php" aria-label="Dashboard" title="Dashboard">
                 <span class="side-nav-icon" aria-hidden="true">▦</span>
                 <span class="side-nav-text">
                     <strong>Dashboard</strong>

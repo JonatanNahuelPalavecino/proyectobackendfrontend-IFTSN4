@@ -5,6 +5,21 @@
     // }
 
     //--- CONSULTAS DASHBOARD USUARIO ---
+
+    function getTotalUsers($conn, $rol = "user") {
+        $sql = 'SELECT COUNT(*) as Total FROM users WHERE rol = ?';
+        $consulta = $conn->prepare($sql);
+        $consulta->execute([$rol]);
+        $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+        return $resultado['Total'];
+    }
+
+    function getTotalAulas($conn) {
+        $sqlConsultaAulas = $conn->query("SELECT COUNT(*) as Total FROM classrooms");
+        $totalAulas = $sqlConsultaAulas->fetch();
+        return $totalAulas['Total'];
+    }
+
     function getCantReservActivas($pdo, $id){
         $sql = "SELECT COUNT(*) AS Total FROM reservations WHERE user_id = :id AND fecha >= CURDATE()";
         $consulta = $pdo->prepare($sql);
@@ -51,5 +66,26 @@
 
     function getUser() {
         return $_SESSION['usuario'] ?? null;
+    }
+
+    function getDayString ($number) {
+        switch ($number) {
+            case 1:
+                return "Lunes";
+            case 2:
+                return "Martes";
+            case 3:
+                return "Miercoles";
+            case 4:
+                return "Jueves";
+            case 5:
+                return "Viernes";
+            case 6:
+                return "Sabado";
+            case 7:
+                return "Domingo";
+            default:
+                return "No seteado";
+        }
     }
 ?>
