@@ -1,4 +1,36 @@
 <?php
+    function validateInputsCreateorEditNotebooks($nombreNotebook, $numeroSerie, $carro, $conn){
+        
+        if($nombreNotebook == "" || $numeroSerie == "" || $carro == ""){
+            return "Todos los campos son obligatorios";
+        }
+
+        if(strlen($nombreNotebook) < 8){
+            return "El nombre de la notebook debe contener al menos 8 caracteres";
+        }
+
+        if(!preg_match('/^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9-]+$/', $numeroSerie)){
+            return "El numero de serie debe contener letras y numeros";
+        }
+
+        if (strlen($numeroSerie) < 5){
+            return "El numero de serie debe contener minimo 5 caracteres";
+        }
+
+        $sql = "SELECT id FROM computers WHERE numero_serie = :numeroSerie";
+        $numVerify = $conn->prepare($sql);
+        $numVerify->execute([':numeroSerie' => $numeroSerie]);
+            
+        if($numVerify->fetch()){
+            return "El numero de serie ya está registrado";
+        }
+        
+        return null;
+    }
+
+
+
+
 
     function validateInputsCreateorEditClassroom ($nombre_aula, $capacidad) {
         if ($nombre_aula == "" || $capacidad == "") {
@@ -33,7 +65,6 @@
         if (strlen($password) < 6) {
             return "La contraseña debe tener al menos 6 caracteres.";
         }
-
 
         return null;
     }
