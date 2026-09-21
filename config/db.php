@@ -7,7 +7,7 @@
     $host = "127.0.0.1";
     $username = "root";
     $password = "";
-    $db = 'sistema_reserva_aulas';
+    $db = 'sistema_reserva_aulas_test';
     $puerto = "3306";
     $charset = 'utf8mb4';
 

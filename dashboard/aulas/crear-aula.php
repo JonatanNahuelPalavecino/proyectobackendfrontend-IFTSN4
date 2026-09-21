@@ -28,7 +28,7 @@
                 $crearAula = $pdo->prepare($sql);
                 $crearAula->execute([$nombre_aula, $capacidad]);
     
-                notify("creacion de aula exitoso.", 'success');
+                notify("Creacion de aula exitoso.", 'success');
                 redirect('/dashboard/aulas/crear-aula.php');
             } catch (Exception $error) {
                 die('Error de conexión a la base de datos: ' . $error->getMessage());

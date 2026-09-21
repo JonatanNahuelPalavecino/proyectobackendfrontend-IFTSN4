@@ -20,12 +20,12 @@
         $totalUsers = getTotalUsers($pdo);
 
     } else {
+        //TOTAL DE RESERVAS ACTIVAS QUE HIZO EL USUARIO
         $cantReservasUser = getCantReservActivas($pdo, $usuario['id']);
+
+        //TOTAL DE RESERVAS QUE HIZO EL USUARIO
         $cantAllReservasUser = getAllCantReserv($pdo, $usuario['id']);
-    
-        // var_dump($reservas);
-    
-        // var_dump($cantReservasUser);
+
     }
 
 ?>
@@ -36,23 +36,42 @@
 
 
 <main class="dashboard">
-    <div class="dashboard-welcome">
+    <section class="dashboard-welcome">
             <?php if ($usuario['rol'] === 'admin'): ?>
+
                 <div>
-                    <h1>Bienvenido Administrador , <?= htmlspecialchars(ucfirst($usuario['nombre'])) ?>!</h1>
+                    <h1>Bienvenido <?= htmlspecialchars(ucwords($usuario['nombre'])) ?> al Sistema!</h1>
                     <p>Eres un administrador. Aquí puedes gestionar usuarios, aulas y reservas.</p>    
                 </div>
+                
                 <div>
-                    <a href="<?= BASE_URL?>/dashboard/aulas/ver-aulas.php" class="btn reservar">Administar Aulas</a>
+                    <a href="<?= BASE_URL?>/dashboard/aulas/ver-aulas.php" class="btn reservar">Gestionar Aulas</a>
                 </div>
+
                 <div>
-                    <a href="<?= BASE_URL?>/dashboard/aulas/crear-aula.php" class="btn reservar">+ Nueva Aula</a>
+                    <a href="<?= BASE_URL?>/dashboard/notebooks/index.php" class="btn reservar">Gestionar Pcs</a>
+                </div>
+                <!-- Falta definir ruta de carros -->
+                <div>
+                    <a href="<?= BASE_URL?>/dashboard/aulas/crear-aula.php" class="btn reservar">Gestionar Carros</a>
+                </div>
+
+                <div>
+                    <a href="<?= BASE_URL?>/dashboard/aulas/crear-aula.php" class="btn reservar">+ Aula</a>
+                </div>
+                
+                <div>
+                    <a href="<?= BASE_URL?>/dashboard/notebooks/crear.php" class="btn reservar">+ Pcs</a>
+                </div>
+                
+                <div>
+                    <a href="<?= BASE_URL?>/dashboard/carros/crear.php" class="btn reservar">+ Carro</a>
                 </div>
 
             <?php else: ?>
                 
                 <div>
-                    <h1>Bienvenido Profesor, <?=htmlspecialchars(ucfirst($usuario['nombre']))?>!</h1>
+                    <h1>Bienvenido Profesor, <?=htmlspecialchars(ucwords($usuario['nombre']))?>!</h1>
                     <p>Eres un usuario regular. Aquí puedes ver tus reservas y realizar nuevas reservas de aulas.</p>
                 </div>
                 <div>
@@ -60,7 +79,8 @@
                 </div>
                 
             <?php endif; ?> 
-    </div>
+    </section>
+    
     <?php if($usuario["rol"] =="admin"):?>
         <section class= "dashboard-cards">
             <article class="card-info">
@@ -100,7 +120,6 @@
         </section>
     <?php endif;?>
         
-
     <section class="dashboard-section">
 
     
