@@ -678,4 +678,102 @@ body > main {
   font-weight: 500;
 }
 
+/* ---CALENDARIO DE RESERVAS--- */
+
+.calendar-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.calendar-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.calendar-table th,
+.calendar-table td {
+    border: 1px solid #d7dee2;
+    text-align: center;
+}
+
+.calendar-table th {
+    padding: .75rem .25rem;
+    color: white;
+    background: var(--secondary-color);
+}
+
+.calendar-day {
+    height: 82px;
+    background: white;
+}
+
+.calendar-day a,
+.calendar-day.disabled {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .25rem;
+    width: 100%;
+    height: 100%;
+    padding: .4rem;
+}
+
+.calendar-day a {
+    color: var(--dark-color);
+    text-decoration: none;
+}
+
+.calendar-day.available a:hover {
+    background: #e7f6ed;
+}
+
+.calendar-day.disabled {
+    color: #9aa4aa;
+    background: #edf0f1;
+    cursor: not-allowed;
+    filter: blur(.35px);
+}
+
+.calendar-day.empty {
+    background: #f7f8f8;
+}
+
+.calendar-day small {
+    font-size: .7rem;
+}
+
+.reservation-slots form {
+    display: flex;
+    align-items: end;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.reservation-slots label {
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+}
+
+@media (max-width: 800px) {
+    .calendar-table th,
+    .calendar-table td {
+        font-size: .75rem;
+    }
+
+    .calendar-day {
+        height: 64px;
+    }
+
+    .reservation-slots form {
+        align-items: stretch;
+        flex-direction: column;
+    }
+}
+
 

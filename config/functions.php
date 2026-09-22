@@ -1,9 +1,5 @@
 <?php
 
-    // if (session_status() === PHP_SESSION_NONE) {
-    //     session_start();
-    // }
-
     //------------------------------- CONSULTAS DASHBOARD ADMINISTRADOR -------------------------------
 
     function getTotalUsers($conn, $rol = "user") {
@@ -66,8 +62,55 @@
         return $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    function getAllClassroomsAndSchedules ($conn) {
+        $sqlConsultaAulas = $conn->query("SELECT * FROM classrooms JOIN classroom_schedules ON classrooms.id = classroom_schedules.classroom_id ORDER BY classrooms.id");
+        $aulas = $sqlConsultaAulas->fetchAll();
+        return $aulas;
+    }
+
+    function getClassroomAndSchedule ($conn, $id) {
+        $sql = "SELECT * FROM classrooms JOIN classroom_schedules ON classrooms.id = classroom_schedules.classroom_id WHERE classrooms.id = ? ORDER BY classrooms.id";
+        $consulta = $conn->prepare($sql);
+        $consulta->execute([$id]);
+        $aula = $consulta->fetch();
+        return $aula;
+    }
+
+    function getReservationsByMonth($conn, $classroomId, $month) {
+        $inicio = $month . '-01';
+        $fin = date('Y-m-t', strtotime($inicio));
+        $sql = "SELECT fecha, hora_inicio, hora_fin FROM reservations
+                WHERE classroom_id = :classroom_id AND fecha BETWEEN :inicio AND :fin
+                ORDER BY fecha, hora_inicio";
+        $consulta = $conn->prepare($sql);
+        $consulta->execute(['classroom_id' => $classroomId, 'inicio' => $inicio, 'fin' => $fin]);
+        $reservas = [];
+        foreach ($consulta->fetchAll(PDO::FETCH_ASSOC) as $reserva) {
+            $reservas[$reserva['fecha']][] = $reserva;
+        }
+        return $reservas;
+    }
+
+    function getAvailableRanges($schedule, $reservations = []) {
+        $rangos = [['inicio' => substr($schedule['hora_inicio'], 0, 5), 'fin' => substr($schedule['hora_fin'], 0, 5)]];
+        foreach ($reservations as $reserva) {
+            $ocupadoInicio = substr($reserva['hora_inicio'], 0, 5);
+            $ocupadoFin = substr($reserva['hora_fin'], 0, 5);
+            $nuevos = [];
+            foreach ($rangos as $rango) {
+                if ($ocupadoFin <= $rango['inicio'] || $ocupadoInicio >= $rango['fin']) {
+                    $nuevos[] = $rango;
+                    continue;
+                }
+                if ($rango['inicio'] < $ocupadoInicio) $nuevos[] = ['inicio' => $rango['inicio'], 'fin' => $ocupadoInicio];
+                if ($ocupadoFin < $rango['fin']) $nuevos[] = ['inicio' => $ocupadoFin, 'fin' => $rango['fin']];
+            }
+            $rangos = $nuevos;
+        }
+        return array_values(array_filter($rangos, fn($rango) => $rango['inicio'] < $rango['fin']));
+    }
+
     //------------------------------- FUNCIONES DEL SISTEMA -------------------------------
-    // 
     function notify($message, $type = 'success') {
         $_SESSION['notification'] = ['message' => $message, 'type' => $type];
     }

@@ -28,9 +28,25 @@
         return null;
     }
 
+    function validateIptusToCreateOrEditSchedules($dia_desde, $dia_hasta, $hora_inicio, $hora_fin) {
+        if ($dia_desde === '' || $dia_hasta === '' || $hora_inicio === '' || $hora_fin === '') {
+            return 'Completá todos los campos.';
+        } 
+        
+        if ($dia_desde < 1 || $dia_desde > 7 || $dia_hasta < 1 || $dia_hasta > 7) {
+            return 'El rango de días es inválido.';
+        } 
+        
+        if ($dia_desde > $dia_hasta) {
+            return 'El día inicial debe estar antes que el día final.';
+        } 
+        
+        if ($hora_inicio >= $hora_fin) {
+            return 'La hora de fin debe ser posterior a la hora de inicio.';
+        }
 
-
-
+        return null;
+    }
 
     function validateInputsCreateorEditClassroom ($nombre_aula, $capacidad) {
         if ($nombre_aula == "" || $capacidad == "") {
@@ -83,5 +99,24 @@
         }
 
         return null;
+    }
+
+    function validDateFormat($date) {
+    $partes = explode('-', $date);
+    return count($partes) === 3 && checkdate((int) $partes[1], (int) $partes[2], (int) $partes[0]);
+    }
+
+    function dateIsAllowed($date, $schedule) {
+        if (!validDateFormat($date)) return false;
+        $dayOfWeek = (int) date('N', strtotime($date));
+        return $dayOfWeek >= (int) $schedule['dia_desde'] && $dayOfWeek <= (int) $schedule['dia_hasta'];
+    }
+
+    function rangeIsAvailable($availableRanges, $start, $end) {
+        if ($start >= $end) return false;
+        foreach ($availableRanges as $range) {
+            if ($start >= $range['inicio'] && $end <= $range['fin']) return true;
+        }
+        return false;
     }
 ?>

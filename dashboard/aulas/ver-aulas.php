@@ -58,11 +58,11 @@
                         </td>
                         <?php if (!$aula['dia_desde'] || !$aula['dia_hasta'] || !$aula['hora_inicio'] || !$aula['hora_fin']): ?>
                             <td>
-                                <a href="<?php echo BASE_URL; ?>/dashboard/disponibilidad/crear-disponibilidad.php?id=<?php echo $aula['id']; ?>">CONFIGURAR DISPONIBILIDAD</a>
+                                <a href="<?php echo BASE_URL; ?>/dashboard/disponibilidades/crear-disponibilidad.php?id=<?php echo $aula['id']; ?>">CONFIGURAR DISPONIBILIDAD</a>
                             </td>    
                         <?php else: ?>
                             <td>
-                                <a href="<?php echo BASE_URL; ?>/dashboard/disponibilidad/editar-disponibilidad.php?id=<?php echo $aula['id']; ?>">EDITAR DISPONIBILIDAD</a>
+                                <a href="<?php echo BASE_URL; ?>/dashboard/disponibilidades/editar-disponibilidad.php?id=<?php echo $aula['id']; ?>">EDITAR DISPONIBILIDAD</a>
                             </td>
                         <?php endif; ?>
                         <td>

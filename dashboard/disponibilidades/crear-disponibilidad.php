@@ -7,7 +7,7 @@
     $usuario = getUser();
 
     if (!$usuario || $usuario['rol'] !== 'admin') {
-        notify('No tenés permisos para administrar la disponibilidad de aulas.', 'error');
+        notify('No tenés permisos para crear la disponibilidad de aulas.', 'error');
         redirect('/dashboard/');
     }
 
@@ -29,6 +29,30 @@
         notify('El aula no existe.', 'error');
         redirect('/dashboard/aulas/ver-aulas.php');
     };
+
+    if($_SERVER["REQUEST_METHOD"] === "POST") {
+        $dia_desde = htmlentities(addslashes(intval($_POST['dia_desde'])));
+        $dia_hasta = htmlentities(addslashes(intval($_POST['dia_hasta'])));
+        $hora_inicio = htmlentities(addslashes($_POST['hora_inicio']));
+        $hora_fin = htmlentities(addslashes($_POST['hora_fin']));
+
+        $error = validateIptusToCreateOrEditSchedules($dia_desde, $dia_hasta, $hora_inicio, $hora_fin);
+
+        if ($error) {
+            notify($error, "error");
+        } else {
+            try {
+                $sql = 'INSERT INTO classroom_schedules (classroom_id, dia_desde, dia_hasta, hora_inicio, hora_fin) VALUES (?, ?, ?, ?, ?)';
+                $crearDisponibilidad = $pdo->prepare($sql);
+                $crearDisponibilidad->execute([$id, $dia_desde, $dia_hasta, $hora_inicio, $hora_fin]);
+    
+                notify("Creacion de disponibilidad exitoso.", 'success');
+                redirect('/dashboard/aulas/ver-aulas.php');
+            } catch (Exception $error) {
+                die('Error de conexión a la base de datos: ' . $error->getMessage());
+            }
+        }
+    }
 ?>
 
 <?php
@@ -68,6 +92,14 @@
                     </option>
                 <?php } ?>
             </select>
+        </div>
+        <div>
+            <label for="hora_inicio">Desde horario:</label>
+            <input type="time" name="hora_inicio" id="hora_inicio" required>
+        </div>
+        <div>
+            <label for="hora_fin">Desde horario:</label>
+            <input type="time" name="hora_fin" id="hora_fin" required>
         </div>
         <button type="submit">Crear Disponibilidad</button>
     </form>
