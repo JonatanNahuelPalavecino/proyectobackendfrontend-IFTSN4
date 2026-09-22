@@ -10,7 +10,7 @@
         }
 
         if(!preg_match('/^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9-]+$/', $numeroSerie)){
-            return "El numero de serie debe contener letras y numeros";
+            return "El numero de serie debe contener letras y numerosss";
         }
 
         if (strlen($numeroSerie) < 5){

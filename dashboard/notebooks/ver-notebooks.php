@@ -59,6 +59,7 @@
             <?php else: ?>
                 <p>No hay notebooks creadas</p>
             <?php endif;?>
+            <a href="../index.php">Volver</a>
         </div>
     </section>
 </main>

@@ -34,6 +34,14 @@
         return $conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    function getNotebookById($conn, $id){
+        $sql = "SELECT * FROM computers WHERE id = :id_notebook";
+        $consulta = $conn->prepare($sql);
+        $consulta->execute([":id_notebook" => $id]);
+        $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
+
 
 
 

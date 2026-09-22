@@ -49,7 +49,7 @@
                 </div>
 
                 <div>
-                    <a href="<?= BASE_URL?>/dashboard/notebooks/index.php" class="btn reservar">Gestionar Pcs</a>
+                    <a href="<?= BASE_URL?>/dashboard/notebooks/ver-notebooks.php" class="btn reservar">Gestionar Pcs</a>
                 </div>
                 <!-- Falta definir ruta de carros -->
                 <div>

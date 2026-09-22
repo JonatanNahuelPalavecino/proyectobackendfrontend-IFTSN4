@@ -59,22 +59,22 @@
             <input type="text" name="numeroSerie" id="numeroSerie" placeholder="Ej: DELL-A-0001"
             pattern="(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9-]+" title="El número de serie debe contener letras y números" minLength="5" required>
         </div>
-        
+
         <div>
             <label for="carros">Carros</label>
 
             <?php if($allCarts): ?>
                 <select name="carros" id="carros" required>
-                    <option value="" disabled selected hidden>Seleccione un carro</option>
+                    <option value="" disabled selected >Seleccione un carro</option>
                     <?php foreach($allCarts as $cart): ?>
                         <option value=<?=htmlspecialchars($cart['id'])?>> <?=htmlspecialchars($cart['nombre'])?> </option>
                     <?php endforeach;?>
                 </select>
-                <?php else: ?>
-                    <select style ="cursor: not-allowed" name="carros" id="carros" disabled >
-                        <option>No hay carros creados</option>
-                    </select>
-                <?php endif;?>
+            <?php else: ?>
+                <select style ="cursor: not-allowed" name="carros" id="carros" disabled >
+                    <option>No hay carros creados</option>
+                </select>
+            <?php endif;?>
         </div>
 
         <div>
