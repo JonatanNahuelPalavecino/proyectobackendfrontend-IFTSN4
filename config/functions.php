@@ -25,13 +25,33 @@
     }
 
     function getAllNotebooks($conn){
-        $sql = "SELECT pc.id, pc.nombre, pc.numero_serie, pc.created_at, ca.nombre AS carro
+        $sql = "SELECT pc.id, pc.nombre, pc.numero_serie, pc.created_at, pc.cart_id ,ca.nombre AS carro
                 FROM computers pc
-                INNER JOIN carts ca 
+                LEFT JOIN carts ca 
                 on pc.cart_id = ca.id 
                 ORDER BY pc.id ASC";
 
         return $conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    function getTotalCarts($conn){
+        $consulta = $conn->query("SELECT COUNT(*) as Total FROM carts");
+        $totalCarts = $consulta->fetch();
+        return $totalCarts['Total'];
+    }
+
+    function getTotalNotebooks($conn){
+        $consulta = $conn->query("SELECT COUNT(*) as Total FROM computers");
+        $totalNotebooks = $consulta->fetch();
+        return $totalNotebooks['Total'];
+    }
+
+    function getNotebookById($conn, $id){
+        $sql = "SELECT * FROM computers WHERE id = :id_notebook";
+        $consulta = $conn->prepare($sql);
+        $consulta->execute([":id_notebook" => $id]);
+        $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+        return $resultado;
     }
 
 
