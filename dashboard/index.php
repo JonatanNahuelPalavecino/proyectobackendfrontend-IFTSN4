@@ -13,11 +13,10 @@
     
     if ($usuario['rol'] === "admin") {
 
-        //TOTAL DE AULAS BAJO VARIABLE TOTAL
         $totalAulas = getTotalAulas($pdo);
-
-        //TOTAL DE PROFES BAJO VARIABLE TOTAL
         $totalUsers = getTotalUsers($pdo);
+        $totalCarts = getTotalCarts($pdo);
+        $totalNotebooks = getTotalNotebooks($pdo);
 
     } else {
         //TOTAL DE RESERVAS ACTIVAS QUE HIZO EL USUARIO
@@ -84,21 +83,30 @@
     <?php if($usuario["rol"] =="admin"):?>
         <section class= "dashboard-cards">
             <article class="card-info">
-                <span><?php echo $totalAulas ?></span>
+                <span><?= $totalAulas ?></span>
                 <small>Aulas Totales</small>
-                                    
-                    
             </article>
                 
             <article class="card-info">
-                <span><?php echo $totalUsers?></span>
+                <span><?= $totalUsers?></span>
                 <small>Profesores Registrados</small>
+            </article>
+            
+            <article class="card-info">
+                <span><?= $totalNotebooks ?></span>
+                <small>Notebooks Totales</small>
+            </article>
+            
+            <article class="card-info">
+                <span><?= $totalCarts?></span>
+                <small>Carros Totales</small>
             </article>
             
             <article class="card-info">
                 <span>0</span>
                 <small>Reservas hoy</small>
             </article>
+
         </section>
     <?php else: ?>  
         <section class= "dashboard-cards">

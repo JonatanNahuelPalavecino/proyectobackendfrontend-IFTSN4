@@ -27,18 +27,18 @@
 
 
     if($_SERVER["REQUEST_METHOD"] === "POST"){
-        $nombreNotebook = htmlentities(addslashes(trim($_POST['nombre'])));
-        $numeroSerie = htmlentities(addslashes(trim($_POST['numeroSerie'])));
-        $carroSeleccionado = htmlentities(addslashes(trim($_POST['carro'])));
+        $nombreNotebook = trim($_POST['nombre']);
+        $numeroSerie = trim($_POST['numeroSerie']);
+        $carroSeleccionado = trim($_POST['carro']) !== "" ? trim($_POST['carro']) : null;
 
 
-        $error= validateInputsCreateorEditNotebooks($nombreNotebook, $numeroSerie, $carroSeleccionado, $pdo);
+        $error= validateInputsCreateorEditNotebooks($nombreNotebook, $numeroSerie, $pdo, $idNotebook);
         
         if($error){
             notify($error, "error");
         }else {
             try {
-                $sql = "UPDATE computers SET nombre = ?, numero_serie = ?, cart_id = ? WHERE id = ? ";
+                $sql = "UPDATE computers SET nombre = ?, numero_serie = ? ,cart_id = ?, created_at = NOW() WHERE id = ? ";
                 $consulta = $pdo->prepare($sql);
                 $consulta->execute([$nombreNotebook, $numeroSerie, $carroSeleccionado, $idNotebook]);
 
@@ -75,8 +75,8 @@
         
         <div>
             <label for="numeroSerie">Numero Serie</label>
-                <input type="text" name="numeroSerie" id="numeroSerie" placeholder="Ej: DELL-A-0001"
-                pattern="(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9-]+" title="El número de serie debe contener letras y números" minLength="5" required value ="<?php echo htmlspecialchars($notebook['numero_serie']); ?>">
+                <input  type="text" name="numeroSerie" id="numeroSerie" placeholder="Ej: DELL-A-0001"
+            pattern="(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9-]+" title="El número de serie debe contener letras y números" minLength="5" required value ="<?php echo htmlspecialchars($notebook['numero_serie']); ?>">
         </div>
         
         <div>
@@ -87,24 +87,18 @@
         <div>
             <label for="carros">Carros</label>
             <?php if($getAllCarts): ?>
-                <select name="carro" id="carros" required>
-                    <option value="" disabled selected>Seleccione un carro</option>
+                <select name="carro" id="carros">
+                    <option value="">No asignar carro</option>
                     <?php foreach($getAllCarts as $cart):?>
-                        <option value="<?= htmlspecialchars($cart['id']);?>" <?= $cart['id'] == $notebook['cart_id'] ? "selected" : "";?> ><?=htmlspecialchars($cart['nombre'])?></option>
+                        <option value="<?= htmlspecialchars($cart['id']) ?? "";?>" <?= $cart['id'] == $notebook['cart_id'] ? "selected" : "";?> ><?=htmlspecialchars($cart['nombre'])?></option>
                     <?php endforeach;?>
                 </select>
             <?php else:?>
-                <select style ="cursor: not-allowed" name="carros" id="carros" disabled >
-                    <option>No hay carros creados</option>
-                </select>
+                <p>No hay carros creados. La notebook se creará sin asignacion.</p>
             <?php endif;?>
-        </div>
 
-        <?php if($getAllCarts):?>
+        </div>
             <button type="submit">Guardar</button>
-        <?php else:?>
-            <button style ="cursor: not-allowed" disabled>Guardar</button>
-        <?php endif; ?>
             <a href="ver-notebooks.php" class="btn back">Volver</a>
         </div>
 

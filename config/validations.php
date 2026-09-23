@@ -1,7 +1,7 @@
 <?php
-    function validateInputsCreateorEditNotebooks($nombreNotebook, $numeroSerie, $carro, $conn){
+    function validateInputsCreateorEditNotebooks($nombreNotebook, $numeroSerie, $conn, $idNotebook=null){
         
-        if($nombreNotebook == "" || $numeroSerie == "" || $carro == ""){
+        if($nombreNotebook == "" || $numeroSerie == ""){
             return "Todos los campos son obligatorios";
         }
 
@@ -10,16 +10,24 @@
         }
 
         if(!preg_match('/^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9-]+$/', $numeroSerie)){
-            return "El numero de serie debe contener letras y numerosss";
+            return "El numero de serie debe contener letras y numeros";
         }
 
         if (strlen($numeroSerie) < 5){
             return "El numero de serie debe contener minimo 5 caracteres";
         }
 
-        $sql = "SELECT id FROM computers WHERE numero_serie = :numeroSerie";
-        $numVerify = $conn->prepare($sql);
-        $numVerify->execute([':numeroSerie' => $numeroSerie]);
+        //Al crear por primera vez
+        if ($idNotebook === null){
+            $sql = "SELECT id FROM computers WHERE numero_serie = :numero_serie";
+            $numVerify = $conn->prepare($sql);
+            $numVerify->execute([':numero_serie' => $numeroSerie]);
+        }else{
+            //Al editarlo
+            $sql = "SELECT id FROM computers WHERE numero_serie = :numero_serie AND id != :id_notebook";
+            $numVerify = $conn->prepare($sql);
+            $numVerify->execute([':numero_serie' => $numeroSerie,':id_notebook' => $idNotebook]);
+        }
             
         if($numVerify->fetch()){
             return "El numero de serie ya está registrado";
