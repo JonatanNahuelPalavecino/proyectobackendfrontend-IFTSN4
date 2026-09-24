@@ -32,11 +32,12 @@
                 <table border=2>
                     <thead>
                         <tr>
-                            <th>Id</th>
+                            <th>ID</th>
                             <th>Nombre</th>
                             <th>Numero_serie</th>
+                            <th>ID_Carro</th>
                             <th>Carro</th>
-                            <th>Fecha_creacion</th>
+                            <th>Ultima_Modificacion</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -46,7 +47,8 @@
                             <td><?php echo htmlspecialchars($notebook['id']);?></td>
                             <td><?php echo htmlspecialchars($notebook['nombre']);?></td>
                             <td><?php echo htmlspecialchars($notebook['numero_serie']);?></td>
-                            <td><?php echo htmlspecialchars($notebook['carro']);?></td>
+                            <td><?php echo $notebook['cart_id'] ?? 'Sin asignar';?></td>
+                            <td><?php echo $notebook['carro'] ?? "Sin asignacion de carro";?></td>
                             <td><?php echo htmlspecialchars($notebook['created_at']);?></td>
                             <td>
                                 <a href="<?php echo BASE_URL ?>/dashboard/notebooks/editar-notebook.php?id=<?php echo $notebook['id'];?>">Editar</a>
@@ -59,6 +61,7 @@
             <?php else: ?>
                 <p>No hay notebooks creadas</p>
             <?php endif;?>
+            <a href="../index.php">Volver</a>
         </div>
     </section>
 </main>
