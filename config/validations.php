@@ -1,95 +1,184 @@
 <?php
-    function validateInputsCreateorEditNotebooks($nombreNotebook, $numeroSerie, $conn, $idNotebook=null){
-        
-        if($nombreNotebook == "" || $numeroSerie == ""){
-            return "Todos los campos son obligatorios";
-        }
+function validateInputsCreateorEditNotebooks($nombreNotebook, $numeroSerie, $conn, $idNotebook = null)
+{
 
-        if(strlen($nombreNotebook) < 8){
-            return "El nombre de la notebook debe contener al menos 8 caracteres";
-        }
+    if ($nombreNotebook == "" || $numeroSerie == "") {
+        return "Todos los campos son obligatorios";
+    }
 
-        if(!preg_match('/^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9-]+$/', $numeroSerie)){
-            return "El numero de serie debe contener letras y numeros";
-        }
+    if (strlen($nombreNotebook) < 8) {
+        return "El nombre de la notebook debe contener al menos 8 caracteres";
+    }
 
-        if (strlen($numeroSerie) < 5){
-            return "El numero de serie debe contener minimo 5 caracteres";
-        }
+    if (!preg_match('/^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9-]+$/', $numeroSerie)) {
+        return "El numero de serie debe contener letras y numeros";
+    }
 
-        //Al crear por primera vez
-        if ($idNotebook === null){
-            $sql = "SELECT id FROM computers WHERE numero_serie = :numero_serie";
-            $numVerify = $conn->prepare($sql);
-            $numVerify->execute([':numero_serie' => $numeroSerie]);
-        }else{
-            //Al editarlo
-            $sql = "SELECT id FROM computers WHERE numero_serie = :numero_serie AND id != :id_notebook";
-            $numVerify = $conn->prepare($sql);
-            $numVerify->execute([':numero_serie' => $numeroSerie,':id_notebook' => $idNotebook]);
-        }
-            
-        if($numVerify->fetch()){
-            return "El numero de serie ya está registrado";
-        }
-        
-        return null;
+    if (strlen($numeroSerie) < 5) {
+        return "El numero de serie debe contener minimo 5 caracteres";
+    }
+
+    //Al crear por primera vez
+    if ($idNotebook === null) {
+        $sql = "SELECT id FROM computers WHERE numero_serie = :numero_serie";
+        $numVerify = $conn->prepare($sql);
+        $numVerify->execute([':numero_serie' => $numeroSerie]);
+    } else {
+        //Al editarlo
+        $sql = "SELECT id FROM computers WHERE numero_serie = :numero_serie AND id != :id_notebook";
+        $numVerify = $conn->prepare($sql);
+        $numVerify->execute([':numero_serie' => $numeroSerie, ':id_notebook' => $idNotebook]);
+    }
+
+    if ($numVerify->fetch()) {
+        return "El numero de serie ya está registrado";
+    }
+
+    return null;
+}
+
+function validateInputsCreateOrEditReservations($pdo, $aulaId, $fecha, $horaInicio, $horaFin, $idReserva = null)
+{
+    if (!$aulaId || !$fecha || !$horaInicio || !$horaFin) {
+        return 'Faltan datos para realizar la reserva.';
+    }
+
+    $aula = getAulaReservable($pdo, $aulaId);
+
+    if (!$aula) {
+        return 'El aula no existe o no tiene disponibilidad.';
+    }
+
+    if ($fecha < date('Y-m-d')) {
+        return 'No podés reservar una fecha anterior a hoy.';
+    }
+
+    if (!fechaPermitida($fecha, $aula)) {
+        return 'Ese día no está habilitado para esta aula.';
+
+    }
+
+    if (!preg_match('/^\d{2}:00$/', $horaInicio) || !preg_match('/^\d{2}:00$/', $horaFin)) {
+        return 'Las reservas deben comenzar y terminar en una hora exacta.';
+    }
+
+    if ($horaInicio >= $horaFin) {
+        return 'La hora de inicio debe ser anterior a la hora de fin.';
+    }
+
+    $rangosLibres = getRangosLibres(
+        $pdo,
+        $aula,
+        $fecha,
+        $idReserva
+    );
+
+    if (!horarioEstaLibre($rangosLibres, $horaInicio, $horaFin)) {
+        return 'Ese horario ya no está disponible.';
+    }
+
+    if (existeSolapamiento($pdo, $aulaId, $fecha, $horaInicio, $horaFin, $idReserva)) {
+        return 'Ese horario se superpone con otra reserva.';
+    }
+
+    return null;
+}
+
+function validateIptusToCreateOrEditSchedules($dia_desde, $dia_hasta, $hora_inicio, $hora_fin)
+{
+    if ($dia_desde === '' || $dia_hasta === '' || $hora_inicio === '' || $hora_fin === '') {
+        return 'Completá todos los campos.';
+    }
+
+    if ($dia_desde < 1 || $dia_desde > 7 || $dia_hasta < 1 || $dia_hasta > 7) {
+        return 'El rango de días es inválido.';
+    }
+
+    if ($dia_desde > $dia_hasta) {
+        return 'El día inicial debe estar antes que el día final.';
+    }
+
+    if ($hora_inicio >= $hora_fin) {
+        return 'La hora de fin debe ser posterior a la hora de inicio.';
+    }
+
+    return null;
+}
+
+function validateInputsCreateorEditClassroom($nombre_aula, $capacidad)
+{
+    if ($nombre_aula == "" || $capacidad == "") {
+        return "Todos los campos son obligatorios.";
+    }
+
+    if (strlen($nombre_aula) < 5) {
+        return "El nombre del aula debe tener al menos 6 caracteres.";
     }
 
 
-
-
-
-    function validateInputsCreateorEditClassroom ($nombre_aula, $capacidad) {
-        if ($nombre_aula == "" || $capacidad == "") {
-            return "Todos los campos son obligatorios.";
-        }
-
-        if (strlen($nombre_aula) < 5) {
-            return "El nombre del aula debe tener al menos 6 caracteres.";
-        }
-
-        
-        if ($capacidad <= 0 || !is_numeric($capacidad)) {
-            return "La capacidad del aula debe ser mayor a cero.";
-        }
-
-        return null;    
-    } 
-
-    function validateInputsRegister ($nombre, $email, $password) {
-        if ($nombre == "" || $email == "" || $password == "") {
-            return "Todos los campos son obligatorios.";
-        }
-
-        if (strlen($nombre) < 3) {
-            return "El nombre debe tener al menos 3 caracteres.";
-        }
-
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            return "El correo electrónico no es válido.";
-        }
-
-        if (strlen($password) < 6) {
-            return "La contraseña debe tener al menos 6 caracteres.";
-        }
-
-        return null;
+    if ($capacidad <= 0 || !is_numeric($capacidad)) {
+        return "La capacidad del aula debe ser mayor a cero.";
     }
 
-    function validateInputsLogin ($email, $password) {
-        if ($email == "" || $password == "") {
-            return "Todos los campos son obligatorios.";
-        }
+    return null;
+}
 
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            return "El correo electrónico no es válido.";
-        }
-
-        if (strlen($password) < 6) {
-            return "La contraseña debe tener al menos 6 caracteres.";
-        }
-
-        return null;
+function validateInputsRegister($nombre, $email, $password)
+{
+    if ($nombre == "" || $email == "" || $password == "") {
+        return "Todos los campos son obligatorios.";
     }
-?>
+
+    if (strlen($nombre) < 3) {
+        return "El nombre debe tener al menos 3 caracteres.";
+    }
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        return "El correo electrónico no es válido.";
+    }
+
+    if (strlen($password) < 6) {
+        return "La contraseña debe tener al menos 6 caracteres.";
+    }
+
+    return null;
+}
+
+function validateInputsLogin($email, $password)
+{
+    if ($email == "" || $password == "") {
+        return "Todos los campos son obligatorios.";
+    }
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        return "El correo electrónico no es válido.";
+    }
+
+    if (strlen($password) < 6) {
+        return "La contraseña debe tener al menos 6 caracteres.";
+    }
+
+    return null;
+}
+
+function validDateFormat($date)
+{
+    $partes = explode('-', $date);
+    return count($partes) === 3 && checkdate((int) $partes[1], (int) $partes[2], (int) $partes[0]);
+}
+
+function dateIsAllowed($date, $schedule)
+{
+    if (!validDateFormat($date)) return false;
+    $dayOfWeek = (int) date('N', strtotime($date));
+    return $dayOfWeek >= (int) $schedule['dia_desde'] && $dayOfWeek <= (int) $schedule['dia_hasta'];
+}
+
+function rangeIsAvailable($availableRanges, $start, $end)
+{
+    if ($start >= $end) return false;
+    foreach ($availableRanges as $range) {
+        if ($start >= $range['inicio'] && $end <= $range['fin']) return true;
+    }
+    return false;
+}
