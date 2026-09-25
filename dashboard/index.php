@@ -52,7 +52,7 @@
                 </div>
                 <!-- Falta definir ruta de carros -->
                 <div>
-                    <a href="<?= BASE_URL?>/dashboard/aulas/crear-aula.php" class="btn reservar">Gestionar Carros</a>
+                    <a href="<?= BASE_URL?>/dashboard/carros/ver-reservas.php" class="btn reservar">Gestionar Carros</a>
                 </div>
 
                 <div>
@@ -75,6 +75,9 @@
                 </div>
                 <div>
                     <a href="<?=BASE_URL?>/dashboard/aulas/crear-reserva.php" class="btn reservar">Reservar aula</a>
+                </div>
+                <div>
+                    <a href="<?= BASE_URL?>/dashboard/carros/ver-reservas.php" class="btn reservar">Gestionar Carros</a>
                 </div>
                 
             <?php endif; ?> 

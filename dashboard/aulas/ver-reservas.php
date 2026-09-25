@@ -55,7 +55,6 @@
                                 <button>Editar</button>
                                 <button>Borrar</button>
                             </div>
-
                         </article>
                     <?php endforeach?>
 

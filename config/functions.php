@@ -54,6 +54,18 @@
         return $resultado;
     }
 
+    function getReservasCarrosAdmin($conn){
+        $sql = "SELECT r.id, r.fecha, r.comentario, r.estado, r.entregado_at, r.devuelto_at, c.nombre AS carro
+                FROM carts c
+                INNER JOIN cart_reservations r ON r.cart_id = c.id
+                ORDER BY r.fecha DESC";
+
+        $consulta = $conn->prepare($sql);
+        $consulta->execute ();
+        return $consulta->fetchAll(PDO::FETCH_ASSOC);
+
+    }
+
 
 
 
@@ -85,6 +97,36 @@
         $consulta->execute([':id' => $id ]);
         return $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    function getReservasCarrosActivas($conn, $id) {
+        $sql = "SELECT r.id, r.fecha, r.comentario, c.nombre AS carro 
+                FROM carts c
+                INNER JOIN cart_reservations r ON r.cart_id = c.id
+                WHERE r.user_id = :id AND r.fecha >= CURDATE() 
+                ORDER BY r.fecha ASC";
+                
+        $consulta = $conn->prepare($sql);
+        $consulta->execute([':id' => $id]);
+        return $consulta->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    function getCarrosDisponibles ($conn){
+        $sql = "SELECT id, nombre, capacidad FROM carts ORDER BY nombre ASC";
+        return $conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    function crearReservaCarro ($conn, $user_id,$cart_id,$fecha,$comentario){
+        $sql = "INSERT INTO cart_reservations (user_id,cart_id,fecha,comentario)
+                VALUES (?,?,?,?)";
+        $stmt = $conn->prepare($sql);
+
+        return $stmt->execute([$user_id, $cart_id, $fecha,$comentario]);
+
+    }
+
+
+
+
 
     //------------------------------- FUNCIONES DEL SISTEMA -------------------------------
     // 
