@@ -94,7 +94,7 @@
         return $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
     }
 
-<<<<<<< HEAD
+
     function getReservasCarrosActivas($conn, $id) {
         $sql = "SELECT r.id, r.fecha, r.comentario, c.nombre AS carro 
                 FROM carts c
@@ -124,7 +124,7 @@
 
 
 
-=======
+
     function getAulasReservables($pdo){
         $consulta = $pdo->query(
             'SELECT
@@ -374,7 +374,7 @@
 
         return $consulta->fetch(PDO::FETCH_ASSOC);
     }
->>>>>>> develop
+
 
     //------------------------------- FUNCIONES DEL SISTEMA -------------------------------
     function notify($message, $type = 'success') {

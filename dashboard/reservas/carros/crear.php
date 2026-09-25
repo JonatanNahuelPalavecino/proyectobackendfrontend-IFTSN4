@@ -1,6 +1,7 @@
 <?php
-    require_once __DIR__ . "/../../config/functions.php";
-    require_once __DIR__ . "/../../config/db.php";
+    require_once __DIR__ . "/../../../config/functions.php";
+    require_once __DIR__ . "/../../../config/db.php";
+
 
     $usuario = getUser();
 
@@ -34,7 +35,7 @@
     }
     ?>
 
-    <?php include __DIR__ . "/../../components/header.php"; ?>
+    <?php include __DIR__ . "/../../../components/header.php"; ?>
 
     <main class="dashboard">
         <h2>💻 Crear Nuevo Carro</h2>
@@ -57,7 +58,7 @@
         </form>
     </main>
 
-    <?php include __DIR__ . "/../../components/footer.php"; ?>
+    <?php include __DIR__ . "/../../../components/footer.php"; ?>
 
 
 
