@@ -74,7 +74,7 @@
                     <p>Eres un usuario regular. Aquí puedes ver tus reservas y realizar nuevas reservas de aulas.</p>
                 </div>
                 <div>
-                    <a href="<?=BASE_URL?>/dashboard/aulas/crear-reserva.php" class="btn reservar">Reservar aula</a>
+                    <a href="<?=BASE_URL?>/dashboard/reservas/aulas/crear-reserva.php" class="btn reservar">Reservar aula</a>
                 </div>
                 <div>
                     <a href="<?= BASE_URL?>/dashboard/carros/ver-reservas.php" class="btn reservar">Gestionar Carros</a>
@@ -115,19 +115,23 @@
         <section class= "dashboard-cards">
             <article class="card-info">
                 <span class="<?php echo ($cantReservasUser>0) ? "cant-green": "cant-black";?>"><?= $cantReservasUser?></span>
-                <small>Reservas activas</small>
+                <small>Reservas de Aulas activas</small>
             </article>
             
             <article class="card-info">
                 <span><?= $cantAllReservasUser?></span>
-                <small>Total de Reservas</small>
-            </article>
-                
-            <article class="card-info">
-                <span class="cant-black">0</span>
-                <small>Aulas disponibles</small>
+                <small>Total de Reservas de Aulas</small>
             </article>
 
+            <article class="card-info">
+                <span>0</span>
+                <small>Reservas de Carros activas</small>
+            </article>
+            
+            <article class="card-info">
+                <span>0</span>
+                <small>Total de Reservas de Carros</small>
+            </article>
         </section>
     <?php endif;?>
         

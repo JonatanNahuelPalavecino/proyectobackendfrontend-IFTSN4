@@ -1,6 +1,6 @@
 <?php
-    require_once __DIR__ . "/../../config/db.php";
-    require_once __DIR__ . "/../../config/functions.php";
+    require_once __DIR__ . "/../../../config/db.php";
+    require_once __DIR__ . "/../../../config/functions.php";
 
     $usuario = getUser();
 
@@ -9,11 +9,16 @@
         redirect("/login.php");
     }
 
-    $titulo = "Mis Reservas | Reservá tu aula";
+    if($usuario['rol'] === "admin") {
+        $titulo = "Total de Reservas | Reservá tu aula";
 
-    //Consultas
-    $reservas = getReservasUser($pdo, $usuario['id']);
-    var_dump($reservas);
+        //FUNCION QUE TRAE TODAS LAS RESERVAS SIN DIFERENCIAR PROFESOR
+    } else {
+        $titulo = "Mis Reservas | Reservá tu aula";
+    
+        //Consultas
+        $reservas = getReservasUser($pdo, $usuario['id']);
+    }
 
 
     //ACA PUEDE ENTRAR ADMIN Y USER, SOLO CAMBIA LO QUE VE CADA UNO
@@ -21,7 +26,7 @@
 ?>
 
 <?php
-    require_once __DIR__ . "/../../components/header.php";   
+    require_once __DIR__ . "/../../../components/header.php";   
 ?>
 
 
@@ -52,8 +57,8 @@
                             </p>
                             <p>Capacidad: <?=htmlspecialchars($reserva['capacidad']) ?></p>
                             <div>
-                                <button>Editar</button>
-                                <button>Borrar</button>
+                                <a href="<?= BASE_URL ?>/dashboard/reservas/aulas/editar-reserva.php?id=<?= $reserva['id'] ?>">Editar</a>
+                            <button popovertarget="eliminar-reserva-<?php echo $reserva['id'] ?>">Eliminar</button>
                             </div>
                         </article>
                     <?php endforeach?>
@@ -61,7 +66,7 @@
                 <?php else: ?>
                     <article>
                         <p>No tienes reservas activas</p>
-                        <a href="/">Ir a Reservar</a>
+                        <a href="<?= BASE_URL ?>/dashboard/reservas/aulas/crear-reserva.php">Ir a Reservar</a>
                     </article>
                 <?php endif ?>
                 
@@ -69,13 +74,19 @@
 
         <?php endif ?>
     </section>
-
-
-
-
 </main>
 
+<?php foreach ($reservas as $reserva): ?>
+    <section id="eliminar-reserva-<?php echo $reserva['id'] ?>" popover>
+        <p>¿estas seguro que queres eliminar del sistema la reserva del <?php echo $reserva['aula'] ?> - Dia: <?php echo $reserva['fecha'] ?> - Horario Inicio: <?php echo $reserva['hora_inicio'] ?> - Horario Fin: <?php echo $reserva['hora_fin'] ?>?</p>
+        <a href="<?php echo BASE_URL; ?>/dashboard/reservas/aulas/eliminar-reserva.php?id=<?php echo $reserva['id']; ?>">Eliminar</a>
+        <button type="button" popovertarget="eliminar-reserva-<?php echo $reserva['id'] ?>" popovertargetaction="hide">Cancelar</button>
+    </section>
+<?php endforeach ?>
+
 <?php 
-    require_once __DIR__ . "/../../components/footer.php";
+    require_once __DIR__ . "/../../../components/footer.php";
 
 ?>
+
+

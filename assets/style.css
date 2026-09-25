@@ -670,6 +670,101 @@ body > main {
   background-color: var(--light-color);
 }
 
+/* ---CALENDARIO DE RESERVAS--- */
+
+.reservation-calendar {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    border-radius: 16px;
+    background: var(--light-color);
+}
+
+.calendar-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.calendar-navigation a {
+    color: var(--secondary-color);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.calendar-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0.35rem;
+    table-layout: fixed;
+}
+
+.calendar-table th {
+    padding: 0.75rem 0.25rem;
+    border-radius: 8px;
+    color: white;
+    background: var(--secondary-color);
+    font-weight: 700;
+}
+
+.calendar-day {
+    height: 80px;
+    border-radius: 10px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.calendar-day a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.25rem;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.calendar-day.disabled {
+    display: table-cell;
+    height: 80px;
+    padding: .4rem;
+    vertical-align: middle;
+}
+
+.calendar-day.disabled span,
+.calendar-day.disabled small {
+    display: block;
+}
+
+.calendar-day a {
+    color: var(--dark-color);
+    background: #e5f6ec;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+.calendar-day a:hover {
+    color: white;
+    background: var(--primary-color);
+}
+
+.calendar-day.disabled {
+    color: #8d989d;
+    background: #e1e5e7;
+    cursor: not-allowed;
+    filter: blur(0.35px);
+}
+
+.calendar-day.empty {
+    background: transparent;
+}
+
+.calendar-day small {
+    font-size: 0.72rem;
+}
+
 .cant-black {
   color: var(--navy);
 }
@@ -677,5 +772,4 @@ body > main {
   color: var(--verde-brillante);
   font-weight: 500;
 }
-
 
