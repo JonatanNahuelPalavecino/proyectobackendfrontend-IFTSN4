@@ -71,7 +71,7 @@
     }
 
     function getReservasUser($conn, $id){
-        $sql = "SELECT r.fecha, r.hora_inicio, r.hora_fin, c.nombre as aula, c.capacidad 
+        $sql = "SELECT r.id, r.fecha, r.hora_inicio, r.hora_fin, c.nombre as aula, c.capacidad 
                 FROM classrooms c
                 INNER JOIN reservations r on r.classroom_id = c.id
                 where r.user_id = :id AND r.fecha >= CURDATE() 
@@ -82,52 +82,254 @@
         return $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    function getAllClassroomsAndSchedules ($conn) {
-        $sqlConsultaAulas = $conn->query("SELECT * FROM classrooms JOIN classroom_schedules ON classrooms.id = classroom_schedules.classroom_id ORDER BY classrooms.id");
-        $aulas = $sqlConsultaAulas->fetchAll();
-        return $aulas;
+    function getAulasReservables($pdo){
+        $consulta = $pdo->query(
+            'SELECT
+                classrooms.id,
+                classrooms.nombre,
+                classrooms.capacidad,
+                classroom_schedules.dia_desde,
+                classroom_schedules.dia_hasta,
+                classroom_schedules.hora_inicio,
+                classroom_schedules.hora_fin
+            FROM classrooms
+            INNER JOIN classroom_schedules
+                ON classroom_schedules.classroom_id = classrooms.id
+            ORDER BY classrooms.nombre'
+        );
+
+        return $consulta->fetchAll();
     }
 
-    function getClassroomAndSchedule ($conn, $id) {
-        $sql = "SELECT * FROM classrooms JOIN classroom_schedules ON classrooms.id = classroom_schedules.classroom_id WHERE classrooms.id = ? ORDER BY classrooms.id";
-        $consulta = $conn->prepare($sql);
-        $consulta->execute([$id]);
-        $aula = $consulta->fetch();
-        return $aula;
+    function getAulaReservable($pdo, $id){
+        $consulta = $pdo->prepare(
+            'SELECT
+                classrooms.id,
+                classrooms.nombre,
+                classrooms.capacidad,
+                classroom_schedules.dia_desde,
+                classroom_schedules.dia_hasta,
+                classroom_schedules.hora_inicio,
+                classroom_schedules.hora_fin
+            FROM classrooms
+            INNER JOIN classroom_schedules
+                ON classroom_schedules.classroom_id = classrooms.id
+            WHERE classrooms.id = :id'
+        );
+
+        $consulta->execute([
+            'id' => $id
+        ]);
+
+        return $consulta->fetch();
     }
 
-    function getReservationsByMonth($conn, $classroomId, $month) {
-        $inicio = $month . '-01';
-        $fin = date('Y-m-t', strtotime($inicio));
-        $sql = "SELECT fecha, hora_inicio, hora_fin FROM reservations
-                WHERE classroom_id = :classroom_id AND fecha BETWEEN :inicio AND :fin
-                ORDER BY fecha, hora_inicio";
-        $consulta = $conn->prepare($sql);
-        $consulta->execute(['classroom_id' => $classroomId, 'inicio' => $inicio, 'fin' => $fin]);
-        $reservas = [];
-        foreach ($consulta->fetchAll(PDO::FETCH_ASSOC) as $reserva) {
-            $reservas[$reserva['fecha']][] = $reserva;
+    function getReservasDelDia($pdo, $aulaId, $fecha, $idReservaExcluir = null){
+        $sql = 'SELECT id, hora_inicio, hora_fin
+                FROM reservations
+                WHERE classroom_id = :classroom_id
+                AND fecha = :fecha';
+
+        $parametros = [
+            'classroom_id' => $aulaId,
+            'fecha' => $fecha
+        ];
+
+        if ($idReservaExcluir !== null) {
+            $sql .= ' AND id <> :id_reserva';
+            $parametros['id_reserva'] = $idReservaExcluir;
         }
-        return $reservas;
+
+        $sql .= ' ORDER BY hora_inicio';
+
+        $consulta = $pdo->prepare($sql);
+        $consulta->execute($parametros);
+
+        return $consulta->fetchAll();
     }
 
-    function getAvailableRanges($schedule, $reservations = []) {
-        $rangos = [['inicio' => substr($schedule['hora_inicio'], 0, 5), 'fin' => substr($schedule['hora_fin'], 0, 5)]];
-        foreach ($reservations as $reserva) {
-            $ocupadoInicio = substr($reserva['hora_inicio'], 0, 5);
-            $ocupadoFin = substr($reserva['hora_fin'], 0, 5);
-            $nuevos = [];
-            foreach ($rangos as $rango) {
-                if ($ocupadoFin <= $rango['inicio'] || $ocupadoInicio >= $rango['fin']) {
-                    $nuevos[] = $rango;
-                    continue;
-                }
-                if ($rango['inicio'] < $ocupadoInicio) $nuevos[] = ['inicio' => $rango['inicio'], 'fin' => $ocupadoInicio];
-                if ($ocupadoFin < $rango['fin']) $nuevos[] = ['inicio' => $ocupadoFin, 'fin' => $rango['fin']];
+    function fechaPermitida($fecha, $aula){
+        // date("N") devuelve 1 para lunes y 7 para domingo.
+        $numeroDia = (int) date('N', strtotime($fecha));
+
+        return (
+            $numeroDia >= $aula['dia_desde']
+            &&
+            $numeroDia <= $aula['dia_hasta']
+        );
+    }
+
+    function horaAMinutos($hora){
+        $partes = explode(':', $hora);
+
+        return ((int) $partes[0] * 60) + (int) $partes[1];
+    }
+
+    function minutosAHora($minutos){
+        $horas = floor($minutos / 60);
+        $minutosRestantes = $minutos % 60;
+
+        return
+            str_pad($horas, 2, '0', STR_PAD_LEFT)
+            . ':'
+            . str_pad($minutosRestantes, 2, '0', STR_PAD_LEFT);
+    }
+
+    function getRangosLibres($pdo, $aula, $fecha, $idReservaExcluir = null){
+        if (!fechaPermitida($fecha, $aula)) {
+            return [];
+        }
+
+        $inicioDisponible = horaAMinutos($aula['hora_inicio']);
+        $finDisponible = horaAMinutos($aula['hora_fin']);
+
+        // Si se reserva para hoy, no mostramos horarios que ya pasaron.
+        if ($fecha === date('Y-m-d')) {
+            $ahora = ((int) date('H') * 60) + (int) date('i');
+            // Las reservas se realizan en bloques de una hora.
+            $ahora = ceil($ahora / 60) * 60;
+
+            if ($ahora > $inicioDisponible) {
+                $inicioDisponible = $ahora;
             }
-            $rangos = $nuevos;
         }
-        return array_values(array_filter($rangos, fn($rango) => $rango['inicio'] < $rango['fin']));
+
+        if ($inicioDisponible >= $finDisponible) {
+            return [];
+        }
+
+        $reservas = getReservasDelDia($pdo, $aula['id'], $fecha, $idReservaExcluir);
+
+        $rangosLibres = [];
+        $cursor = $inicioDisponible;
+
+        foreach ($reservas as $reserva) {
+            $inicioReserva = horaAMinutos($reserva['hora_inicio']);
+            $finReserva = horaAMinutos($reserva['hora_fin']);
+
+            if ($finReserva <= $inicioDisponible || $inicioReserva >= $finDisponible) {
+                continue;
+            }
+
+            $inicioReserva = max($inicioReserva, $inicioDisponible);
+            $finReserva = min($finReserva, $finDisponible);
+
+            if ($inicioReserva > $cursor) {
+                $rangosLibres[] = [
+                    'inicio' => minutosAHora($cursor),
+                    'fin' => minutosAHora($inicioReserva)
+                ];
+            }
+
+            if ($finReserva > $cursor) {
+                $cursor = $finReserva;
+            }
+        }
+
+        if ($cursor < $finDisponible) {
+            $rangosLibres[] = [
+                'inicio' => minutosAHora($cursor),
+                'fin' => minutosAHora($finDisponible)
+            ];
+        }
+
+        return $rangosLibres;
+    }
+
+    function horarioEstaLibre($rangosLibres, $horaInicio, $horaFin){
+        $inicioElegido = horaAMinutos($horaInicio);
+        $finElegido = horaAMinutos($horaFin);
+
+        foreach ($rangosLibres as $rango) {
+            $inicioRango = horaAMinutos($rango['inicio']);
+            $finRango = horaAMinutos($rango['fin']);
+
+            if ($inicioElegido >= $inicioRango && $finElegido <= $finRango) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    function existeSolapamiento($pdo, $aulaId, $fecha, $horaInicio, $horaFin, $idReservaExcluir = null){
+        $sql = 'SELECT id
+                FROM reservations
+                WHERE classroom_id = :classroom_id
+                AND fecha = :fecha
+                AND hora_inicio < :hora_fin
+                AND hora_fin > :hora_inicio';
+
+        $parametros = [
+            'classroom_id' => $aulaId,
+            'fecha' => $fecha,
+            'hora_inicio' => $horaInicio,
+            'hora_fin' => $horaFin
+        ];
+
+        if ($idReservaExcluir !== null) {
+            $sql .= ' AND id <> :id_reserva';
+            $parametros['id_reserva'] = $idReservaExcluir;
+        }
+
+        $sql .= ' LIMIT 1';
+
+        $consulta = $pdo->prepare($sql);
+        $consulta->execute($parametros);
+
+        return $consulta->fetch() ? true : false;
+    }
+
+    function crearDiasCalendario($pdo, $aula, $mes, $idReservaExcluir = null){
+        $primerDia = $mes . '-01';
+        $cantidadDias = (int) date('t', strtotime($primerDia));
+
+        $dias = [];
+
+        for ($numero = 1; $numero <= $cantidadDias; $numero++) {
+            $fecha = sprintf('%s-%02d', $mes, $numero);
+
+            $esPasado = $fecha < date('Y-m-d');
+            $estaHabilitado = fechaPermitida($fecha, $aula);
+
+            $rangosLibres = [];
+
+            if (!$esPasado && $estaHabilitado) {
+                $rangosLibres = getRangosLibres($pdo, $aula, $fecha, $idReservaExcluir);
+            }
+
+            $dias[] = [
+                'numero' => $numero,
+                'fecha' => $fecha,
+                'es_pasado' => $esPasado,
+                'habilitado' => $estaHabilitado,
+                'disponible' => !$esPasado && $estaHabilitado && count($rangosLibres) > 0,
+                'completo' => !$esPasado && $estaHabilitado && count($rangosLibres) === 0
+            ];
+        }
+
+        return $dias;
+    }
+
+    function getReservaById($pdo, $idReserva){
+        $sql = 'SELECT
+                    reservations.id,
+                    reservations.user_id,
+                    reservations.classroom_id,
+                    reservations.fecha,
+                    reservations.hora_inicio,
+                    reservations.hora_fin,
+                    classrooms.nombre AS aula,
+                    classrooms.capacidad
+                FROM reservations
+                INNER JOIN classrooms
+                    ON classrooms.id = reservations.classroom_id
+                WHERE reservations.id = :id_reserva';
+
+        $consulta = $pdo->prepare($sql);
+        $consulta->execute(['id_reserva' => $idReserva]);
+
+        return $consulta->fetch(PDO::FETCH_ASSOC);
     }
 
     //------------------------------- FUNCIONES DEL SISTEMA -------------------------------

@@ -58,7 +58,7 @@ $user = getUser();
 
             <?php else: ?>
 
-                <a class="side-nav-link" href="<?= BASE_URL ?>/dashboard/aula/crear-reserva.php" aria-label="Reservar aula" title="Reservar aula">
+                <a class="side-nav-link" href="<?= BASE_URL ?>/dashboard/reservas/aulas/crear-reserva.php" aria-label="Reservar aula" title="Reservar aula">
                     <span class="side-nav-icon" aria-hidden="true">＋</span>
                     <span class="side-nav-text">
                         <strong>Reservar aula</strong>
@@ -66,7 +66,15 @@ $user = getUser();
                     </span>
                 </a>
 
-                <a class="side-nav-link" href="<?= BASE_URL ?>/dashboard/aulas/ver-reservas.php" aria-label="Mis reservas" title="Mis reservas">
+                <a class="side-nav-link" href="<?= BASE_URL ?>/dashboard/reservas/carros/crear-reserva.php" aria-label="Reservar aula" title="Reservar aula">
+                    <span class="side-nav-icon" aria-hidden="true">＋</span>
+                    <span class="side-nav-text">
+                        <strong>Reservar Carro</strong>
+                        <small>Crear una nueva reserva</small>
+                    </span>
+                </a>
+
+                <a class="side-nav-link" href="<?= BASE_URL ?>/dashboard/reservas/aulas/ver-reservas.php" aria-label="Mis reservas" title="Mis reservas">
                     <span class="side-nav-icon" aria-hidden="true">▤</span>
                     <span class="side-nav-text">
                         <strong>Mis reservas</strong>
