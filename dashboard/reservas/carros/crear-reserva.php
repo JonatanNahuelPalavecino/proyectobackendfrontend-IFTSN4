@@ -14,6 +14,7 @@
     $carros = getCarrosDisponibles($pdo);
 
     // 2. Operación CREATE procesada al enviar el formulario
+    // 2. Operación CREATE procesada al enviar el formulario
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $cart_id = trim($_POST['cart_id']);
         $fecha = trim($_POST['fecha']);
@@ -23,15 +24,31 @@
         if (empty($cart_id) || empty($fecha) || empty($comentario)) {
             notify("Todos los campos (incluyendo el comentario) son obligatorios", "error");
         } else {
-            
-            $reservaExitosa = crearReservaCarro($pdo, $user_id, $cart_id, $fecha, $comentario);
-
-            if ($reservaExitosa) {
-                notify("Reserva confirmada con éxito", "success");
-                redirect('/dashboard/carros/ver-reservas.php'); 
-            } else {
-                notify("Hubo un problema al procesar la reserva del carro.", "error");
-            }
+            try {
+                // Intentamos hacer la reserva
+                $reservaExitosa = crearReservaCarro($pdo, $user_id, $cart_id, $fecha, $comentario);
+                
+                // Camino Feliz: Todo salió bien
+                if ($reservaExitosa) {
+                    notify("Reserva confirmada con éxito", "success");
+                    redirect('/dashboard/reservas/carros/ver-reservas.php'); 
+                } else {
+                    // Falló la función pero no hubo error grave de Base de Datos
+                    notify("Hubo un problema al procesar la reserva del carro.", "error");
+                }
+                
+            } catch (\PDOException $e) {
+                // Camino Triste: La base de datos rechazó la operación (Candado de duplicado)
+                if ($e->getCode() == 23000) {
+                    notify("¡Error! Este carro ya se encuentra reservado para esa fecha. Por favor elige otro día u otro carro", "error");
+                    
+                    // Redirección inmediata para que salte la alerta al instante
+                    redirect('/dashboard/reservas/carros/crear-reserva.php');
+                } else {
+                    // Por si ocurre otro error de base de datos distinto al 23000
+                    notify("Ocurrió un error inesperado al conectar con la base de datos.", "error");
+                }
+            } 
         }
     }
 

@@ -108,7 +108,7 @@
 
 
     function getReservasCarrosActivas($conn, $id) {
-        $sql = "SELECT r.id, r.fecha, r.comentario, c.nombre AS carro 
+        $sql = "SELECT r.id, r.fecha, r.comentario, r.estado, c.nombre AS carro 
                 FROM carts c
                 INNER JOIN cart_reservations r ON r.cart_id = c.id
                 WHERE r.user_id = :id AND r.fecha >= CURDATE() 
@@ -132,10 +132,6 @@
         return $stmt->execute([$user_id, $cart_id, $fecha,$comentario]);
 
     }
-
-
-
-
 
     function getAulasReservables($pdo){
         $consulta = $pdo->query(

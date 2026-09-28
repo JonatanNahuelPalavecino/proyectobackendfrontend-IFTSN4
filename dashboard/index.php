@@ -77,7 +77,7 @@
                     <a href="<?=BASE_URL?>/dashboard/reservas/aulas/crear-reserva.php" class="btn reservar">Reservar aula</a>
                 </div>
                 <div>
-                    <a href="<?= BASE_URL?>/dashboard/carros/ver-reservas.php" class="btn reservar">Gestionar Carros</a>
+                    <a href="<?= BASE_URL?>/dashboard/reservas/carros/ver-reservas.php" class="btn reservar">Gestionar Carros</a>
                 </div>
                 
             <?php endif; ?> 

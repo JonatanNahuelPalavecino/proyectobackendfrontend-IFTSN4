@@ -105,7 +105,7 @@ require_once __DIR__ . "/../../../config/functions.php";
                         <td style="padding: 10px; border-bottom: 1px solid #ddd;"><?= htmlspecialchars($reserva['carro']) ?></td>
                         <td style="padding: 10px; border-bottom: 1px solid #ddd;"><?= htmlspecialchars(date("d/m/Y", strtotime($reserva['fecha']))) ?></td>
                         
-                        <!-- Coloreado dinámico del estado para el profesor -->
+                    
                         <td style="padding: 10px; border-bottom: 1px solid #ddd;">
                             <span style="padding: 5px 10px; border-radius: 5px; font-weight: bold; font-size: 0.9em;
                                 <?= $reserva['estado'] === 'reservado' ? 'background-color: #fff3cd; color: #856404;' : 
@@ -117,7 +117,7 @@ require_once __DIR__ . "/../../../config/functions.php";
                         
                         <td style="padding: 10px; border-bottom: 1px solid #ddd;"><?= htmlspecialchars($reserva['comentario']) ?></td>
                         
-                        <!-- Columna exclusiva del profesor para gestionar sus reservas -->
+                        
                         <td style="padding: 10px; border-bottom: 1px solid #ddd;">
                             <a href="<?= BASE_URL ?>/dashboard/carros/modificar.php?id=<?= $reserva['id'] ?>" class="btn" style="margin-right: 5px;">Editar</a>
                             <button type="button" popovertarget="eliminar-reserva-<?= $reserva['id'] ?>" style="background-color: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer;">Eliminar</button>
