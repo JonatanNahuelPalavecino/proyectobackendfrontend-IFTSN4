@@ -48,7 +48,7 @@ $user = getUser();
                     </span>
                 </a>
 
-                <a class="side-nav-link" href="<?= BASE_URL ?>/dashboard/carros/ver-reservas.php" aria-label="Ver reservas" title="Ver reservas">
+                <a class="side-nav-link" href="<?= BASE_URL ?>/dashboard/reservas/carros/ver-reservas.php" aria-label="Ver reservas" title="Ver reservas">
                     <span class="side-nav-icon" aria-hidden="true">▣</span>
                     <span class="side-nav-text">
                         <strong>Ver reservas de Carros</strong>

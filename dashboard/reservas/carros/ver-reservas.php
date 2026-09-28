@@ -31,6 +31,9 @@ require_once __DIR__ . "/../../../config/functions.php";
             <div class="reservas-header">
                 <h1>📊 Reservas del Sistema</h1>
                 <p>Todas las reservas de carros del sistema.</p>
+                <a href="inventario.php" class="btn" style="display: inline-block; margin-top: 10px; background-color: #28a745; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px; font-weight: bold;">
+                📦 Ver Inventario Total
+                </a>
             </div> 
             
            <div class="reservas-grid">
@@ -51,17 +54,23 @@ require_once __DIR__ . "/../../../config/functions.php";
                         <td style="padding: 10px; border-bottom: 1px solid #ddd;"><?= htmlspecialchars($reserva['carro']) ?></td>
                         <td style="padding: 10px; border-bottom: 1px solid #ddd;"><?= htmlspecialchars(date("d/m/Y", strtotime($reserva['fecha']))) ?></td>
                         
-                        <!-- Coloreado dinámico del estado según la base de datos -->
                         <td style="padding: 10px; border-bottom: 1px solid #ddd;">
                             <span style="padding: 5px 10px; border-radius: 5px; font-weight: bold; font-size: 0.9em;
                                 <?= $reserva['estado'] === 'reservado' ? 'background-color: #fff3cd; color: #856404;' : 
-                                   ($reserva['estado'] === 'entregado' ? 'background-color: #d4edda; color: #155724;' : 
-                                   'background-color: #e2e3e5; color: #383d41;') ?>">
+                                ($reserva['estado'] === 'entregado' ? 'background-color: #d4edda; color: #155724;' : 
+                                'background-color: #e2e3e5; color: #383d41;') ?>">
                                 <?= htmlspecialchars(ucfirst($reserva['estado'])) ?>
                             </span>
                         </td>
                         
                         <td style="padding: 10px; border-bottom: 1px solid #ddd;"><?= htmlspecialchars($reserva['comentario']) ?></td>
+                        
+                        <!-- Columna de Acciones apuntando a archivos distintos -->
+                        <td style="padding: 10px; border-bottom: 1px solid #ddd; white-space: nowrap;">
+                            <a href="modificar.php?id=<?= $reserva['id'] ?>" style="background-color: #007bff; color: white; text-decoration: none; padding: 5px 10px; border-radius: 3px; margin-right: 5px;">Editar</a>
+                            
+                            <a href="eliminar.php?id=<?= $reserva['id'] ?>" onclick="return confirm('¿Estás seguro de eliminar este carro permanentemente?');" style="background-color: #dc3545; color: white; text-decoration: none; padding: 5px 10px; border-radius: 3px;">Eliminar</a>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

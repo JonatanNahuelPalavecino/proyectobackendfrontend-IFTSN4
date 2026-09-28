@@ -27,7 +27,7 @@
                 $crearCarro-> execute([$nombre_carro,$descripcion_carro, $capacidad]);
 
                 notify("Carro '$nombre_carro' creado exitosamente", "success");
-                redirect ('/dashboard/carros/crear.php');
+                redirect ('/dashboard/reservas/carros/crear.php');
             } catch (Exception $error){
                 notify ("Hubo un error al guardar en la base de datos.", "error");
             }
@@ -38,7 +38,7 @@
     <?php include __DIR__ . "/../../../components/header.php"; ?>
 
     <main class="dashboard">
-        <h2>💻 Crear Nuevo Carro</h2>
+        <h2>💻 Crear Nuevo Carro</h2> 
         <p>Añade un nuevo carro al sistema. Por defecto, cada carro soporta un máximo de 30 notebooks.</p>
 
         <!-- Formulario simplificado -->
