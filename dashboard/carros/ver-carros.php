@@ -1,6 +1,6 @@
 <?php
-    require_once __DIR__ . "/../../../config/db.php";
-    require_once __DIR__ . "/../../../config/functions.php";
+    require_once __DIR__ . "/../../config/db.php";
+    require_once __DIR__ . "/../../config/functions.php";
 
     $usuario = getUser();
 
@@ -12,43 +12,41 @@
 
     $titulo = "Inventario de Carros || Sistema";
 
-    // Llamamos a la nueva función (que crearemos en el paso 3)
     $inventario_completo = getInventarioCarrosCompleto($pdo);
 ?>
 
-<?php require_once __DIR__ . "/../../../components/header.php"; ?>
+<?php require_once __DIR__ . "/../../components/header.php"; ?>
 
 <main class="dashboard">
     <section>
         <div class="reservas-header">
             <h1>📦 Inventario Total de Carros</h1>
             <p>Listado de todos los carros del sistema, incluyendo los disponibles.</p>
-            <a href="ver-reservas.php" class="btn" style="display: inline-block; margin-top: 10px; background-color: #6c757d; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px;">
-                ⬅ Volver a Reservas
+            <a href="<?php echo BASE_URL ?>/dashboard">
+                ⬅ Volver al dashboard
             </a>
         </div>
 
-        <div class="reservas-grid" style="margin-top: 20px;">
             <?php if (!empty($inventario_completo)): ?>
-                <table class="table-reservas" border="1" style="width: 100%; border-collapse: collapse; text-align: left;">
+                <table class="table-reservas" border="1">
                     <thead>
                         <tr>
-                            <th style="padding: 10px; background-color: #f4f4f4;">Carro</th>
-                            <th style="padding: 10px; background-color: #f4f4f4;">Estado Actual</th>
-                            <th style="padding: 10px; background-color: #f4f4f4;">Última Fecha Reserva</th>
-                            <th style="padding: 10px; background-color: #f4f4f4;">Acciones de Inventario</th>
+                            <th>Carro</th>
+                            <th>Estado Actual</th>
+                            <th>Última Fecha Reserva</th>
+                            <th>Acciones de Inventario</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($inventario_completo as $carro): ?>
                             <tr>
-                                <td style="padding: 10px; border-bottom: 1px solid #ddd;">
+                                <td>
                                     <strong><?= htmlspecialchars($carro['carro']) ?></strong>
                                 </td>
                                 
-                                <td style="padding: 10px; border-bottom: 1px solid #ddd;">
+                                <td>
                                     <?php if (empty($carro['estado'])): ?>
-                                        <span style="padding: 5px 10px; border-radius: 5px; font-weight: bold; font-size: 0.9em; background-color: #d1e7dd; color: #0f5132;">
+                                        <span>
                                             Disponible (Sin reservas)
                                         </span>
                                     <?php else: ?>
@@ -61,14 +59,13 @@
                                     <?php endif; ?>
                                 </td>
 
-                                <td style="padding: 10px; border-bottom: 1px solid #ddd;">
+                                <td>
                                     <?= !empty($carro['fecha']) ? htmlspecialchars(date("d/m/Y", strtotime($carro['fecha']))) : '-' ?>
                                 </td>
 
-                                <td style="padding: 10px; border-bottom: 1px solid #ddd;">
-                                    <!-- Estos botones apuntan al CRUD que ya construiste previamente -->
-                                    <a href="modificar.php?id=<?= $carro['id'] ?>" style="background-color: #007bff; color: white; text-decoration: none; padding: 5px 10px; border-radius: 3px; margin-right: 5px;">Editar Carro</a>
-                                    <a href="eliminar.php?id=<?= $carro['id'] ?>" onclick="return confirm('¿Estás seguro de eliminar este carro permanentemente de la base de datos?');" style="background-color: #dc3545; color: white; text-decoration: none; padding: 5px 10px; border-radius: 3px;">Eliminar Carro</a>
+                                <td>
+                                    <a href="modificar.php?id=<?= $carro['id'] ?>">Editar Carro</a>
+                                    <a href="eliminar.php?id=<?= $carro['id'] ?>" onclick="return confirm('¿Estás seguro de eliminar este carro permanentemente de la base de datos?');">Eliminar Carro</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -77,8 +74,8 @@
             <?php else: ?>
                 <p>No hay carros registrados en la base de datos.</p>
             <?php endif; ?>
-        </div>
+
     </section>
 </main>
 
-<?php require_once __DIR__ . "/../../../components/footer.php"; ?>
+<?php require_once __DIR__ . "/../../components/footer.php"; ?>

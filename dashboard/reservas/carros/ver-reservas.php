@@ -11,51 +11,55 @@ require_once __DIR__ . "/../../../config/functions.php";
         redirect("/login.php");
     }
 
-    $titulo = "Mis reservas || Reserva tu carro";
+    if($usuario['rol'] === "admin") {
 
-    // Vista de Usuario: Trae solo las reservas activas del profesor logueado
-    $reservas_user = getReservasCarrosActivas($pdo, $usuario['id']);
+        $titulo = "Total de Reservas | Reserva tu carro";
+
+        // Vista de Admin: Trae TODAS las reservas del sistema (usando tu nueva función)
+        $reservas_admin = getReservasCarrosAdmin($pdo);
+    } else {
+
+        $titulo = "Mis reservas | Reserva tu carro";
     
-    // Vista de Admin: Trae TODAS las reservas del sistema (usando tu nueva función)
-    $reservas_admin = getReservasCarrosAdmin($pdo);
+        // Vista de Usuario: Trae solo las reservas activas del profesor logueado
+        $reservas_user = getReservasCarrosActivas($pdo, $usuario['id']);
+    }
+    
 
 ?>
 
 <?php require_once __DIR__ . "/../../../components/header.php"; ?>
 
-<main class="mis-reservas">
+<main>
     <section>
         
         <?php if ($usuario['rol'] === 'admin'): ?>
             <!-- VISTA DEL ADMINISTRADOR -->
-            <div class="reservas-header">
-                <h1>📊 Reservas del Sistema</h1>
+            <div>
+                <h1>📊 Reservas de carros del Sistema</h1>
                 <p>Todas las reservas de carros del sistema.</p>
-                <a href="inventario.php" class="btn" style="display: inline-block; margin-top: 10px; background-color: #28a745; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px; font-weight: bold;">
-                📦 Ver Inventario Total
-                </a>
             </div> 
             
-           <div class="reservas-grid">
+           <div>
     <?php if (!empty($reservas_admin)): ?>
-        <table class="table-reservas" border="1" style="width: 100%; border-collapse: collapse; text-align: left;">
+        <table border="1">
             <thead>
                 <tr>
-                    <th style="padding: 10px; background-color: #f4f4f4;">Carro</th>
-                    <th style="padding: 10px; background-color: #f4f4f4;">Fecha</th>
-                    <th style="padding: 10px; background-color: #f4f4f4;">Estado</th>
-                    <th style="padding: 10px; background-color: #f4f4f4;">Comentarios</th>
-                    <th style="padding: 10px; background-color: #f4f4f4;"> Editar </th>
+                    <th>Carro</th>
+                    <th>Fecha</th>
+                    <th>Estado</th>
+                    <th>Comentarios</th>
+                    <th> Editar </th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($reservas_admin as $reserva): ?>
                     <tr>
-                        <td style="padding: 10px; border-bottom: 1px solid #ddd;"><?= htmlspecialchars($reserva['carro']) ?></td>
-                        <td style="padding: 10px; border-bottom: 1px solid #ddd;"><?= htmlspecialchars(date("d/m/Y", strtotime($reserva['fecha']))) ?></td>
+                        <td><?= htmlspecialchars($reserva['carro']) ?></td>
+                        <td><?= htmlspecialchars(date("d/m/Y", strtotime($reserva['fecha']))) ?></td>
                         
-                        <td style="padding: 10px; border-bottom: 1px solid #ddd;">
-                            <span style="padding: 5px 10px; border-radius: 5px; font-weight: bold; font-size: 0.9em;
+                        <td>
+                            <span style="
                                 <?= $reserva['estado'] === 'reservado' ? 'background-color: #fff3cd; color: #856404;' : 
                                 ($reserva['estado'] === 'entregado' ? 'background-color: #d4edda; color: #155724;' : 
                                 'background-color: #e2e3e5; color: #383d41;') ?>">
@@ -63,13 +67,13 @@ require_once __DIR__ . "/../../../config/functions.php";
                             </span>
                         </td>
                         
-                        <td style="padding: 10px; border-bottom: 1px solid #ddd;"><?= htmlspecialchars($reserva['comentario']) ?></td>
+                        <td><?= htmlspecialchars($reserva['comentario']) ?></td>
                         
-                        <!-- Columna de Acciones apuntando a archivos distintos -->
-                        <td style="padding: 10px; border-bottom: 1px solid #ddd; white-space: nowrap;">
-                            <a href="modificar.php?id=<?= $reserva['id'] ?>" style="background-color: #007bff; color: white; text-decoration: none; padding: 5px 10px; border-radius: 3px; margin-right: 5px;">Editar</a>
+
+                        <td>
+                            <a href="modificar.php?id=<?= $reserva['id'] ?>">Editar</a>
                             
-                            <a href="eliminar.php?id=<?= $reserva['id'] ?>" onclick="return confirm('¿Estás seguro de eliminar este carro permanentemente?');" style="background-color: #dc3545; color: white; text-decoration: none; padding: 5px 10px; border-radius: 3px;">Eliminar</a>
+                            <a href="eliminar.php?id=<?= $reserva['id'] ?>" onclick="return confirm('¿Estás seguro de eliminar este carro permanentemente?');">Eliminar</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -81,33 +85,32 @@ require_once __DIR__ . "/../../../config/functions.php";
 </div>
 
         <?php else: ?>
-            <!-- VISTA DEL USUARIO REGULAR (PROFESOR) -->
             <div>
-                <h1>💻 Mis reservas || Carros </h1>
+                <h1>💻 Mis reservas | Carros </h1>
                 <p>Aquí podrás ver tus reservas de carros activas.</p>
             </div>
 
-            <div class="reservas-grid">
+            <div>
     <?php if(!empty($reservas_user)): ?>
-        <table class="table-reservas" border="1" style="width: 100%; border-collapse: collapse; text-align: left;">
+        <table border="1">
             <thead>
                 <tr>
-                    <th style="padding: 10px; background-color: #f4f4f4;">Carro</th>
-                    <th style="padding: 10px; background-color: #f4f4f4;">Fecha</th>
-                    <th style="padding: 10px; background-color: #f4f4f4;">Estado</th>
-                    <th style="padding: 10px; background-color: #f4f4f4;">Comentarios</th>
-                    <th style="padding: 10px; background-color: #f4f4f4;">Acciones</th>
+                    <th>Carro</th>
+                    <th>Fecha</th>
+                    <th>Estado</th>
+                    <th>Comentarios</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach($reservas_user as $reserva): ?>
                     <tr>
-                        <td style="padding: 10px; border-bottom: 1px solid #ddd;"><?= htmlspecialchars($reserva['carro']) ?></td>
-                        <td style="padding: 10px; border-bottom: 1px solid #ddd;"><?= htmlspecialchars(date("d/m/Y", strtotime($reserva['fecha']))) ?></td>
+                        <td><?= htmlspecialchars($reserva['carro']) ?></td>
+                        <td><?= htmlspecialchars(date("d/m/Y", strtotime($reserva['fecha']))) ?></td>
                         
                     
-                        <td style="padding: 10px; border-bottom: 1px solid #ddd;">
-                            <span style="padding: 5px 10px; border-radius: 5px; font-weight: bold; font-size: 0.9em;
+                        <td>
+                            <span style="
                                 <?= $reserva['estado'] === 'reservado' ? 'background-color: #fff3cd; color: #856404;' : 
                                    ($reserva['estado'] === 'entregado' ? 'background-color: #d4edda; color: #155724;' : 
                                    'background-color: #e2e3e5; color: #383d41;') ?>">
@@ -115,21 +118,21 @@ require_once __DIR__ . "/../../../config/functions.php";
                             </span>
                         </td>
                         
-                        <td style="padding: 10px; border-bottom: 1px solid #ddd;"><?= htmlspecialchars($reserva['comentario']) ?></td>
+                        <td><?= htmlspecialchars($reserva['comentario']) ?></td>
                         
                         
-                        <td style="padding: 10px; border-bottom: 1px solid #ddd;">
-                            <a href="<?= BASE_URL ?>/dashboard/carros/modificar.php?id=<?= $reserva['id'] ?>" class="btn" style="margin-right: 5px;">Editar</a>
-                            <button type="button" popovertarget="eliminar-reserva-<?= $reserva['id'] ?>" style="background-color: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer;">Eliminar</button>
+                        <td>
+                            <a href="<?= BASE_URL ?>/dashboard/reservas/carros/modificar.php?id=<?= $reserva['id'] ?>">Editar</a>
+                            <button type="button" popovertarget="eliminar-reserva-<?= $reserva['id'] ?>">Eliminar</button>
                         </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
     <?php else: ?>
-        <article class="empty-state" style="text-align: center; padding: 20px; background-color: #f9f9f9; border: 1px dashed #ccc;">
+        <article>
             <p>No tienes reservas de carros activas.</p>
-            <a href="<?= BASE_URL ?>/dashboard/carros/crear-reserva.php" class="btn">Ir a Reservar</a>
+            <a href="<?= BASE_URL ?>/dashboard/reservas/carros/crear-reserva.php">Ir a Reservar</a>
         </article>
     <?php endif; ?>
 </div>
@@ -138,12 +141,11 @@ require_once __DIR__ . "/../../../config/functions.php";
 
     </section>
 
-    <!-- Componente Popover (Solo para Profesores) -->
     <?php if ($usuario['rol'] === 'user' && !empty($reservas_user)): ?>
         <?php foreach ($reservas_user as $reserva): ?>
             <section id="eliminar-reserva-<?= $reserva['id'] ?>" popover>
                 <p>¿Estás seguro que quieres cancelar tu reserva del <strong><?= htmlspecialchars($reserva['carro']) ?></strong> para el día <?= htmlspecialchars($reserva['fecha']) ?>?</p>
-                <a href="<?= BASE_URL ?>/dashboard/carros/eliminar.php?id=<?= $reserva['id'] ?>">Sí, Cancelar Reserva</a>
+                <a href="<?= BASE_URL ?>/dashboard/reservas/carros/eliminar.php?id=<?= $reserva['id'] ?>">Sí, Cancelar Reserva</a>
                 <button type="button" popovertarget="eliminar-reserva-<?= $reserva['id'] ?>" popovertargetaction="hide">No, Volver</button>
             </section>
         <?php endforeach; ?>

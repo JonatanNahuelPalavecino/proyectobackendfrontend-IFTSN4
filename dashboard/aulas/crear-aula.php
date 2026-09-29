@@ -1,49 +1,51 @@
 <?php
-    require_once __DIR__ . "/../../config/functions.php";
-    require_once __DIR__ . "/../../config/validations.php";
-    require_once __DIR__ . "/../../config/db.php";
+require_once __DIR__ . "/../../config/functions.php";
+require_once __DIR__ . "/../../config/validations.php";
+require_once __DIR__ . "/../../config/db.php";
 
-    $usuario = getUser();
+$usuario = getUser();
 
-    if (!$usuario || $usuario['rol'] !== 'admin') {
-        notify('No tenés permisos para crear aulas.', 'error');
-        redirect('/dashboard/');
-    }
+if (!$usuario || $usuario['rol'] !== 'admin') {
+    notify('No tenés permisos para crear aulas.', 'error');
+    redirect('/dashboard/');
+}
 
-    $titulo = "Crear Aula | Reservá tu aula";
-    
-    //ACA PUEDE ENTRAR SOLO ADMIN, YA QUE EL USER NO PUEDE CREAR AULAS
+$titulo = "Crear Aula | Reservá tu aula";
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $nombre_aula = trim($_POST['nombre']);
-        $capacidad = intval($_POST['capacidad']);
+//ACA PUEDE ENTRAR SOLO ADMIN, YA QUE EL USER NO PUEDE CREAR AULAS
 
-        $error = validateInputsCreateorEditClassroom($nombre_aula, $capacidad);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nombre_aula = trim($_POST['nombre']);
+    $capacidad = intval($_POST['capacidad']);
 
-        if ($error) {
-            notify($error, "error");
-        } else {
-            try {
-                $sql = 'INSERT INTO classrooms (nombre, capacidad) VALUES (?, ?)';
-                $crearAula = $pdo->prepare($sql);
-                $crearAula->execute([$nombre_aula, $capacidad]);
-    
-                notify("Creacion de aula exitoso.", 'success');
-                redirect('/dashboard/aulas/crear-aula.php');
-            } catch (Exception $error) {
-                die('Error de conexión a la base de datos: ' . $error->getMessage());
-            }
+    $error = validateInputsCreateorEditClassroom($nombre_aula, $capacidad);
+
+    if ($error) {
+        notify($error, "error");
+    } else {
+        try {
+            $sql = 'INSERT INTO classrooms (nombre, capacidad) VALUES (?, ?)';
+            $crearAula = $pdo->prepare($sql);
+            $crearAula->execute([$nombre_aula, $capacidad]);
+
+            notify("Creacion de aula exitoso.", 'success');
+            redirect('/dashboard/aulas/crear-aula.php');
+        } catch (Exception $error) {
+            die('Error de conexión a la base de datos: ' . $error->getMessage());
         }
     }
+}
 
 ?>
 
 <?php
-    include __DIR__ . "/../../components/header.php";
+include __DIR__ . "/../../components/header.php";
 ?>
 
 <main>
-    <h1>Crear Aula</h1>
+    <h1>🏛️ Crear Nueva Aula</h1>
+    <p>Añade una nueva aula al sistema.</p>
+
     <form method="post">
         <p>Ingresa el nombre del aula y su capacidad.</p>
         <div>
@@ -53,11 +55,11 @@
         <div>
             <label for="capacidad">Capacidad</label>
             <input type="number" name="capacidad" id="capacidad" placeholder="Ingresa la capacidad del aula" min="0" required>
-        </div>  
+        </div>
         <button type="submit">Crear Aula</button>
     </form>
 </main>
 
 <?php
-    include __DIR__ . "/../../components/footer.php";
+include __DIR__ . "/../../components/footer.php";
 ?>

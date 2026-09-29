@@ -21,15 +21,33 @@
         $comentario = trim($_POST['comentario']); 
         $user_id = $usuario['id']; 
 
+        $sqlItemsCarro = "SELECT computers.id, computers.nombre, numero_serie, carts.nombre AS pertenece_a_carro FROM carts JOIN computers ON carts.id = computers.cart_id WHERE carts.id = ?";
+        $consulta = $pdo->prepare($sqlItemsCarro);
+        $consulta->execute([$cart_id]);
+
+        $tieneComputadoras = $consulta->fetchAll(PDO::FETCH_ASSOC);
+
         if (empty($cart_id) || empty($fecha) || empty($comentario)) {
             notify("Todos los campos (incluyendo el comentario) son obligatorios", "error");
         } else {
             try {
-                // Intentamos hacer la reserva
-                $reservaExitosa = crearReservaCarro($pdo, $user_id, $cart_id, $fecha, $comentario);
+                // Intentamos hacer la reserva si el carro tiene computadoras
+                if (empty($tieneComputadoras)) {
+                    notify("El carro no tiene computadoras asignadas", "error");
+                    redirect('/dashboard/reservas/carros/crear-reserva.php');
+                }
+
+                $idReservaDeCarro = crearReservaCarro($pdo, $user_id, $cart_id, $fecha, $comentario);
+
+
+                foreach ($tieneComputadoras as $computadora) {
+                    $sqlInsertComputadoras = "INSERT INTO cart_delivery_items (cart_reservation_id, nombre_computadora, numero_serie) VALUES (?, ?, ?)";
+                    $registrarComputadorasDeLaReservaDelCarro = $pdo->prepare($sqlInsertComputadoras);
+                    $registrarComputadorasDeLaReservaDelCarro->execute([$idReservaDeCarro, $computadora["nombre"], $computadora["numero_serie"]]);
+                }
                 
                 // Camino Feliz: Todo salió bien
-                if ($reservaExitosa) {
+                if ($idReservaDeCarro) {
                     notify("Reserva confirmada con éxito", "success");
                     redirect('/dashboard/reservas/carros/ver-reservas.php'); 
                 } else {
@@ -47,6 +65,7 @@
                 } else {
                     // Por si ocurre otro error de base de datos distinto al 23000
                     notify("Ocurrió un error inesperado al conectar con la base de datos.", "error");
+                    var_dump($e);
                 }
             } 
         }
@@ -91,4 +110,4 @@
     </form>      
 </main>
 
-<?php require __DIR__ . '/../../../components/header.php'; ?>
+<?php require __DIR__ . '/../../../components/footer.php'; ?>

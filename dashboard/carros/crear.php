@@ -1,6 +1,6 @@
 <?php
-    require_once __DIR__ . "/../../../config/functions.php";
-    require_once __DIR__ . "/../../../config/db.php";
+    require_once __DIR__ . "/../../config/functions.php";
+    require_once __DIR__ . "/../../config/db.php";
 
 
     $usuario = getUser();
@@ -27,7 +27,7 @@
                 $crearCarro-> execute([$nombre_carro,$descripcion_carro, $capacidad]);
 
                 notify("Carro '$nombre_carro' creado exitosamente", "success");
-                redirect ('/dashboard/reservas/carros/crear.php');
+                redirect ('/dashboard/carros/crear.php');
             } catch (Exception $error){
                 notify ("Hubo un error al guardar en la base de datos.", "error");
             }
@@ -35,30 +35,29 @@
     }
     ?>
 
-    <?php include __DIR__ . "/../../../components/header.php"; ?>
+    <?php include __DIR__ . "/../../components/header.php"; ?>
 
-    <main class="dashboard">
-        <h2>💻 Crear Nuevo Carro</h2> 
+    <main>
+        <h1>🛒 Crear Nuevo Carro</h1> 
         <p>Añade un nuevo carro al sistema. Por defecto, cada carro soporta un máximo de 30 notebooks.</p>
 
-        <!-- Formulario simplificado -->
-        <form method="POST" class="auth-form" style="max-width: 500px; margin-top: 20px;">
-            <div class="auth-field">
+        <form method="POST">
+            <div>
                 <label for="nombre">Identificador del Carro:</label>
-                <input type="text" name="nombre" id="nombre" class="auth-input" placeholder="Ej: Carro Móvil 1" minlength="4" required>
+                <input type="text" name="nombre" id="nombre" placeholder="Ej: Carro Móvil 1" minlength="4" required>
             </div>
         
 
-             <div class="auth-field">
+             <div>
                 <label for="descripcion">Descripcion:</label>
-                <input type="text" name="descripcion" id="descripcion" class="auth-input" placeholder="Ej: Carro para presentacion de proyectos " minlength="4" required>
+                <input type="text" name="descripcion" id="descripcion" placeholder="Ej: Carro para presentacion de proyectos " minlength="4" required>
             </div>
             
-            <button type="submit" class="auth-button">Guardar Carro</button>
+            <button type="submit">Guardar Carro</button>
         </form>
     </main>
 
-    <?php include __DIR__ . "/../../../components/footer.php"; ?>
+    <?php include __DIR__ . "/../../components/footer.php"; ?>
 
 
 

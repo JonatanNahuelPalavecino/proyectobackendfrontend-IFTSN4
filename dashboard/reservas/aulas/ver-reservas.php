@@ -20,9 +20,6 @@
         $reservas = getReservasUser($pdo, $usuario['id']);
     }
 
-
-    //ACA PUEDE ENTRAR ADMIN Y USER, SOLO CAMBIA LO QUE VE CADA UNO
-    //ADMIN VE EL TOTAL DE RESERVAS DE AULAS SIN DIFRERENCIAR POR USUARIO, Y EL USER SOLO VE SUS RESERVAS DE AULAS
 ?>
 
 <?php
@@ -34,8 +31,8 @@
     <section>
         <?php if($usuario['rol'] === 'admin'): ?>
             <div class ="reservas-header">
-                <h1>Reservas del Sistema</h1>
-                <p>Todas las reservas del sistema</p>
+                <h1>Reservas de aulas del Sistema</h1>
+                <p>Todas las reservas aulas del sistema</p>
             </div>
 
 

@@ -63,7 +63,7 @@
 ?>
 
 <main>
-    <h1>Editar Aula</h1>
+    <h1>🏛️ Editar Aula</h1>
 
     <form method="post">
         <div>

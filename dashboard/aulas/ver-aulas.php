@@ -11,8 +11,6 @@
     }
 
     $titulo = "Administrar Aulas | Reservá tu aula";
-    
-    //ACA PUEDE ENTRAR SOLO ADMIN, YA QUE EL USER NO PUEDE ADMINISTRAR AULAS
 
     $consulta = $pdo->query('SELECT `classrooms`.id, nombre, capacidad, `classrooms`.created_at, dia_desde, dia_hasta, hora_inicio, hora_fin FROM classrooms LEFT JOIN classroom_schedules ON classroom_schedules.classroom_id = classrooms.id ORDER BY `classrooms`.id');
     $aulas = $consulta->fetchAll();
