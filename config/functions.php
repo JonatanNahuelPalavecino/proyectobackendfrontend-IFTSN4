@@ -129,7 +129,13 @@
                 VALUES (?,?,?,?)";
         $stmt = $conn->prepare($sql);
 
-        return $stmt->execute([$user_id, $cart_id, $fecha,$comentario]);
+        $stmt->execute([$user_id, $cart_id, $fecha,$comentario]);
+
+        if ($stmt) {
+            return $conn->lastInsertId();
+        }
+
+        return false;
 
     }
 

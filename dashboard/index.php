@@ -50,9 +50,8 @@
                 <div>
                     <a href="<?= BASE_URL?>/dashboard/notebooks/ver-notebooks.php" class="btn reservar">Gestionar Pcs</a>
                 </div>
-                <!-- Falta definir ruta de carros -->
                 <div>
-                    <a href="<?= BASE_URL?>/dashboard/reservas/carros/ver-reservas.php" class="btn reservar">Gestionar Carros</a>
+                    <a href="<?= BASE_URL?>/dashboard/carros/ver-carros.php" class="btn reservar">Gestionar Carros</a>
                 </div>
 
                 <div>
@@ -64,7 +63,7 @@
                 </div>
                 
                 <div>
-                    <a href="<?= BASE_URL?>/dashboard/reservas/carros/crear.php" class="btn reservar">+ Carro</a>
+                    <a href="<?= BASE_URL?>/dashboard/carros/crear.php" class="btn reservar">+ Carro</a>
                 </div>
 
             <?php else: ?>
@@ -77,7 +76,7 @@
                     <a href="<?=BASE_URL?>/dashboard/reservas/aulas/crear-reserva.php" class="btn reservar">Reservar aula</a>
                 </div>
                 <div>
-                    <a href="<?= BASE_URL?>/dashboard/reservas/carros/ver-reservas.php" class="btn reservar">Gestionar Carros</a>
+                    <a href="<?= BASE_URL?>/dashboard/reservas/carros/crear-reserva.php" class="btn reservar">Reservar Carros</a>
                 </div>
                 
             <?php endif; ?> 
