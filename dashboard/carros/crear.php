@@ -33,34 +33,33 @@
             }
         }
     }
-    ?>
+?>
 
-    <?php include __DIR__ . "/../../components/header.php"; ?>
+<?php include __DIR__ . "/../../components/header.php"; ?>
 
-    <main>
-        <h1>🛒 Crear Nuevo Carro</h1> 
-        <p>Añade un nuevo carro al sistema. Por defecto, cada carro soporta un máximo de 30 notebooks.</p>
+    <main class ="form-page">
+        <div class ="form-header">
+            <h1>🛒 Crear Carro</h1> 
+            <p>Añade un nuevo carro al sistema. Por defecto, cada carro soporta un máximo de 30 notebooks.</p>
+        </div>
 
-        <form method="POST">
-            <div>
+        <form method="POST" class ="create-form">
+            <div class="form-group">
                 <label for="nombre">Identificador del Carro:</label>
                 <input type="text" name="nombre" id="nombre" placeholder="Ej: Carro Móvil 1" minlength="4" required>
             </div>
         
 
-             <div>
+             <div class ="form-group">
                 <label for="descripcion">Descripcion:</label>
                 <input type="text" name="descripcion" id="descripcion" placeholder="Ej: Carro para presentacion de proyectos " minlength="4" required>
             </div>
             
-            <button type="submit">Guardar Carro</button>
+            <div class="form-actions">
+                <button class="btn-action" type="submit">Guardar</button>     
+                <a class="btn-back" href="../index.php" class="btn back">Volver</a>
+            </div>
         </form>
     </main>
 
-    <?php include __DIR__ . "/../../components/footer.php"; ?>
-
-
-
-
-
-?>
+<?php include __DIR__ . "/../../components/footer.php"; ?>

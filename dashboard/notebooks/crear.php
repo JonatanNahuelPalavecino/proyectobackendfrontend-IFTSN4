@@ -43,25 +43,27 @@
 
 <?php 
     include __DIR__ . "/../../components/header.php";
-    var_dump($carro);
+    // var_dump($carro);
 ?>
 
-<main>
-    <h1>Crear Notebook</h1>
-    <p>Ingrese nombre, numero serie y carro para guardar la notebook</p>
-    <form method="post">
-        <div>
+<main class="form-page">    
+    <div class="form-header">
+        <h1>💻Crear Notebook</h1>
+        <p>Ingrese nombre, numero serie y carro para guardar la notebook</p>
+    </div>
+    <form method="post" class="create-form" >
+        <div class="form-group">
             <label for="nombre">Nombre:</label>
             <input type="text" name="nombre" id="nombre" placeholder="Ej: Notebook Dell 01" minLength="8" required>
         </div>
         
-        <div>
+        <div class="form-group"> 
             <label for="numeroSerie">Numero Serie:</label>
             <input type="text" name="numeroSerie" id="numeroSerie" placeholder="Ej: DELL-A-0001"
             pattern="(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9-]+" title="El número de serie debe contener letras y números" minLength="5" required>
         </div>
 
-        <div>
+        <div class="form-group">
             <label for="carros">Carros:</label>
 
             <?php if($allCarts): ?>
@@ -73,13 +75,13 @@
                     
                 </select>
             <?php else: ?>
-                <p>No hay carros creados. La notebook se creará sin asignacion.</p>
+                <p class="form-info">No hay carros creados. La notebook se creará sin asignacion.</p>
             <?php endif;?>
         </div>
 
-        <div>
-            <button type="submit">Guardar</button>     
-            <a href="../index.php" class="btn back">Volver</a>
+        <div class="form-actions">
+            <button class="btn-action" type="submit">Guardar</button>     
+            <a class="btn-back" href="../index.php" class="btn back">Volver</a>
         </div>
     </form>
 </main>
