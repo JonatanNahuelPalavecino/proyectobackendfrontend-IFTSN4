@@ -27,6 +27,14 @@ $user = getUser();
             </span>
         </a>
 
+        <a class="side-nav-link" href="<?= BASE_URL ?>/como-funciona.php" aria-label="¿Cómo funciona?" title="¿Cómo funciona?">
+            <span class="side-nav-icon" aria-hidden="true">?</span>
+            <span class="side-nav-text">
+                <strong>¿Cómo funciona?</strong>
+                <small>Información del sistema</small>
+            </span>
+        </a>
+
         <?php if ($user): ?>
 
             <a class="side-nav-link" href="<?= BASE_URL ?>/dashboard/index.php" aria-label="Dashboard" title="Dashboard">
@@ -58,22 +66,6 @@ $user = getUser();
 
             <?php else: ?>
 
-                <a class="side-nav-link" href="<?= BASE_URL ?>/dashboard/reservas/aulas/crear-reserva.php" aria-label="Reservar aula" title="Reservar aula">
-                    <span class="side-nav-icon" aria-hidden="true">＋</span>
-                    <span class="side-nav-text">
-                        <strong>Reservar aula</strong>
-                        <small>Crear una nueva reserva</small>
-                    </span>
-                </a>
-
-                <a class="side-nav-link" href="<?= BASE_URL ?>/dashboard/reservas/carros/crear-reserva.php" aria-label="Reservar aula" title="Reservar aula">
-                    <span class="side-nav-icon" aria-hidden="true">＋</span>
-                    <span class="side-nav-text">
-                        <strong>Reservar Carro</strong>
-                        <small>Crear una nueva reserva</small>
-                    </span>
-                </a>
-
                 <a class="side-nav-link" href="<?= BASE_URL ?>/dashboard/reservas/aulas/ver-reservas.php" aria-label="Mis reservas" title="Mis reservas">
                     <span class="side-nav-icon" aria-hidden="true">▤</span>
                     <span class="side-nav-text">
@@ -101,14 +93,6 @@ $user = getUser();
             </a>
 
         <?php else: ?>
-
-            <a class="side-nav-link" href="<?= BASE_URL ?>/como-funciona.php" aria-label="¿Cómo funciona?" title="¿Cómo funciona?">
-                <span class="side-nav-icon" aria-hidden="true">?</span>
-                <span class="side-nav-text">
-                    <strong>¿Cómo funciona?</strong>
-                    <small>Información del sistema</small>
-                </span>
-            </a>
 
             <a class="side-nav-link" href="<?= BASE_URL ?>/login.php" aria-label="Iniciar sesión" title="Iniciar sesión">
                 <span class="side-nav-icon" aria-hidden="true">→</span>

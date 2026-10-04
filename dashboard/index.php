@@ -17,13 +17,20 @@
         $totalUsers = getTotalUsers($pdo);
         $totalCarts = getTotalCarts($pdo);
         $totalNotebooks = getTotalNotebooks($pdo);
+        $totalReservasAulasHoy = getTotalReservasAulasToday($pdo);
+        $totalReservasCarrosHoy = getTotalReservasCarrosToday($pdo);
+
+        $detalleReservasAulasHoy = getDetalleReservasAulasToday($pdo);
+        $detalleReservasCarrosHoy = getDetalleReservasCarrosToday($pdo);
 
     } else {
-        //TOTAL DE RESERVAS ACTIVAS QUE HIZO EL USUARIO
-        $cantReservasUser = getCantReservActivas($pdo, $usuario['id']);
+        $totalReservasAulasActivas = getTotalReservasAulasActivas($pdo, $usuario['id']);
+        $totalReservasAulas = getTotalReservasAulas($pdo, $usuario['id']);
+        $totalReservasCarrosActivas = getTotalReservasCarrosActivas($pdo, $usuario['id']); 
+        $totalReservasCarros = getTotalReservasCarros($pdo, $usuario['id']);
 
-        //TOTAL DE RESERVAS QUE HIZO EL USUARIO
-        $cantAllReservasUser = getAllCantReserv($pdo, $usuario['id']);
+        $detalleReservasAulasFuturas = getDetalleReservasAulasFuturas($pdo, $usuario['id']);
+        $detalleReservasCarrosFuturas = getDetalleReservasCarrosFuturas($pdo, $usuario['id']);
 
     }
 
@@ -52,18 +59,6 @@
                 </div>
                 <div>
                     <a href="<?= BASE_URL?>/dashboard/carros/ver-carros.php" class="btn reservar">Gestionar Carros</a>
-                </div>
-
-                <div>
-                    <a href="<?= BASE_URL?>/dashboard/aulas/crear-aula.php" class="btn reservar">+ Aula</a>
-                </div>
-                
-                <div>
-                    <a href="<?= BASE_URL?>/dashboard/notebooks/crear.php" class="btn reservar">+ Pcs</a>
-                </div>
-                
-                <div>
-                    <a href="<?= BASE_URL?>/dashboard/carros/crear.php" class="btn reservar">+ Carro</a>
                 </div>
 
             <?php else: ?>
@@ -105,39 +100,95 @@
             </article>
             
             <article class="card-info">
-                <span>0</span>
-                <small>Reservas hoy</small>
+                <span><?= $totalReservasAulasHoy?></span>
+                <small>Reservas de Aulas hoy</small>
+            </article>
+            
+            <article class="card-info">
+                <span><?= $totalReservasCarrosHoy?></span>
+                <small>Reservas Carros hoy</small>
             </article>
 
         </section>
     <?php else: ?>  
         <section class= "dashboard-cards">
             <article class="card-info">
-                <span class="<?php echo ($cantReservasUser>0) ? "cant-green": "cant-black";?>"><?= $cantReservasUser?></span>
+                <span class="<?php echo ($totalReservasAulasActivas>0) ? "cant-green": "cant-black";?>"><?= $totalReservasAulasActivas?></span>
                 <small>Reservas de Aulas activas</small>
             </article>
             
             <article class="card-info">
-                <span><?= $cantAllReservasUser?></span>
+                <span><?= $totalReservasAulas?></span>
                 <small>Total de Reservas de Aulas</small>
             </article>
 
             <article class="card-info">
-                <span>0</span>
+                <span><?= $totalReservasCarrosActivas?></span>
                 <small>Reservas de Carros activas</small>
             </article>
             
             <article class="card-info">
-                <span>0</span>
+                <span><?= $totalReservasCarros?></span>
                 <small>Total de Reservas de Carros</small>
             </article>
         </section>
     <?php endif;?>
         
-    <section class="dashboard-section">
+    <?php if($usuario["rol"] =="admin"):?>
+        <?php if (!empty($detalleReservasAulasHoy)): ?>
+            <section class="dashboard-reservas">
+                <h2>Reservas de Aulas para hoy</h2>
+                <a href="<?= BASE_URL ?>/config/excel/descargar-reservas-aulas-hoy.php" target="_blank">Descargar Reporte</a>
+                <?php foreach ($detalleReservasAulasHoy as $reserva): ?>
+                    <article>
+                        <h3>Aula: <?= htmlspecialchars($reserva['aula']) ?></h3>
+                        <p>Profesor: <?= htmlspecialchars($reserva['usuario']) ?> </p>
+                        <p>Hora: <?= htmlspecialchars($reserva['hora_inicio']) ?>hs - <?= htmlspecialchars($reserva['hora_fin']) ?>hs</p>
+                    </article>
+                <?php endforeach ?>
+            </section>
+        <?php endif;?>
 
-    
-    </section>
+        <?php if (!empty($detalleReservasCarrosHoy)): ?>
+            <section class="dashboard-reservas">
+                <h2>Reservas de Carros para hoy</h2>
+                <a href="<?= BASE_URL ?>/config/excel/descargar-reservas-carros-hoy.php" target="_blank">Descargar Reporte</a>
+                <?php foreach ($detalleReservasCarrosHoy as $reserva): ?>
+                    <article>
+                        <h3>Carro: <?= htmlspecialchars($reserva['carro']) ?></h3>
+                        <p>Profesor: <?= htmlspecialchars($reserva['usuario']) ?> </p>
+                        <p>Comentario: <?= htmlspecialchars($reserva['comentario']) ?></p>
+                    </article>
+                <?php endforeach ?>
+            </section>
+        <?php endif;?>
+    <?php else: ?>  
+        <?php if (!empty($detalleReservasAulasFuturas)): ?>
+            <section class="dashboard-reservas">
+                <h2>Próximas Reservas de Aulas</h2>
+                <?php foreach ($detalleReservasAulasFuturas as $reserva): ?>
+                    <article>
+                        <h3>Aula: <?= htmlspecialchars($reserva['aula']) ?></h3>
+                        <p>Fecha: <?= htmlspecialchars($reserva['fecha']) ?> </p>
+                        <p>Hora: <?= htmlspecialchars($reserva['hora_inicio']) ?>hs - <?= htmlspecialchars($reserva['hora_fin']) ?>hs</p>
+                    </article>
+                <?php endforeach ?>
+            </section>
+        <?php endif;?>
+
+        <?php if (!empty($detalleReservasCarrosFuturas)): ?>
+            <section class="dashboard-reservas">
+                <h2>Próximas Reservas de Carros</h2>
+                <?php foreach ($detalleReservasCarrosFuturas as $reserva): ?>
+                    <article>
+                        <h3>Carro: <?= htmlspecialchars($reserva['carro']) ?></h3>
+                        <p>Fecha: <?= htmlspecialchars($reserva['fecha']) ?> </p>
+                        <p>Comentario: <?= htmlspecialchars($reserva['comentario']) ?></p>
+                    </article>
+                <?php endforeach ?>
+            </section>
+        <?php endif;?>
+    <?php endif;?>
 </main>
 
 <?php 

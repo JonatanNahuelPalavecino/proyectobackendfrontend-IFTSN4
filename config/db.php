@@ -7,9 +7,11 @@
     $host = "127.0.0.1";
     $username = "root";
     $password = "";
-    $db = 'sistema_reserva_aulas_test';
+    $db = 'sistema_reserva_aulas';
     $puerto = "3306";
     $charset = 'utf8mb4';
+
+    date_default_timezone_set('America/Argentina/Buenos_Aires');
 
 
     // DSN = Data Source Name.
