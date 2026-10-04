@@ -3,6 +3,8 @@
     require_once __DIR__ . "/config/validations.php";
     require_once __DIR__ . "/config/db.php";
 
+    require_once __DIR__ . "/config/sendMailNotify.php";
+
     if (isLoggedIn()) {
         redirect('/dashboard/');
     }
@@ -30,6 +32,27 @@
                 $sql = "INSERT INTO users (nombre, email, password, rol) VALUES (?, ?, ?, ?)";
                 $crearUsuario = $pdo->prepare($sql);
                 $crearUsuario->execute([$nombre, $email, $hashedPassword, $role]);
+                
+
+                //1)ESTA PRIMERA LLAMADA A LA FUNCION DE NOTIFICACION DE ENVIO DE MAIL ES PARA AVISAR AL PROFESOOR QUE SE REGISTRO EN EL SISTEMA.
+                $mensaje = "
+                    <h3><strong>¡Registro exitoso!<strong></h3>
+                    <p>Tus datos son:</p>
+                    <p><strong>Nombre: </strong>$nombre<p/>
+                    <p><strong>Email: </strong>$email<p/>
+                ";
+                sendMailNotify(
+                    ['nombre' => $nombre, 'email' => $email], 
+                    "Sistema Reservas IFTS N°4", 
+                    $mensaje);
+
+                //2)ESTA SEGUNDA LLAMADA A LA FUNCION DE NOTIFICACION DE ENVIO DE MAIL ES PARA AVISAR A LOS MAIL  DEL SISTEMA QUE SE REGISTRO UN PROFESOR NUEVO.
+                $mensaje = "<h3>Se registro un nuevo profesor: <strong>$nombre ($email)</strong> </h3>";
+                sendMailNotify(
+                    ['nombre' => 'Sistema de Reservas', 'email' => 'antruxxi@gmail.com'],
+                    "¡Nuevo profesor registrado!",
+                    $mensaje
+                );
 
                 notify("Registro exitoso. Ahora puedes iniciar sesión.", 'success');
                 redirect('/login.php');
@@ -82,8 +105,6 @@
     <script src="<?= BASE_URL ?>/assets/js/eyePass.js"></script>
 
 </main>
-
-
 
 <?php
     include "./components/footer.php";

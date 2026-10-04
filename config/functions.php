@@ -144,6 +144,15 @@ function getDetalleReservasAulas($conn)
     return $consulta->fetchAll(PDO::FETCH_ASSOC);
 }
 
+// function getAdmins($conn){
+//     $sql = "SELECT nombre, email FROM users WHERE rol = :rol";
+//     $consulta = $conn->prepare($sql);
+//     $consulta->execute([':rol' => 'admin']);
+//     $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
+//     return $resultado;
+// }
+
+
 
 
 //------------------------------- CONSULTAS DASHBOARD USUARIO -------------------------------
