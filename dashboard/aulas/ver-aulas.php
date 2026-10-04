@@ -1,28 +1,32 @@
 <?php
-    require_once __DIR__ . "/../../config/functions.php";
-    require_once __DIR__ . "/../../config/validations.php";
-    require_once __DIR__ . "/../../config/db.php";
+require_once __DIR__ . "/../../config/functions.php";
+require_once __DIR__ . "/../../config/validations.php";
+require_once __DIR__ . "/../../config/db.php";
 
-    $usuario = getUser();
+$usuario = getUser();
 
-    if (!$usuario || $usuario['rol'] !== 'admin') {
-        notify('No tenés permisos para administrar aulas.', 'error');
-        redirect('/dashboard/');
-    }
+if (!$usuario || $usuario['rol'] !== 'admin') {
+    notify('No tenés permisos para administrar aulas.', 'error');
+    redirect('/dashboard/');
+}
 
-    $titulo = "Administrar Aulas | Reservá tu aula";
+$titulo = "Administrar Aulas | Reservá tu aula";
 
-    $consulta = $pdo->query('SELECT `classrooms`.id, nombre, capacidad, `classrooms`.created_at, dia_desde, dia_hasta, hora_inicio, hora_fin FROM classrooms LEFT JOIN classroom_schedules ON classroom_schedules.classroom_id = classrooms.id ORDER BY `classrooms`.id');
-    $aulas = $consulta->fetchAll();
+$consulta = $pdo->query('SELECT `classrooms`.id, nombre, capacidad, `classrooms`.created_at, dia_desde, dia_hasta, hora_inicio, hora_fin FROM classrooms LEFT JOIN classroom_schedules ON classroom_schedules.classroom_id = classrooms.id ORDER BY `classrooms`.id');
+$aulas = $consulta->fetchAll();
 
 ?>
 
 <?php
-    include __DIR__ . "/../../components/header.php";
+include __DIR__ . "/../../components/header.php";
 ?>
 
 <main>
     <h1>Administrar Aulas</h1>
+
+    <div>
+        <a href="<?= BASE_URL ?>/dashboard/aulas/crear-aula.php" class="btn reservar">+ Aula</a>
+    </div>
 
     <?php if (count($aulas) === 0): ?>
         <p>No hay aulas disponibles</p>
@@ -46,8 +50,8 @@
                         <td><?php echo htmlspecialchars($aula['id']) ?></td>
                         <td><?php echo htmlspecialchars($aula['nombre']) ?></td>
                         <td><?php echo htmlspecialchars($aula['capacidad']) ?></td>
-                        <td><?php echo htmlspecialchars( getDayString(intval($aula['dia_desde']))) ?></td>
-                        <td><?php echo htmlspecialchars( getDayString(intval($aula['dia_hasta']))) ?></td>
+                        <td><?php echo htmlspecialchars(getDayString(intval($aula['dia_desde']))) ?></td>
+                        <td><?php echo htmlspecialchars(getDayString(intval($aula['dia_hasta']))) ?></td>
                         <td><?php echo htmlspecialchars($aula['hora_inicio'] ?? "No Seteado") ?></td>
                         <td><?php echo htmlspecialchars($aula['hora_fin']  ?? "No Seteado") ?></td>
                         <td><?php echo htmlspecialchars($aula['created_at']) ?></td>
@@ -57,7 +61,7 @@
                         <?php if (!$aula['dia_desde'] || !$aula['dia_hasta'] || !$aula['hora_inicio'] || !$aula['hora_fin']): ?>
                             <td>
                                 <a href="<?php echo BASE_URL; ?>/dashboard/disponibilidades/crear-disponibilidad.php?id=<?php echo $aula['id']; ?>">CONFIGURAR DISPONIBILIDAD</a>
-                            </td>    
+                            </td>
                         <?php else: ?>
                             <td>
                                 <a href="<?php echo BASE_URL; ?>/dashboard/disponibilidades/editar-disponibilidad.php?id=<?php echo $aula['id']; ?>">EDITAR DISPONIBILIDAD</a>
@@ -83,5 +87,5 @@
 <?php endforeach ?>
 
 <?php
-    include __DIR__ . "/../../components/footer.php";
+include __DIR__ . "/../../components/footer.php";
 ?>
