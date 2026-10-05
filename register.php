@@ -2,6 +2,7 @@
     require_once __DIR__ . "/config/functions.php";
     require_once __DIR__ . "/config/validations.php";
     require_once __DIR__ . "/config/db.php";
+    require_once __DIR__ . "/config/email/templates/register.php";
 
     require_once __DIR__ . "/config/sendMailNotify.php";
 
@@ -35,23 +36,18 @@
                 
 
                 //1)ESTA PRIMERA LLAMADA A LA FUNCION DE NOTIFICACION DE ENVIO DE MAIL ES PARA AVISAR AL PROFESOOR QUE SE REGISTRO EN EL SISTEMA.
-                $mensaje = "
-                    <h3><strong>¡Registro exitoso!<strong></h3>
-                    <p>Tus datos son:</p>
-                    <p><strong>Nombre: </strong>$nombre<p/>
-                    <p><strong>Email: </strong>$email<p/>
-                ";
+              
                 sendMailNotify(
                     ['nombre' => $nombre, 'email' => $email], 
                     "Sistema Reservas IFTS N°4", 
-                    $mensaje);
+                    notifyProfesor($nombre, $email));
 
                 //2)ESTA SEGUNDA LLAMADA A LA FUNCION DE NOTIFICACION DE ENVIO DE MAIL ES PARA AVISAR A LOS MAIL  DEL SISTEMA QUE SE REGISTRO UN PROFESOR NUEVO.
-                $mensaje = "<h3>Se registro un nuevo profesor: <strong>$nombre ($email)</strong> </h3>";
+                
                 sendMailNotify(
                     ['nombre' => 'Sistema de Reservas', 'email' => 'antruxxi@gmail.com'],
                     "¡Nuevo profesor registrado!",
-                    $mensaje
+                    notifyAdmin($nombre, $email)
                 );
 
                 notify("Registro exitoso. Ahora puedes iniciar sesión.", 'success');

@@ -12,3 +12,8 @@ Al Administrador le llega un mail cuando
 - Se crea un (aula o un carro)
 - Se modifica un (aula o un carro)
 - Se elimine un (aula o un carro) 
+
+
+
+- Crear carpeta Email dentro crear la funcion sendMailNotify().
+- Dentro crear carpeta templates.
