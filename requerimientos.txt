@@ -1,0 +1,19 @@
+La funcion sendMailNotify() debe permitir customizar segun la funcionalidad:
+
+EJEMPLO : 
+Al profesor le llega un mail cuando:
+- Cuando se registra
+- Crea una reserva (aula o carro)
+- Modifica una reserva(aula o carro)
+- Elimine una reserva (aula o carro)
+
+Al Administrador le llega un mail cuando
+- Un usuario se registra en el sistema.
+- Se crea un (aula o un carro)
+- Se modifica un (aula o un carro)
+- Se elimine un (aula o un carro) 
+
+
+
+- Crear carpeta Email dentro crear la funcion sendMailNotify().
+- Dentro crear carpeta templates.
