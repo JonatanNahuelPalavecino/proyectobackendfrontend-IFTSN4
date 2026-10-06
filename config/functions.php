@@ -572,3 +572,7 @@ function getDayString($number)
             return "No seteado";
     }
 }
+
+function formatDate($date) {
+    return date("d-m-Y", strtotime($date));
+}

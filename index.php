@@ -12,7 +12,8 @@
 ?>
 
 <main class= "container-home">
-    <h1>Sistema de Reservas de Aulas</h1>
+    <h1>SIRAUCA</h1>
+    <h4>Sistema Integral de Reserva de Aulas y Carros</h4>
     <div class= "container-img">
         <div class= "img-overlay"></div>
         <img src="<?= BASE_URL ?>/assets/images/ifts_fondo2.jpg">

@@ -1,7 +1,7 @@
 <?php
 
     if (!isset($titulo)) {
-        $titulo = "Reservá tu aula";
+        $titulo = "SIRAUCA - Sistema de Reserva de Aulas y Carros del IFTS N° 4";
     }
 
 ?>
@@ -23,15 +23,17 @@
 
 <body>
     <header class="header">
-        <div class="logo">
+        <section class="logo">
             <img
                 class="logo-img"
                 src="<?= BASE_URL ?>/assets/images/ifts_logo.png"
                 alt="Logo"
             >
-
-            <h4 class="logo-title">Reservá tu aula</h4>
-        </div>
+            <article class="logo-container">
+                <h4 class="logo-title">SIRAUCA</h4>
+                <h4 class="logo-subtitle">Sistema Integral de Reserva de Aulas y Carros</h4>
+            </article>
+        </section>
     </header>
 
     <?php include __DIR__ . "/aside.php"; ?>

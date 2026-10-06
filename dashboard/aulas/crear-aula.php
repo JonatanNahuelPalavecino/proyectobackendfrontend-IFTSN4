@@ -61,7 +61,7 @@ include __DIR__ . "/../../components/header.php";
         
         <div class="form-actions">
             <button class="btn-action" type="submit">Guardar</button>     
-            <a class="btn-back" href="../index.php" class="btn back">Volver</a>
+            <a class="btn-back" href="../index.php" >Volver</a>
         </div>
     </form>
 </main>
