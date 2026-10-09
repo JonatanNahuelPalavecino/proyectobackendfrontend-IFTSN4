@@ -2,6 +2,8 @@
     require_once __DIR__ . "/../../../config/functions.php";
     require_once __DIR__ . "/../../../config/validations.php";
     require_once __DIR__ . "/../../../config/db.php";
+    require_once __DIR__ . "/../../../config/sendMailNotify.php";
+    require_once __DIR__ . "/../../../config/email/templates/message.php";
 
     $usuario = getUser();
 
@@ -58,6 +60,31 @@
                 $sql = 'INSERT INTO reservations (user_id, classroom_id, fecha, hora_inicio, hora_fin) VALUES (?, ?, ?, ?, ?)';
                 $crearReserva = $pdo->prepare($sql);
                 $crearReserva->execute([$usuario['id'], $aulaId, $fecha, $horaInicio, $horaFin]);
+
+                //ADMIN
+                sendMailNotify(
+                    ['nombre' => 'Sistema de Reservas', 'email' => 'antruxxi@gmail.com'],
+                    "¡Se registro una Nueva Reserva de Aula!",
+                    notifyReservAulaAdmin(
+                        $usuario['nombre'],
+                        $aulaSeleccionada['nombre'],
+                        $fecha,
+                        $horaInicio,
+                        $horaFin
+                        )
+                );
+                
+                // PROFESOR
+                sendMailNotify(
+                    ['nombre' => $usuario['nombre'], 'email' => $usuario['email']],
+                    "Sistema Reservas IFTS N°4",
+                    notifyReservAulaProf(
+                        $aulaSeleccionada['nombre'],
+                        $fecha,
+                        $horaInicio,
+                        $horaFin
+                        )
+                    );
     
                 notify("Creacion de reserva exitoso.", 'success');
                 redirect('/dashboard/');

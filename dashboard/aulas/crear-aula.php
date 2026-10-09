@@ -28,6 +28,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $crearAula = $pdo->prepare($sql);
             $crearAula->execute([$nombre_aula, $capacidad]);
 
+            $nombre = $_SESSION['usuario']['nombre'];
+            $email = $_SESSION['usuario']['email'];
+
+
+            
             notify("Creacion de aula exitoso.", 'success');
             redirect('/dashboard/aulas/crear-aula.php');
         } catch (Exception $error) {

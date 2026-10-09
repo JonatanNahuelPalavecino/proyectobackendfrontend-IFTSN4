@@ -2,7 +2,7 @@
     require_once __DIR__ . "/config/functions.php";
     require_once __DIR__ . "/config/validations.php";
     require_once __DIR__ . "/config/db.php";
-    require_once __DIR__ . "/config/email/templates/register.php";
+    require_once __DIR__ . "/config/email/templates/message.php";
 
     require_once __DIR__ . "/config/sendMailNotify.php";
 
