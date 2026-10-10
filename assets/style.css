@@ -17,6 +17,7 @@
   --info-color: #17a2b8;
   --light-color: #f8f9fa;
   --white-color: #fff;
+  --gray-color: #afafaf;
   --dark-color: #010304;
   --font-family: "Roboto", sans-serif;
   --font-family-heading: "Caacupe One", cursive;
@@ -665,6 +666,7 @@ body > main {
 .dashboard-welcome p {
   color: var(--navy-2);
 }
+
 .dashboard-welcome a {
   padding: 10px 18px;
   text-align: center;
@@ -688,6 +690,7 @@ body > main {
 }
 
 /* CARDS DASHBOARD */
+
 .card-info {
   border-radius: 12px;
   border-left: 3px solid var(--navy);
@@ -696,7 +699,7 @@ body > main {
   align-items: center;
   padding: 10px 18px;
   background-color: var(--light-color);
-  box-shadow: 0px 0px 10px 2px #0000008a;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
 }
 
 .card-info span {
@@ -742,7 +745,7 @@ body > main {
   font-size: 1.5rem;
   padding: 10px 18px;
   background-color: var(--light-color);
-  box-shadow: 0px 0px 10px 2px #0000008a;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
 }
 
 .dashboard-reservas article h3 {
@@ -763,6 +766,235 @@ body > main {
 .dashboard-reservas p {
   font-size: 1rem;
   color: var(--navy-2);
+}
+
+/* ---VER RESERVAS--- */
+
+.verReservas {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 15px 35px 15px 10px;
+  border-radius: 10px;
+}
+
+.verReservas h1 {
+  font-size: 1.5rem;
+  color: var(--navy);
+  font-weight: 900;
+  letter-spacing: 1.2px;
+}
+
+.verReservas p {
+  color: var(--navy-2);
+}
+
+.verReservas a {
+  color: var(--navy-2);
+  text-decoration: none;
+}
+
+.verReservas a:hover {
+  color: var(--secondary-color);
+  text-decoration: underline;
+}
+
+.verReservas-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.verReservas-container article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.verReservas-container article p {
+  color: var(--dark-color);
+}
+
+.verReservas-container article a {
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background-color: var(--primary-color);
+  text-decoration: none;
+  color: var(--white-color);
+}
+
+.verReservas-container article a:hover {
+  text-decoration: none !important;
+  color: var(--white-color) !important;
+  background-color: var(--secondary-color);
+}
+
+.verReservas table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 12px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+}
+
+.verReservas th,
+.verReservas td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.verReservas table tr:last-child td {
+  border-bottom: none;
+}
+
+.verReservas-status {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: var(--white-color);
+}
+
+.verReservas-status.confirmed {
+  background-color: var(--gray-color);
+}
+
+.verReservas-status.pending {
+  background-color: var(--success-color);
+}
+
+.verReservas-acciones {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.verReservas-editar,
+.verReservas-eliminar {
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: var(--white-color);
+}
+
+.verReservas-editar,
+.verReservas-editar:hover {
+  background-color: var(--primary-color);
+  text-decoration: none !important;
+  color: var(--white-color) !important;
+}
+
+.verReservas-eliminar {
+  background-color: var(--danger-color);
+  padding: 6px 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.verReservas-editar.disabled,
+.verReservas-eliminar.disabled {
+  background-color: var(--gray-color);
+  cursor: not-allowed;
+}
+
+/* ---VER AULAS--- */
+
+/* SEGUIR DESDE VER AULAS. VER LA POSIBILIDAD DE REUTILZAR CSS DE VER RESERVAS  */
+
+
+/* ---POPOVER GENERAL--- */
+
+.popover-eliminar {
+    width: min(90%, 420px);
+    border: none;
+    border-radius: 16px;
+    padding: 0;
+    background-color: var(--white-color);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
+    color: var(--navy);
+}
+
+.popover-eliminar:popover-open {
+    margin: auto;
+}
+
+.popover-eliminar::backdrop {
+    background-color: rgba(0, 0, 0, 0.45);
+}
+
+.popover-eliminar-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 24px;
+}
+
+.popover-eliminar-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 12px;
+    border-radius: 10px;
+    background-color: #f4f4f4;
+}
+
+.popover-eliminar h2 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: var(--navy);
+}
+
+.popover-eliminar p {
+    margin: 0;
+    color: var(--navy-2);
+    line-height: 1.5;
+}
+
+
+.popover-eliminar-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.popover-cancelar,
+.popover-confirmar {
+    padding: 8px 14px;
+    border-radius: 10px;
+    border: none;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    text-decoration: none;
+}
+
+.popover-cancelar {
+    background-color: var(--gray-color);
+    color: var(--white-color);
+}
+
+.popover-confirmar {
+    background-color: var(--danger-color);
+    color: var(--white-color);
+}
+
+.popover-cancelar:hover {
+    opacity: 0.85;
+}
+
+.popover-confirmar:hover {
+    opacity: 0.85;
+    text-decoration: none;
 }
 
 /* ---CALENDARIO DE RESERVAS--- */
