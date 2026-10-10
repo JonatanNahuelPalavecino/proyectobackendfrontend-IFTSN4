@@ -31,6 +31,15 @@
         redirect('/dashboard/reservas/aulas/ver-reservas.php');
     }
 
+    if ($reserva['fecha'] < date('Y-m-d')) {
+    notify(
+        "No podés editar una reserva que ya fue cumplida.",
+        "error"
+    );
+
+    redirect("/dashboard/reservas/aulas/");
+}
+
     $aulaId = (int) $reserva['classroom_id'];
     $mes = $_GET['mes'] ?? substr($reserva['fecha'], 0, 7);
     $fechaSeleccionada = $_GET['fecha'] ?? $reserva['fecha'];

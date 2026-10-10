@@ -1,64 +1,92 @@
 <?php
 
-    require_once __DIR__ . "/../db.php";
-    require_once __DIR__ . "/../functions.php";
+require_once __DIR__ . "/../db.php";
+require_once __DIR__ . "/../functions.php";
 
-    $usuario = getUser();
+$usuario = getUser();
 
+if (!$usuario || $usuario['rol'] !== 'admin') {
 
-    if (!$usuario || $usuario['rol'] !== 'admin') {
-
-        notify(
-            "No tenés permisos para exportar el total de reservas de aulas de hoy.",
-            "error"
-        );
-
-        redirect("/dashboard/");
-    }
-
-
-    $reservasTotalesCarrosHoy = getTotalReservasCarrosToday($pdo);
-    $nombreArchivo = "reservas-carros-hoy.csv";
-
-    header("Content-Type: text/csv; charset=UTF-8");
-    header('Content-Disposition: attachment; filename="' .
-        $nombreArchivo .
-        '"'
+    notify(
+        "No tenés permisos para exportar el detalle de reservas de aulas de hoy.",
+        "error"
     );
 
-    $archivo = fopen("php://output", "w");
+    redirect("/dashboard/");
+}
 
-    fwrite($archivo, "\xEF\xBB\xBF");
+$reservasTotalesAulas = getDetalleReservasAulas($pdo);
 
-    fputcsv(
-        $archivo,
-        [
-            "Usuario",
-            "Aula",
-            "Fecha",
-            "Hora Inicio",
-            "Hora Fin",
-            "Capacidad"
-        ],
-        ";"
-    );
+$nombreArchivo = "detalle-reservas-aulas.xls";
 
-    foreach ($reservasTotalesCarrosHoy as $reserva) {
+header("Content-Type: application/vnd.ms-excel; charset=UTF-8");
 
-        fputcsv(
-            $archivo,
-            [
-                $reserva['usuario'],
-                $reserva['carro'],
-                $reserva['fecha'],
-                $reserva['comentario']
-            ],
-            ";"
-        );
-    }
+header(
+    'Content-Disposition: attachment; filename="' .
+    $nombreArchivo .
+    '"'
+);
 
-    fclose($archivo);
-
-    exit;
+header("Pragma: no-cache");
+header("Expires: 0");
 
 ?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #000;
+            padding: 6px;
+        }
+
+        th {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>Usuario</th>
+                <th>Aula</th>
+                <th>Fecha</th>
+                <th>Hora Inicio</th>
+                <th>Hora Fin</th>
+                <th>Capacidad</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <?php foreach ($reservasTotalesAulas as $reserva): ?>
+
+                <tr>
+                    <td><?= htmlspecialchars($reserva['usuario'] ?? '') ?></td>
+                    <td><?= htmlspecialchars($reserva['aula'] ?? '') ?></td>
+                    <td><?= htmlspecialchars($reserva['fecha'] ?? '') ?></td>
+                    <td><?= htmlspecialchars($reserva['hora_inicio'] ?? '') ?></td>
+                    <td><?= htmlspecialchars($reserva['hora_fin'] ?? '') ?></td>
+                    <td><?= htmlspecialchars($reserva['capacidad'] ?? '') ?></td>
+                </tr>
+
+            <?php endforeach ?>
+
+        </tbody>
+
+    </table>
+
+</body>
+</html>
