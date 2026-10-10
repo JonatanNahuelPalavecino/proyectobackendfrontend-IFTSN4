@@ -1,14 +1,19 @@
 <?php
 
-    require_once __DIR__ . "/config/functions.php";
-    require_once __DIR__ . "/config/db.php";
+require_once __DIR__ . "/config/functions.php";
+require_once __DIR__ . "/config/db.php";
 
-    $titulo = "¿Cómo funciona? | Sistema de Reservas de Aulas";
-
-    include __DIR__ . "/components/header.php";
+$titulo = "¿Cómo funciona? | SIRAUCA - Sistema de Reserva de Aulas y Carros del IFTS N° 4";
+ 
+include __DIR__ . "/components/header.php";
 ?>
 
-<main class= "cf">
+<main class="cf">
+    <h1 class="cf-title">¿Qué es SIRAUCA?</h1>
+        <article class="cf-article">
+            <p class="cf-description">S.I.R.AU.CA. (Proviene de Sistema Integral de Reserva de Aulas y Carros) es un proyecto Academico creado por Damian Luna, Daniel Lopez y Jonatan Palavecino que viene a facilitar la administración de reservas de aulas y carros para los profesores y el propio instituto.</p>
+        </article>
+  
     <h1 class="cf-title">¿Cómo Funciona?</h1>
     <section class="cf-section">
         <h3 class="cf-subtitle">Para reservar un aula:</h3>
@@ -17,7 +22,7 @@
             <p class="cf-description">2. Seleccionar la opción "Reservar Aula" en el menú principal.</p>
             <p class="cf-description">3. Elegir el aula que deseas reservar y la fecha y hora de la reserva.</p>
             <p class="cf-description">4. Confirmar la reserva y recibirás un correo de confirmación.</p>
-        </article>  
+        </article>
     </section>
     <section class="cf-section">
         <h3 class="cf-subtitle">Para reservar un Carro:</h3>
@@ -26,7 +31,7 @@
             <p class="cf-description">2. Seleccionar la opción "Reservar Carro" en el menú principal.</p>
             <p class="cf-description">3. Elegir el carro que deseas reservar, la fecha y hora de la reserva y agregue un comentario necesario para la configuración de las notebooks.</p>
             <p class="cf-description">4. Confirmar la reserva y recibirás un correo de confirmación.</p>
-        </article>  
+        </article>
     </section>
     <section class="cf-section">
         <h3 class="cf-subtitle">Para modificar / cancelar una reserva:</h3>
@@ -47,5 +52,5 @@
 </main>
 
 <?php
-    include "./components/footer.php";
+include "./components/footer.php";
 ?>

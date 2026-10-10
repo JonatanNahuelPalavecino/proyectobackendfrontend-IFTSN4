@@ -28,6 +28,15 @@
         redirect('/dashboard/reservas/aulas/ver-reservas.php');
     };  
 
+    if ($reserva['fecha'] < date('Y-m-d')) {
+    notify(
+        "No podés eliminar una reserva que ya fue cumplida.",
+        "error"
+    );
+
+    redirect("/dashboard/reservas/aulas/");
+}
+
     try {
         $sqlDelete = 'DELETE FROM reservations WHERE id = ?';
         $borrarReserva = $pdo->prepare($sqlDelete);

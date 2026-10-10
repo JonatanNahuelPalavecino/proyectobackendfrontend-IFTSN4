@@ -37,7 +37,7 @@
         }
     }
 
-    $titulo = "Iniciar sesión | Reservá tu aula";
+    $titulo = "Iniciar sesión | SIRAUCA - Sistema de Reserva de Aulas y Carros del IFTS N° 4";
 
     $slides = [
         [
