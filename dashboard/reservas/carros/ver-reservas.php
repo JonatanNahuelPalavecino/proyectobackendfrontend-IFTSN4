@@ -132,6 +132,7 @@
         <?php endif; ?>
 
     </section>
+</main>
 
     <?php if ($usuario['rol'] === 'user' && !empty($reservas_user)): ?>
         <?php foreach ($reservas_user as $reserva): ?>
@@ -156,7 +157,6 @@
                         </p>
 
                     </section>
-
                     <section class="popover-eliminar-actions">
                         <a 
                             class="popover-confirmar"
@@ -177,6 +177,5 @@
         <?php endforeach; ?>
     <?php endif; ?>
 
-</main>
 
 <?php include __DIR__ . "/../../../components/footer.php"; ?>

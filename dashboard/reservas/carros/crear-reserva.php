@@ -76,15 +76,17 @@
 <?php require __DIR__ . '/../../../components/header.php'; ?>
 
 <main class ="form-page"s>
-    <h2>💻 Reservar un Carro Móvil</h2>
-    <p>Selecciona el carro que necesitas. Recuerda dejar las especificaciones para las notebooks en los comentarios.</p>
+    <article class="form-header">
+        <h2>💻 Reservar Carro Móvil</h2>
+        <p>Selecciona el carro que necesitas junto con las especificaciones requeridas.</p>
+    </article>
 
     <!-- Formulario limpio y conectado a las funciones -->
     <form method="POST" class ="create-form" style="max-width: 600px; margin-top: 20px;">
         <div class="form-group">
             <label for="cart_id">Seleccionar Carro Móvil:</label>
             <select name="cart_id" id="cart_id" required>
-                <option value="">--Elige un carro--</option>
+                <option value="">-- Elige un carro --</option>
                 <?php foreach ($carros as $carro): ?>
                     <option value="<?= htmlspecialchars($carro['id']) ?>">
                         <?= htmlspecialchars($carro['nombre']) ?> 
