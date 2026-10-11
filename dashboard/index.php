@@ -199,7 +199,7 @@ require __DIR__ . '/../components/header.php';
                     <?php endforeach ?>
                 </section>
             <?php else: ?>
-                <p class="p-sin-reservas">
+                <p class="no-results">
                     No tenes reservas de aulas próximas.
                 </p>
             <?php endif; ?>
@@ -227,7 +227,7 @@ require __DIR__ . '/../components/header.php';
                     <?php endforeach ?>
                 </section>
             <?php else: ?>
-                <p class="p-sin-reservas">No tenes reservas de carros próximas.</p>
+                <p class="no-results">No tenes reservas de carros próximas.</p>
             <?php endif; ?>
         </section>
     <?php endif; ?>
