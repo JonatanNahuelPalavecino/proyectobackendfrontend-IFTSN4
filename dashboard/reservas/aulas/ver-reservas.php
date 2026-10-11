@@ -61,10 +61,9 @@ require_once __DIR__ . "/../../../components/header.php";
             <?php else: ?>
                 <article>
                     <p>No existen reservas activas</p>
-                    <a href="<?= BASE_URL ?>/dashboard/">Volver</a>
                 </article>
             <?php endif ?>
-
+            <a href="<?= BASE_URL ?>/dashboard/">Volver</a>
         </section>
 
 

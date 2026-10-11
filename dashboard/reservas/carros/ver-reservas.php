@@ -75,8 +75,9 @@
                         </tbody>
                     </table>
                 <?php else: ?>
-                    <p>No hay reservas de carros en el sistema.</p>
+                    <p class="no-results">No hay reservas de carros en el sistema.</p>
                 <?php endif; ?>
+                <a href="../../index.php">Volver</a>
             </div>
 
         <?php else: ?>
