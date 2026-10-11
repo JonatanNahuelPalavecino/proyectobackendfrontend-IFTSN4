@@ -102,7 +102,7 @@
 
                 sendMailNotify(
                     ['nombre' => $usuario['nombre'], 'email' => $usuario['email']],
-                    'Reserva modificada',
+                    'Sistema Reservas IFTS N°4',
                     notifyReservAulaProfEdit(
                         getAulaReservable($pdo, $aulaId)['nombre'],
                         $fechaSeleccionada,
