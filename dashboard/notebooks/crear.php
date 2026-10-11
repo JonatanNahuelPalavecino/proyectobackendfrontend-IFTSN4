@@ -2,6 +2,8 @@
     require_once __DIR__ . "/../../config/functions.php";
     require_once __DIR__ . "/../../config/validations.php";
     require_once __DIR__ . "/../../config/db.php";
+    require_once __DIR__ . "/../../config/sendMailNotify.php";
+    require_once __DIR__ . "/../../config/email/templates/message.php";
 
     $usuario = getUser();
 
@@ -31,6 +33,11 @@
                 $crearNotebook->execute([$nombreNotebook, $numeroSerie, $carro]);
 
                 notify("Creacion de notebook con exito");
+                sendMailNotify(
+                    ['nombre' => 'Sistema de Reservas', 'email' => 'antruxxi@gmail.com'],
+                    'Se ha creado una notebook',
+                    notifyCreateNotebookAdmin($nombreNotebook, $numeroSerie, $carro, $carro ? getCartById($pdo, $carro)['nombre'] : null)   
+                );
 
             }catch(Exception $error){
                 die("Error al insertar en la bd: " . $error->getMessage());
@@ -51,7 +58,7 @@
         <h1>💻Crear Notebook</h1>
         <p>Ingrese nombre, numero serie y carro para guardar la notebook</p>
     </div>
-    <form method="post" class="create-form" >
+    <form method="post" class="create-form">
         <div class="form-group">
             <label for="nombre">Nombre:</label>
             <input type="text" name="nombre" id="nombre" placeholder="Ej: Notebook Dell 01" minLength="8" required>

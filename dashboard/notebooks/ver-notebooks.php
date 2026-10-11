@@ -22,9 +22,11 @@ require __DIR__ . "/../../components/header.php";
 
 <main>
     <section>
-        <div>
-            <h1>Gestion de Notebooks</h1>
-            <p>Puedes ver y gestionar todas las notebooks del sistema</p>
+        <div class="dashboard-welcome">
+            <div>
+                <h1>Gestion de Notebooks</h1>
+                <p>Puedes ver y gestionar todas las notebooks del sistema</p>
+            </div>
             <div>
                 <a href="<?= BASE_URL ?>/dashboard/notebooks/crear.php" class="btn reservar">+ Pcs</a>
             </div>
@@ -62,9 +64,9 @@ require __DIR__ . "/../../components/header.php";
                     <?php endforeach; ?>
                 </table>
             <?php else: ?>
-                <p>No hay notebooks creadas</p>
+                <p class="no-results">No hay notebooks creadas</p>
             <?php endif; ?>
-            <a href="../index.php">Volver</a>
+            <a  href="../index.php">Volver</a>
         </div>
     </section>
 </main>

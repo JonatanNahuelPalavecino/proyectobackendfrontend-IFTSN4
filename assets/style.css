@@ -17,6 +17,7 @@
   --info-color: #17a2b8;
   --light-color: #f3f3f3;
   --white-color: #fff;
+  --vacio-color: #ff660050;
   --gray-color: #afafaf;
   --dark-color: #010304;
   --font-family: "Roboto", sans-serif;
@@ -771,11 +772,11 @@ body > main {
   color: var(--navy-2);
 }
 
-.p-sin-reservas{
+.no-results {
   margin-top: 20px;
   border-radius: 12px;
   padding: 20px 5px; 
-  background-color: #ff660050; 
+  background-color: var(--vacio-color); 
   text-align: center;
   font-weight: bold;
 }
@@ -1185,7 +1186,7 @@ body > main {
   margin: 0;
   padding: 12px;
   border-radius: 7px;
-  background-color: #f5f5f5;
+  background-color: var(--vacio-color);
   color: #666;
   font-size: 14px;
 }

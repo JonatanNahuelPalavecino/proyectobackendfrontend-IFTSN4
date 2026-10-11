@@ -65,10 +65,10 @@
 
                                     <td><?= htmlspecialchars($reserva['comentario']) ?></td>
 
-                                    <td>
-                                        <a href="modificar.php?id=<?= $reserva['id'] ?>">Editar</a>
+                                    <td class="verReservas-acciones">
+                                        <a class="verReservas-editar" href="modificar.php?id=<?= $reserva['id'] ?>">Editar</a>
 
-                                        <a href="eliminar.php?id=<?= $reserva['id'] ?>" onclick="return confirm('¿Estás seguro de eliminar este carro permanentemente?');">Eliminar</a>
+                                        <a class="verReservas-eliminar" href="eliminar.php?id=<?= $reserva['id'] ?>" onclick="return confirm('¿Estás seguro de eliminar este carro permanentemente?');">Eliminar</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

@@ -45,6 +45,51 @@
         ";
     }
 
+    //Notificaciones de creacion, edicion y eliminacion de notebooks
+
+    function notifyCreateNotebookAdmin(string $nombre, string $numeroSerie, ?string $carro, ?string $nombreCarro): string
+    {
+        return "
+            <h3><strong>¡Se creo una notebook en el Sistema!</strong></h3>
+            <p><strong><u>Datos de la notebook:</u></strong></p>
+            <p><strong>Nombre:</strong> $nombre</p>
+            <p><strong>Numero de Serie:</strong> $numeroSerie</p>
+            <p><strong>Id Carro: </strong>" . ($carro ?? 'Sin asignar') . "</p>
+            <p><strong>Nombre del Carro: </strong>" . ($nombreCarro ?? 'Sin asignar') . "</p>
+        ";
+    }
+    
+    function notifyEditNotebookAdmin(string $nombre, string $numeroSerie, ?string $carro, ?string $nombreCarro): string
+    {
+        return "
+            <h3><strong>¡Se edito una notebook en el Sistema!</strong></h3>
+            <p><strong><u>Datos de la notebook:</u></strong></p>
+            <p><strong>Nombre:</strong> $nombre</p>
+            <p><strong>Numero de Serie:</strong> $numeroSerie</p>
+            <p><strong>Id Carro: </strong>" . ($carro ?? 'Sin asignar') . "</p>
+            <p><strong>Nombre del Carro: </strong>" . ($nombreCarro ?? 'Sin asignar') . "</p>
+        ";
+    }
+
+    function notifyDeleteNotebookAdmin(string $nombre, string $numeroSerie, ?string $carro, ?string $nombreCarro): string
+    {
+        return "
+            <h3><strong>¡Se elimino una notebook en el Sistema!</strong></h3>
+            <p><strong><u>Datos de la notebook:</u></strong></p>
+            <p><strong>Nombre:</strong> $nombre</p>
+            <p><strong>Numero de Serie:</strong> $numeroSerie</p>
+            <p><strong>Id Carro: </strong>" . ($carro ?? 'Sin asignar') . "</p>
+            <p><strong>Nombre del Carro: </strong>" . ($nombreCarro ?? 'Sin asignar') . "</p>
+        ";
+    }
+
+
+
+
+
+
+    
+
     //===============================================
     //=========== PROFESOR NOTIFICACIONES ===========
     //===============================================
