@@ -90,8 +90,9 @@
                 // Notificacion Admin
                 sendMailNotify(
                     ['nombre' => 'Sistema de Reservas', 'email' => 'antruxxi@gmail.com'],
-                    'Nueva reserva modificada',
-                    notifyReservAulaAdminEdit(
+                    'Se modificó una reserva de aula',
+                    notifyOperationReservAulaAdmin(
+                        ['title' => '¡Se modificó una reserva de aula!', 'subtitle' => 'Los datos de la nueva reserva son:'],
                         $usuario['nombre'],
                         getAulaReservable($pdo, $aulaId)['nombre'],
                         $fechaSeleccionada,
@@ -103,7 +104,8 @@
                 sendMailNotify(
                     ['nombre' => $usuario['nombre'], 'email' => $usuario['email']],
                     'Sistema Reservas IFTS N°4',
-                    notifyReservAulaProfEdit(
+                    notifyOperationReservAulaProf(
+                        ['title' => '¡Modificaste tu reserva!', 'subtitle' => 'Los datos de tu nueva reserva son:'],
                         getAulaReservable($pdo, $aulaId)['nombre'],
                         $fechaSeleccionada,
                         $horaInicioSeleccionada,

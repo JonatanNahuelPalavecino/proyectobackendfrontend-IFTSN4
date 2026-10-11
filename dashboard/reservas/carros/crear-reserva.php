@@ -1,6 +1,8 @@
 <?php
     require_once __DIR__ . "/../../../config/functions.php";
     require_once __DIR__ . "/../../../config/db.php";
+    require_once __DIR__ . "/../../../config/sendMailNotify.php";
+    require_once __DIR__ . "/../../../config/email/templates/message.php";
 
     $usuario = getUser();
 
@@ -47,6 +49,31 @@
                 
                 // Camino Feliz: Todo salió bien
                 if ($idReservaDeCarro) {
+
+                    // Notificacion Admin
+                    sendMailNotify(
+                        ['nombre' => 'Sistema de Reservas', 'email' => 'antruxxi@gmail.com'],
+                        'Sistema de Reservas',
+                        notifyOperationReservCarroAdmin(
+                            ['title' => '¡Se registro una nueva reserva de carro en el Sistema!', 'subtitle' => 'Los datos de la reserva de carro son:'],
+                            $usuario['nombre'],
+                            $tieneComputadoras[0]['pertenece_a_carro'],
+                            $fecha,
+                            $comentario
+                        )
+                    );
+
+                    // Notificacion Profesor
+                    sendMailNotify(
+                        ['nombre' => $usuario['nombre'], 'email' => $usuario['email']],
+                        'Sistema de Reservas',
+                        notifyOperationReservCarroProf(
+                            ['title' => '¡Reserva de carro exitosa!', 'subtitle' => 'Los datos de tu reserva son:'],
+                            $tieneComputadoras[0]['pertenece_a_carro'],
+                            $fecha,
+                            $comentario
+                        )
+                    );
                     notify("Reserva confirmada con éxito", "success");
                     redirect('/dashboard/reservas/carros/ver-reservas.php'); 
                 } else {

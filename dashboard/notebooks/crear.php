@@ -32,11 +32,17 @@
                 $crearNotebook = $pdo->prepare($sql);
                 $crearNotebook->execute([$nombreNotebook, $numeroSerie, $carro]);
 
-                notify("Creacion de notebook con exito");
+                notify("Creación de notebook con éxito");
                 sendMailNotify(
                     ['nombre' => 'Sistema de Reservas', 'email' => 'antruxxi@gmail.com'],
                     'Se ha creado una notebook',
-                    notifyCreateNotebookAdmin($nombreNotebook, $numeroSerie, $carro, $carro ? getCartById($pdo, $carro)['nombre'] : null)   
+                    notifyOperationNotebookAdmin(
+                    ['title' => '¡Se Creo una nueva notebook en el Sistema!', 'subtitle' => 'Los datos de la notebook son:'],
+                    $nombreNotebook,
+                    $numeroSerie,
+                    $carro, 
+                    $carro ? getCartById($pdo, $carro)['nombre'] : null
+                    )   
                 );
 
             }catch(Exception $error){
