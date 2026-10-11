@@ -44,25 +44,22 @@ require __DIR__ . '/../components/header.php';
         <?php if ($usuario['rol'] === 'admin'): ?>
 
             <section>
-                <h1>Bienvenido <?= htmlspecialchars(ucwords($usuario['nombre'])) ?> al Sistema!</h1>
+                <h2>Bienvenido <?= htmlspecialchars(ucwords($usuario['nombre'])) ?> al Sistema!</h2>
                 <p>Aquí podes gestionar aulas, carros, pc's y sus reservas.</p>
             </section>
 
             <section>
-                <a href="<?= BASE_URL ?>/dashboard/aulas/ver-aulas.php" class="btn reservar">Gestionar Aulas</a>
                 <a href="<?= BASE_URL ?>/dashboard/notebooks/ver-notebooks.php" class="btn reservar">Gestionar Pcs</a>
-                <a href="<?= BASE_URL ?>/dashboard/carros/ver-carros.php" class="btn reservar">Gestionar Carros</a>
             </section>
 
         <?php else: ?>
 
             <section>
-                <h1>Bienvenido Profesor, <?= htmlspecialchars(ucwords($usuario['nombre'])) ?>!</h1>
+                <h2>Bienvenido Profesor, <?= htmlspecialchars(ucwords($usuario['nombre'])) ?>!</h2>
                 <p>Aquí puedes ver tus reservas y realizar nuevas reservas de aulas o carros.</p>
             </section>
             <section>
-                <a href="<?= BASE_URL ?>/dashboard/reservas/aulas/crear-reserva.php" class="btn reservar">Reservar aula</a>
-                <a href="<?= BASE_URL ?>/dashboard/reservas/carros/crear-reserva.php" class="btn reservar">Reservar Carros</a>
+                <a href="<?= BASE_URL ?>/dashboard/reservas/aulas/crear-reserva.php" class="btn reservar">Gestionar Perfil</a>
             </section>
 
         <?php endif; ?>
@@ -126,8 +123,17 @@ require __DIR__ . '/../components/header.php';
     <?php endif; ?>
 
     <?php if ($usuario["rol"] == "admin"): ?>
+        <section class="dashboard-welcome">
+            <article>
+                <h2>Reservas de Aulas para hoy</h2>
+            </article>
+
+            <article>
+                <a href="<?= BASE_URL ?>/dashboard/aulas/ver-aulas.php" class="btn reservar">Gestionar Aulas</a>
+            </article>
+        </section>
+
         <section class="dashboard-reservas">
-            <h2>Reservas de Aulas para hoy</h2>
             <?php if (!empty($detalleReservasAulasHoy)): ?>
                 <a href="<?= BASE_URL ?>/config/excel/descargar-reservas-aulas-hoy.php" target="_blank">Descargar las reservas de aulas del día de hoy en Excel</a>
                 <section>
@@ -140,12 +146,20 @@ require __DIR__ . '/../components/header.php';
                     <?php endforeach ?>
                 </section>
             <?php else: ?>
-                <p>No hay reservas de aulas para hoy.</p>
+                <p class="no-results">No hay reservas de aulas para hoy.</p>
             <?php endif; ?>
         </section>
 
+        <section class="dashboard-welcome">
+            <article>
+                <h2>Reservas de Carros para hoy</h2>
+            </article>
+            <article>
+                <a href="<?= BASE_URL ?>/dashboard/carros/ver-carros.php" class="btn reservar">Gestionar Carros</a>
+            </article>
+        </section>
+
         <section class="dashboard-reservas">
-            <h2>Reservas de Carros para hoy</h2>
             <?php if (!empty($detalleReservasCarrosHoy)): ?>
                 <a href="<?= BASE_URL ?>/config/excel/descargar-reservas-carros-hoy.php" target="_blank">Descargar reservas de carros del día de hoy en Excel</a>
                 <section>
@@ -158,14 +172,22 @@ require __DIR__ . '/../components/header.php';
                     <?php endforeach ?>
                 </section>
             <?php else: ?>
-                <p>No hay reservas de carros para hoy.</p>
+                <p class="no-results">No hay reservas de carros para hoy.</p>
                 <?php endif; ?>
         </section>
 
     <?php else: ?>
         
+        <section class="dashboard-welcome">
+            <article>
+                <h2>Próximas Reservas de Aulas</h2>
+            </article>
+            <article>
+                <a href="<?= BASE_URL ?>/dashboard/reservas/aulas/crear-reserva.php">Reservar Aulas</a>
+            </article>
+        </section>
+
         <section class="dashboard-reservas">
-            <h2>Próximas Reservas de Aulas</h2>
             <?php if (!empty($detalleReservasAulasFuturas)): ?>
                 <section>
                     <?php foreach ($detalleReservasAulasFuturas as $reserva): ?>
@@ -177,12 +199,23 @@ require __DIR__ . '/../components/header.php';
                     <?php endforeach ?>
                 </section>
             <?php else: ?>
-                <p>No tenes reservas de aulas próximamente.</p>
+                <p class="p-sin-reservas">
+                    No tenes reservas de aulas próximas.
+                </p>
             <?php endif; ?>
         </section>
 
+        <section class="dashboard-welcome">
+            <article>
+                <h2>Próximas Reservas de Carros</h2>
+            </article>
+
+            <article>
+                <a href="<?= BASE_URL ?>/dashboard/reservas/carros/crear-reserva.php">Reservar Carros</a>
+            </article>
+        </section>
+
         <section class="dashboard-reservas">
-            <h2>Próximas Reservas de Carros</h2>
             <?php if (!empty($detalleReservasCarrosFuturas)): ?>
                 <section>
                     <?php foreach ($detalleReservasCarrosFuturas as $reserva): ?>
@@ -194,7 +227,7 @@ require __DIR__ . '/../components/header.php';
                     <?php endforeach ?>
                 </section>
             <?php else: ?>
-                <p>No tenes reservas de carros próximamente.</p>
+                <p class="p-sin-reservas">No tenes reservas de carros próximas.</p>
             <?php endif; ?>
         </section>
     <?php endif; ?>

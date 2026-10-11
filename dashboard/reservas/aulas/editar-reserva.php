@@ -2,6 +2,8 @@
     require_once __DIR__ . "/../../../config/functions.php";
     require_once __DIR__ . "/../../../config/validations.php";
     require_once __DIR__ . "/../../../config/db.php";
+    require_once __DIR__ . "/../../../config/sendMailNotify.php";
+    require_once __DIR__ . "/../../../config/email/templates/message.php";
 
     $usuario = getUser();
 
@@ -84,6 +86,31 @@
                     'hora_fin' => $horaFinSeleccionada,
                     'id_reserva' => $reservaId
                 ]);
+
+                // Notificacion Admin
+                sendMailNotify(
+                    ['nombre' => 'Sistema de Reservas', 'email' => 'antruxxi@gmail.com'],
+                    'Nueva reserva modificada',
+                    notifyReservAulaAdminEdit(
+                        $usuario['nombre'],
+                        getAulaReservable($pdo, $aulaId)['nombre'],
+                        $fechaSeleccionada,
+                        $horaInicioSeleccionada,
+                        $horaFinSeleccionada
+                    )
+                );
+
+                sendMailNotify(
+                    ['nombre' => $usuario['nombre'], 'email' => $usuario['email']],
+                    'Sistema Reservas IFTS N°4',
+                    notifyReservAulaProfEdit(
+                        getAulaReservable($pdo, $aulaId)['nombre'],
+                        $fechaSeleccionada,
+                        $horaInicioSeleccionada,
+                        $horaFinSeleccionada
+                    )
+                );
+
 
                 notify('Reserva modificada correctamente.', 'success');
                 redirect('/dashboard/reservas/aulas/ver-reservas.php');

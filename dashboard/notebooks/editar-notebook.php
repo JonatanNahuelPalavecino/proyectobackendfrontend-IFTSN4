@@ -2,6 +2,9 @@
     require_once __DIR__ . "/../../config/functions.php";
     require_once __DIR__ . "/../../config/db.php";
     require_once __DIR__ . "/../../config/validations.php"; 
+    require_once __DIR__ . "/../../config/sendMailNotify.php";
+    require_once __DIR__ . "/../../config/email/templates/message.php";
+
     $usuario = getUser();
 
     if (!$usuario || $usuario['rol'] !== 'admin') {
@@ -42,6 +45,14 @@
                 $consulta = $pdo->prepare($sql);
                 $consulta->execute([$nombreNotebook, $numeroSerie, $carroSeleccionado, $idNotebook]);
 
+                $cart = getCartById($pdo, $carroSeleccionado);
+                // Notificacion Administrador
+                sendMailNotify(
+                    ['nombre' => 'Sistema de Reservas', 'email' => 'antruxxi@gmail.com'],
+                    'Se ha editado una notebook',
+                    notifyEditNotebookAdmin($nombreNotebook, $numeroSerie,$carroSeleccionado, $cart ? $cart['nombre'] : null)
+                );
+
                 notify("Edicion de notebook exitoso");
                 redirect('/dashboard/notebooks/ver-notebooks.php');
 
@@ -59,32 +70,35 @@
     include __DIR__ . "/../../components/header.php";
 ?>
 
-<main>
-    <h2>Editar Notebook</h2>
+<main class="form-page">
+    <article class="form-header">
+        <h1>💻Editar Notebook</h1>
+        <p>Modifica el nombre, numero de serie y carro de la notebook</p>
+    </article>
 
-    <form method="post">
-        <div>
+    <form method="post" class="create-form">
+        <div class="form-group">
             <label for="id">ID Notebook</label>
             <input style="cursor: not-allowed;" type="text" name="id" id="id" readonly value="<?= htmlspecialchars($notebook['id']) ?>">
         </div>
 
-        <div>
+        <div class="form-group">
             <label for="nombre">Nombre</label>
             <input type="text" name="nombre" id="nombre" placeholder="Ej: Notebook Dell 01" minLength="8" required value ="<?php echo htmlspecialchars($notebook['nombre']);?>">
         </div>
         
-        <div>
+        <div class="form-group">
             <label for="numeroSerie">Numero Serie</label>
                 <input  type="text" name="numeroSerie" id="numeroSerie" placeholder="Ej: DELL-A-0001"
             pattern="(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9-]+" title="El número de serie debe contener letras y números" minLength="5" required value ="<?php echo htmlspecialchars($notebook['numero_serie']); ?>">
         </div>
         
-        <div>
+        <div class="form-group">
             <label for="created_at">Ultima vez modificado</label>
             <input style="cursor: not-allowed;" type="text" name="created_at" id="created_at" readonly value="<?php echo htmlspecialchars($notebook['created_at']); ?>">
         </div>
 
-        <div>
+        <div class="form-group">
             <label for="carros">Carros</label>
             <?php if($getAllCarts): ?>
                 <select name="carro" id="carros">
@@ -94,12 +108,13 @@
                     <?php endforeach;?>
                 </select>
             <?php else:?>
-                <p>No hay carros creados. La notebook se creará sin asignacion.</p>
+                <p class="form-info">No hay carros creados. La notebook se creará sin asignacion.</p>
             <?php endif;?>
+        </div >
 
-        </div>
-            <button type="submit">Guardar</button>
-            <a href="ver-notebooks.php" class="btn back">Volver</a>
+        <div class="form-actions">
+            <button class="btn-action" type="submit">Guardar</button>
+            <a class="btn-back" href="ver-notebooks.php">Volver</a>
         </div>
 
     </form>

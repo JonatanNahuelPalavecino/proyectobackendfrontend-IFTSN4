@@ -31,8 +31,8 @@ require_once __DIR__ . "/../../../components/header.php";
         <?php if (!empty($reservasTotales)): ?>
             <a href="<?= BASE_URL ?>/config/excel/exportar-reservas-aulas.php" class="exportar-excel">Exportar a Excel</a>
         <?php endif ?>
-        <section class="verReservas-container">
 
+        <section class="verReservas-container">
             <?php if (!empty($reservasTotales)): ?>
                 <table>
                     <thead>
@@ -61,16 +61,16 @@ require_once __DIR__ . "/../../../components/header.php";
             <?php else: ?>
                 <article>
                     <p>No existen reservas activas</p>
-                    <a href="<?= BASE_URL ?>/dashboard/">Volver</a>
                 </article>
             <?php endif ?>
-
+            <a href="<?= BASE_URL ?>/dashboard/">Volver</a>
         </section>
 
 
     <?php else: ?>
         <h1>🏛️ Mis Reservas de aulas</h1>
         <p>Aca podras ver tus reservas de aulas</p>
+        
         <section class="verReservas-container">
 
             <?php if (!empty($reservasPropias)): ?>

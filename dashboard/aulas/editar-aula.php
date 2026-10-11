@@ -62,27 +62,34 @@
     include __DIR__ . "/../../components/header.php";
 ?>
 
-<main>
-    <h1>🏛️ Editar Aula</h1>
+<main class="form-page">
+    <article class="form-header">
+        <h1>Editar Aula</h1>
+        <p>Modifica el nombre y la capacidad del aula</p>
+    </article>
 
-    <form method="post">
-        <div>
+    <form class="create-form" method="post">
+        <div class="form-group">
             <label for="id">ID Aula</label>
             <input style="cursor: not-allowed;" type="text" name="id" id="id" readonly value="<?php echo $aula['id'] ?>">
         </div>
-        <div>
+        <div class="form-group">
             <label for="nombre">nombre Aula</label>
             <input type="text" name="nombre" id="nombre" value="<?php echo $aula['nombre'] ?>">
         </div>
-        <div>
+        <div class="form-group">
             <label for="capacidad">Capacidad Aula</label>
             <input type="text" name="capacidad" id="capacidad" value="<?php echo $aula['capacidad'] ?>">
         </div>
-        <div>
+        <div class="form-group">
             <label for="created_at">Ultima vez modificado:</label>
             <input style="cursor: not-allowed;" type="text" name="created_at" id="created_at" readonly value="<?php echo $aula['created_at'] ?>">
         </div>
-        <button type="submit">Modificar</button>
+
+        <div class="form-actions">
+            <button class="btn-action" type="submit">Modificar</button>
+            <a class="btn-back" href="ver-aulas.php">Volver</a>
+        </div>
     </form>
 </main>
 

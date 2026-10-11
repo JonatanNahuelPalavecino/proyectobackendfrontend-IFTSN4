@@ -1,6 +1,9 @@
 <?php
     require_once __DIR__ . "/../../config/functions.php";
     require_once __DIR__ . "/../../config/db.php";
+    require_once __DIR__ . "/../../config/sendMailNotify.php";
+    require_once __DIR__ . "/../../config/email/templates/message.php";
+
 
     $usuario = getUser();
 
@@ -29,6 +32,14 @@
         $sql = "DELETE FROM computers WHERE id = ?";
         $borrarNotebook = $pdo->prepare($sql);
         $borrarNotebook->execute([$idNotebook]);
+
+        $cart = getCartById($pdo, $notebook['cart_id']);
+        //Notificacion admin
+        sendMailNotify(
+            ['nombre' => 'Sistema de Reservas', 'email' => 'antruxxi@gmail.com'],
+            'Se ha eliminado una notebook',
+            notifyDeleteNotebookAdmin($notebook['nombre'], $notebook['numero_serie'], $notebook['cart_id'], $cart ? $cart['nombre'] : null)
+        );
 
         notify("¡Notebook eliminada con exito!");
         redirect("/dashboard/notebooks/ver-notebooks.php");

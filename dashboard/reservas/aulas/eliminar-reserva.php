@@ -3,6 +3,8 @@
     require_once __DIR__ . "/../../../config/functions.php";
     require_once __DIR__ . "/../../../config/validations.php";
     require_once __DIR__ . "/../../../config/db.php";
+    require_once __DIR__ . "/../../../config/sendMailNotify.php";
+    require_once __DIR__ . "/../../../config/email/templates/message.php";
 
     $usuario = getUser();
 
@@ -41,11 +43,36 @@
         $sqlDelete = 'DELETE FROM reservations WHERE id = ?';
         $borrarReserva = $pdo->prepare($sqlDelete);
         $borrarReserva->execute([$id]);
-    
+
+        // Notificacion Administrador
+        sendMailNotify(
+            ['nombre' => 'Sistema de Reservas', 'email' => 'antruxxi@gmail.com'],
+            'Reserva Eliminada',
+            notifyReservAulaAdminDelete(
+                $usuario['nombre'],
+                getAulaReservable($pdo, $reserva['classroom_id'])['nombre'],
+                $reserva['fecha'],
+                $reserva['hora_inicio'],
+                $reserva['hora_fin']
+            )
+        );
+
+        // Notificacion Profesor
+        sendMailNotify(
+            ['nombre' => $usuario['nombre'], 'email' => $usuario['email']],
+            'Sistema Reservas IFTS N°4',
+            notifyReservAulaProfDelete(
+                getAulaReservable($pdo, $reserva['classroom_id'])['nombre'],
+                $reserva['fecha'],
+                $reserva['hora_inicio'],
+                $reserva['hora_fin']
+            )
+        );
+
         notify("Reserva Eliminada.", 'success');
         redirect('/dashboard/reservas/aulas/ver-reservas.php');
     } catch (Exception $error) {
         die('Error de conexión a la base de datos: ' . $error->getMessage());
-    }
+    };
 
 ?>

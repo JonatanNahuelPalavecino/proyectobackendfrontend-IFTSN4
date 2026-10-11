@@ -26,6 +26,12 @@ function getTotalCarts($conn)
     return $totalCarts['Total'];
 }
 
+function getCartById($conn, $cart_id){
+    $consulta = $conn->prepare("SELECT * FROM carts WHERE id = :cart_id");
+    $consulta->execute(['cart_id' => $cart_id]);
+    return $consulta->fetch(PDO::FETCH_ASSOC);
+}
+
 function getTotalNotebooks($conn)
 {
     $consulta = $conn->query("SELECT COUNT(*) as Total FROM computers");

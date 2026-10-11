@@ -39,7 +39,6 @@
 
                 $idReservaDeCarro = crearReservaCarro($pdo, $user_id, $cart_id, $fecha, $comentario);
 
-
                 foreach ($tieneComputadoras as $computadora) {
                     $sqlInsertComputadoras = "INSERT INTO cart_delivery_items (cart_reservation_id, nombre_computadora, numero_serie) VALUES (?, ?, ?)";
                     $registrarComputadorasDeLaReservaDelCarro = $pdo->prepare($sqlInsertComputadoras);
@@ -76,16 +75,18 @@
 
 <?php require __DIR__ . '/../../../components/header.php'; ?>
 
-<main class="dashboard">
-    <h2>💻 Reservar un Carro Móvil</h2>
-    <p>Selecciona el carro que necesitas. Recuerda dejar las especificaciones para las notebooks en los comentarios.</p>
+<main class ="form-page"s>
+    <article class="form-header">
+        <h2>💻 Reservar Carro Móvil</h2>
+        <p>Selecciona el carro que necesitas junto con las especificaciones requeridas.</p>
+    </article>
 
     <!-- Formulario limpio y conectado a las funciones -->
-    <form method="POST" class="auth-form" style="max-width: 600px; margin-top: 20px;">
-        <div class="auth-field">
+    <form method="POST" class ="create-form" style="max-width: 600px; margin-top: 20px;">
+        <div class="form-group">
             <label for="cart_id">Seleccionar Carro Móvil:</label>
-            <select name="cart_id" id="cart_id" class="auth-input" required>
-                <option value="">--Elige un carro--</option>
+            <select name="cart_id" id="cart_id" required>
+                <option value="">-- Elige un carro --</option>
                 <?php foreach ($carros as $carro): ?>
                     <option value="<?= htmlspecialchars($carro['id']) ?>">
                         <?= htmlspecialchars($carro['nombre']) ?> 
@@ -95,7 +96,7 @@
             </select>
         </div>
 
-        <div class="auth-field">
+        <div class="form-group">
             <label for="fecha">Fecha de la reserva:</label>
             <input type="date" name="fecha" id="fecha" class="auth-input" min="<?= date('Y-m-d') ?>" required>   
         </div>
@@ -105,8 +106,12 @@
             <label for="comentario">Comentario (Configuración necesaria):</label>
             <textarea name="comentario" id="comentario" class="auth-input" rows="3" placeholder="Ej: Necesito que todas tengan AutoCAD instalado..." required></textarea>
         </div>
+        
+        <div class="form-actions">
+            <button class="btn-action" type="submit" class="auth-button">Confirmar reserva</button>
+            <a class="btn-back" href="../../index.php" class="btn back">Volver</a>
 
-        <button type="submit" class="auth-button">Confirmar reserva</button>
+        </div>
     </form>      
 </main>
 

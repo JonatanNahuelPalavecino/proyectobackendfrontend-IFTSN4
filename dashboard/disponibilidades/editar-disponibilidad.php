@@ -59,20 +59,23 @@
     include __DIR__ . "/../../components/header.php";
 ?>
 
-<main>
-    <h1>Editar Disponibilidad de <?php echo $aula['nombre'] ?></h1>
+<main class="form-page">
+    <article class="form-header">
+        <h1>Editar Disponibilidad de <?php echo $aula['nombre'] ?></h1>
+        <p>Modifica la disponibilidad del aula <?php echo $aula['nombre'] ?></p>
+    </article>
 
-    <form method="post">
-        <div>
+    <form class="create-form" method="post">
+        <div class="form-group">
             <label for="id">ID Aula</label>
             <input style="cursor: not-allowed;" type="text" name="id" id="id" readonly value="<?php echo $aula['classroom_id'] ?>">
         </div>
-        <div>
-            <label for="nombre">nombre Aula</label>
+        <div class="form-group">
+            <label for="nombre">Nombre Aula</label>
             <input style="cursor: not-allowed;" type="text" name="nombre" id="nombre" value="<?php echo $aula['nombre'] ?>">
         </div>
-        <div>
-            <label for="capacidad">Disponible desde Dia:</label>
+        <div class="form-group">
+            <label for="capacidad">Desde Dia:</label>
             <select id="dia_desde" name="dia_desde" required>
                 <?php for ($dia = 1; $dia <= 7; $dia++) { ?>
                     <option value="<?php echo $dia; ?>" <?php if ($dia === $aula['dia_desde']) {echo "selected";} ?> >
@@ -81,7 +84,7 @@
                 <?php } ?>
             </select>
         </div>
-        <div>
+        <div class="form-group">
             <label for="created_at">Hasta dia:</label>
             <select id="dia_hasta" name="dia_hasta" required>
                 <?php for ($dia = 1; $dia <= 7; $dia++) { ?>
@@ -91,17 +94,18 @@
                 <?php } ?>
             </select>
         </div>
-        <div>
+        <div class="form-group">
             <label for="hora_inicio">Desde horario:</label>
             <input type="time" name="hora_inicio" id="hora_inicio" value="<?php echo $aula['hora_inicio'] ?>" required>
         </div>
-        <div>
-            <label for="hora_fin">Desde horario:</label>
+        <div class="form-group">
+            <label for="hora_fin">Hasta horario:</label>
             <input type="time" name="hora_fin" id="hora_fin" value="<?php echo $aula['hora_fin'] ?>" required>
         </div>
-        <div>
-            <button type="submit">Editar Disponibilidad</button>
-            <button popovertarget="eliminar-disponibilidad" type="button">Eliminar Disponibilidad</button>
+        <div class="form-actions">
+            <button class="btn-action" type="submit">Editar</button>
+            <button class="btn-" popovertarget="eliminar-disponibilidad" type="button">Eliminar</button>
+            <a class="btn-back" href ="../aulas/ver-aulas.php">Volver</a>
         </div>
     </form>
 </main>
