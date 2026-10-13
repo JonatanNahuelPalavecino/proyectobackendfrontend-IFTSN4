@@ -49,7 +49,7 @@
                 // Notificacion Administrador
                 sendMailNotify(
                     ['nombre' => 'Sistema de Reservas', 'email' => 'antruxxi@gmail.com'],
-                    'Se ha editado una notebook',
+                    'Gestion de notebooks',
                     notifyOperationNotebookAdmin(
                         ['title' => '¡Se edito una notebook en el Sistema!', 'subtitle' => 'Los datos nuevos de la notebook son:'],
                         $nombreNotebook, 

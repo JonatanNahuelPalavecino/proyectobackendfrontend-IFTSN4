@@ -37,7 +37,7 @@
         //Notificacion admin
         sendMailNotify(
             ['nombre' => 'Sistema de Reservas', 'email' => 'antruxxi@gmail.com'],
-            'Se ha eliminado una notebook',
+            'Gestion de notebooks',
             notifyOperationNotebookAdmin(
                 ['title' => '¡Se eliminó una notebook en el Sistema!', 'subtitle' => 'Los datos de la notebook eran:'],
                 $notebook['nombre'], 

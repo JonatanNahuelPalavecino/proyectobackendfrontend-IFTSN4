@@ -35,9 +35,9 @@
                 notify("Creación de notebook con éxito");
                 sendMailNotify(
                     ['nombre' => 'Sistema de Reservas', 'email' => 'antruxxi@gmail.com'],
-                    'Se ha creado una notebook',
+                    'Gestion de notebooks',
                     notifyOperationNotebookAdmin(
-                    ['title' => '¡Se Creo una nueva notebook en el Sistema!', 'subtitle' => 'Los datos de la notebook son:'],
+                    ['title' => '¡Se creó una nueva notebook en el Sistema!', 'subtitle' => 'Los datos de la notebook son:'],
                     $nombreNotebook,
                     $numeroSerie,
                     $carro, 

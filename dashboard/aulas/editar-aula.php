@@ -2,6 +2,9 @@
     require_once __DIR__ . "/../../config/functions.php";
     require_once __DIR__ . "/../../config/validations.php";
     require_once __DIR__ . "/../../config/db.php";
+    require_once __DIR__ . "/../../config/sendMailNotify.php";
+    require_once __DIR__ . "/../../config/email/templates/message.php";
+
 
     $usuario = getUser();
 
@@ -44,6 +47,16 @@
                 $sql = 'UPDATE classrooms SET nombre = ?, capacidad = ? WHERE id = ?';
                 $editarAula = $pdo->prepare($sql);
                 $editarAula->execute([$nombre_aula, $capacidad, $id]);
+                
+                sendMailNotify(
+                ['nombre' => 'Sistema de Reservas', 'email' => 'antruxxi@gmail.com'],
+                "Gestión de aulas",
+                notifyOperationAulaAdmin(
+                    ['title' => '¡Se editó un aula en el Sistema!', 'subtitle' => 'Los datos nuevos del aula son:'],
+                    $nombre_aula,
+                    $capacidad
+                    )
+                );
 
                 notify("Edicion de aula exitoso.");
                 redirect('/dashboard/aulas/ver-aulas.php');
@@ -74,7 +87,7 @@
             <input style="cursor: not-allowed;" type="text" name="id" id="id" readonly value="<?php echo $aula['id'] ?>">
         </div>
         <div class="form-group">
-            <label for="nombre">nombre Aula</label>
+            <label for="nombre">Nombre Aula</label>
             <input type="text" name="nombre" id="nombre" value="<?php echo $aula['nombre'] ?>">
         </div>
         <div class="form-group">

@@ -3,6 +3,8 @@
     require_once __DIR__ . "/../../config/functions.php";
     require_once __DIR__ . "/../../config/validations.php";
     require_once __DIR__ . "/../../config/db.php";
+    require_once __DIR__ . "/../../config/sendMailNotify.php";
+    require_once __DIR__ . "/../../config/email/templates/message.php";
 
     $usuario = getUser();
 
@@ -33,7 +35,21 @@
         $sqlDelete = 'DELETE FROM classroom_schedules WHERE classroom_id = ?';
         $borrarDisponiblidad = $pdo->prepare($sqlDelete);
         $borrarDisponiblidad->execute([$id]);
-    
+
+        sendMailNotify(
+            ['nombre' => 'Sistema de Reservas', 'email' => 'antruxxi@gmail.com'],
+            "Gestion de disponibilidad de aulas",
+            notifyOperationDisponibilidadAulaAdmin(
+                ['title' => 'Disponibilidad de aula eliminada', 'subtitle' => 'Los datos de la disponibilidad de aula eliminada eran:'],
+                getClassroomById($pdo, $id)['nombre'],
+                getClassroomById($pdo, $id)['capacidad'],
+                getDayString($disponibilidad['dia_desde']),
+                getDayString($disponibilidad['dia_hasta']),
+                $disponibilidad['hora_inicio'],
+                $disponibilidad['hora_fin']
+                )
+            );
+        
         notify("Disponiblidad de Aula Eliminada.", 'success');
         redirect('/dashboard/aulas/ver-aulas.php');
     } catch (Exception $error) {

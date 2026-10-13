@@ -3,6 +3,8 @@
     require_once __DIR__ . "/../../config/functions.php";
     require_once __DIR__ . "/../../config/validations.php";
     require_once __DIR__ . "/../../config/db.php";
+    require_once __DIR__ . "/../../config/sendMailNotify.php";
+    require_once __DIR__ . "/../../config/email/templates/message.php";
 
     $usuario = getUser();
 
@@ -45,6 +47,20 @@
                 $sql = 'UPDATE classroom_schedules SET dia_desde = ?, dia_hasta = ?, hora_inicio = ?, hora_fin = ? WHERE classroom_id = ?';
                 $crearDisponibilidad = $pdo->prepare($sql);
                 $crearDisponibilidad->execute([$dia_desde, $dia_hasta, $hora_inicio, $hora_fin, $aula['classroom_id']]);
+                
+                sendMailNotify(
+                    ['nombre' => 'Sistema de Reservas', 'email' => 'antruxxi@gmail.com'],
+                    "Gestion de disponibilidad de aulas",
+                    notifyOperationDisponibilidadAulaAdmin(
+                        ['title' => 'Disponibilidad de aula editada', 'subtitle' => 'Los datos de la nueva disponibilidad de aula son:'],
+                        $aula['nombre'],
+                        $aula['capacidad'],
+                        getDayString($dia_desde),
+                        getDayString($dia_hasta),
+                        $hora_inicio,
+                        $hora_fin
+                    )
+                );
     
                 notify("Edicion de disponibilidad exitoso.", 'success');
                 redirect('/dashboard/aulas/ver-aulas.php');
