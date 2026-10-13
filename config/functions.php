@@ -110,6 +110,16 @@ function getNotebookById($conn, $id)
     return $resultado;
 }
 
+
+function getClassroomById($conn, $id)
+{
+    $sql = "SELECT * FROM classrooms WHERE id = :id_aula";
+    $consulta = $conn->prepare($sql);
+    $consulta->execute([":id_aula" => $id]);
+    $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+    return $resultado;
+}
+
 function getReservasCarrosAdmin($conn)
 {
     $sql = "SELECT r.id, r.fecha, r.comentario, r.estado, r.entregado_at, r.devuelto_at, c.nombre AS carro

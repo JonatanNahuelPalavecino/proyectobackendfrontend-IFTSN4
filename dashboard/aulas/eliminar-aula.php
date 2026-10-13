@@ -3,6 +3,8 @@
     require_once __DIR__ . "/../../config/functions.php";
     require_once __DIR__ . "/../../config/validations.php";
     require_once __DIR__ . "/../../config/db.php";
+    require_once __DIR__ . "/../../config/sendMailNotify.php";
+    require_once __DIR__ . "/../../config/email/templates/message.php";
 
     $usuario = getUser();
 
@@ -32,6 +34,16 @@
         $sqlDelete = 'DELETE FROM classrooms WHERE id = ?';
         $borrarAula = $pdo->prepare($sqlDelete);
         $borrarAula->execute([$id]);
+
+        sendMailNotify(
+                ['nombre' => 'Sistema de Reservas', 'email' => 'antruxxi@gmail.com'],
+                "Gestión de aulas",
+                notifyOperationAulaAdmin(
+                    ['title' => '¡Se eliminó un aula en el Sistema!', 'subtitle' => 'Los datos del aula eliminada eran:'],
+                    $aula['nombre'],
+                    $aula['capacidad']
+                    )
+                );
     
         notify("Aula Eliminada.", 'success');
         redirect('/dashboard/aulas/ver-aulas.php');

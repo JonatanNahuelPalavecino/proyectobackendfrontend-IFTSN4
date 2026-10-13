@@ -65,7 +65,8 @@
                 sendMailNotify(
                     ['nombre' => 'Sistema de Reservas', 'email' => 'antruxxi@gmail.com'],
                     "¡Se registro una Nueva Reserva de Aula!",
-                    notifyReservAulaAdmin(
+                    notifyOperationReservAulaAdmin(
+                        ['title' => '¡Se registro una nueva reserva de aula!', 'subtitle' => 'Los datos de la reserva son:'],
                         $usuario['nombre'],
                         $aulaSeleccionada['nombre'],
                         $fecha,
@@ -78,7 +79,8 @@
                 sendMailNotify(
                     ['nombre' => $usuario['nombre'], 'email' => $usuario['email']],
                     "Sistema Reservas IFTS N°4",
-                    notifyReservAulaProf(
+                    notifyOperationReservAulaProf(
+                        ['title' => '¡Reserva de aula creada exitosamente!', 'subtitle' => 'Los datos de tu reserva son:'],
                         $aulaSeleccionada['nombre'],
                         $fecha,
                         $horaInicio,

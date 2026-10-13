@@ -47,8 +47,9 @@
         // Notificacion Administrador
         sendMailNotify(
             ['nombre' => 'Sistema de Reservas', 'email' => 'antruxxi@gmail.com'],
-            'Reserva Eliminada',
-            notifyReservAulaAdminDelete(
+            'Se eliminó una reserva de aula',
+            notifyOperationReservAulaAdmin(
+                ['title' => '¡Se eliminó una reserva de aula!', 'subtitle' => 'Los datos de la reserva eran:'],
                 $usuario['nombre'],
                 getAulaReservable($pdo, $reserva['classroom_id'])['nombre'],
                 $reserva['fecha'],
@@ -61,7 +62,8 @@
         sendMailNotify(
             ['nombre' => $usuario['nombre'], 'email' => $usuario['email']],
             'Sistema Reservas IFTS N°4',
-            notifyReservAulaProfDelete(
+            notifyOperationReservAulaProf(
+                ['title' => '¡Eliminaste tu reserva!', 'subtitle' => 'Los datos de tu reserva eran:'],
                 getAulaReservable($pdo, $reserva['classroom_id'])['nombre'],
                 $reserva['fecha'],
                 $reserva['hora_inicio'],

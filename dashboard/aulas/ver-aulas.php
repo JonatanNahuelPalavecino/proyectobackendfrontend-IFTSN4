@@ -21,16 +21,17 @@ $aulas = $consulta->fetchAll();
 include __DIR__ . "/../../components/header.php";
 ?>
 
-<main>
-    <h1>Administrar Aulas</h1>
-
-    <div>
+<main class="verReservas">
+    
+    <div class="">
+        <h1>Gestion Aulas</h1>
         <a href="<?= BASE_URL ?>/dashboard/aulas/crear-aula.php" class="btn reservar">+ Aula</a>
     </div>
 
     <?php if (count($aulas) === 0): ?>
-        <p>No hay aulas disponibles</p>
+        <p class="no-results">No hay aulas disponibles</p>
     <?php else: ?>
+    <section class="verReservas-container">    
         <table>
             <thead>
                 <tr>
@@ -67,22 +68,53 @@ include __DIR__ . "/../../components/header.php";
                                 <a href="<?php echo BASE_URL; ?>/dashboard/disponibilidades/editar-disponibilidad.php?id=<?php echo $aula['id']; ?>">EDITAR DISPONIBILIDAD</a>
                             </td>
                         <?php endif; ?>
-                        <td>
-                            <button popovertarget="eliminar-aula-<?php echo $aula['id'] ?>">ELIMINAR AULA</button>
+                        <td class="verReservas-acciones">
+                            <button class="verReservas-eliminar" popovertarget="eliminar-aula-<?php echo $aula['id'] ?>">Eliminar</button>
                         </td>
                     </tr>
                 <?php endforeach; ?>
 
             </tbody>
         </table>
+    </section>
     <?php endif; ?>
 </main>
 
 <?php foreach ($aulas as $aula): ?>
-    <section id="eliminar-aula-<?php echo $aula['id'] ?>" popover>
-        <p>¿estas seguro que queres eliminar el <?php echo $aula['nombre'] ?> del sistema?</p>
-        <a href="<?php echo BASE_URL; ?>/dashboard/aulas/eliminar-aula.php?id=<?php echo $aula['id']; ?>">Eliminar</a>
-        <button type="button" popovertarget="eliminar-aula-<?php echo $aula['id'] ?>" popovertargetaction="hide">Cancelar</button>
+    <section id="eliminar-aula-<?php echo $aula['id'] ?>" popover class="popover-eliminar">
+        <section class="popover-eliminar-content">
+            <h2>Eliminar Aula</h2>
+            <p>
+                ¿Estas seguro que queres eliminar el aula?
+            </p>
+
+            <section class="popover-eliminar-info">
+                <p>
+                    <strong>ID Aula: </strong>
+                    <?= htmlspecialchars($aula['id']); ?>
+                </p>
+
+                <p>
+                    <strong>Nombre Aula: </strong>
+                    <?= htmlspecialchars($aula['nombre']); ?>
+                </p>
+                <p>
+                    <strong>Capacidad: </strong>
+                    <?= htmlspecialchars($aula['capacidad']); ?>
+                </p>    
+                
+                <p>
+                    <strong>Creado: </strong>
+                    <?= htmlspecialchars($aula['created_at']); ?>
+                </p> 
+            </section>
+
+            <section class="popover-eliminar-actions">
+                <a class="popover-confirmar" href="<?php echo BASE_URL; ?>/dashboard/aulas/eliminar-aula.php?id=<?php echo $aula['id']; ?>">Eliminar</a>
+                <button class="popover-cancelar" type="button" popovertarget="eliminar-aula-<?php echo $aula['id'] ?>" popovertargetaction="hide">Cancelar</button>
+            </section>
+
+        </section>        
     </section>
 <?php endforeach ?>
 

@@ -37,11 +37,17 @@
         //Notificacion admin
         sendMailNotify(
             ['nombre' => 'Sistema de Reservas', 'email' => 'antruxxi@gmail.com'],
-            'Se ha eliminado una notebook',
-            notifyDeleteNotebookAdmin($notebook['nombre'], $notebook['numero_serie'], $notebook['cart_id'], $cart ? $cart['nombre'] : null)
+            'Gestion de notebooks',
+            notifyOperationNotebookAdmin(
+                ['title' => '¡Se eliminó una notebook en el Sistema!', 'subtitle' => 'Los datos de la notebook eran:'],
+                $notebook['nombre'], 
+                $notebook['numero_serie'], 
+                $notebook['cart_id'], 
+                $cart ? $cart['nombre'] : null
+            )
         );
 
-        notify("¡Notebook eliminada con exito!");
+        notify("Eliminación de notebook con éxito");
         redirect("/dashboard/notebooks/ver-notebooks.php");
 
     }catch(Exception $e){

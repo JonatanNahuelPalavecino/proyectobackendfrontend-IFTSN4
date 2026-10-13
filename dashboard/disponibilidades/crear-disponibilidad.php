@@ -3,6 +3,8 @@
     require_once __DIR__ . "/../../config/functions.php";
     require_once __DIR__ . "/../../config/validations.php";
     require_once __DIR__ . "/../../config/db.php";
+    require_once __DIR__ . "/../../config/sendMailNotify.php";
+    require_once __DIR__ . "/../../config/email/templates/message.php";
 
     $usuario = getUser();
 
@@ -42,9 +44,25 @@
             notify($error, "error");
         } else {
             try {
-                $sql = 'INSERT INTO classroom_schedules (classroom_id, dia_desde, dia_hasta, hora_inicio, hora_fin) VALUES (?, ?, ?, ?, ?)';
+                $sql = 'INSERT INTO classroom_schedules (classroom_id, dia_desde, dia_hasta, hora_inicio, hora_fin) VALUES (?, ?, ?, ?, ?)' ;
                 $crearDisponibilidad = $pdo->prepare($sql);
                 $crearDisponibilidad->execute([$id, $dia_desde, $dia_hasta, $hora_inicio, $hora_fin]);
+
+
+                sendMailNotify(
+                    ['nombre' => 'Sistema de Reservas', 'email' => 'antruxxi@gmail.com'],
+                    "Gestion de disponibilidad de aulas",
+                    notifyOperationDisponibilidadAulaAdmin(
+                        ['title' => 'Nueva disponibilidad de aula creada', 'subtitle' => 'Los datos de la nueva     disponibilidad de aula son:'],
+                        $aula['nombre'],
+                        $aula['capacidad'],
+                        getDayString($dia_desde),
+                        getDayString($dia_hasta),
+                        $hora_inicio,
+                        $hora_fin
+                    )
+
+                );
     
                 notify("Creacion de disponibilidad exitoso.", 'success');
                 redirect('/dashboard/aulas/ver-aulas.php');
@@ -59,20 +77,23 @@
     include __DIR__ . "/../../components/header.php";
 ?>
 
-<main>
-    <h1>Crear Disponibilidad de <?php echo $aula['nombre'] ?></h1>
+<main class="form-page">
+    <div class="form-header">
+        <h1>🕜Crear Disponibilidad</h1>
+        <p>Seleccione los datos requeridos para la disponibilidad</p>
+    </div>
 
-    <form method="post">
-        <div>
+    <form class="create-form" method="post">
+        <div class="form-group">
             <label for="id">ID Aula</label>
             <input style="cursor: not-allowed;" type="text" name="id" id="id" readonly value="<?php echo $aula['id'] ?>">
         </div>
-        <div>
-            <label for="nombre">nombre Aula</label>
+        <div class="form-group">
+            <label for="nombre">Nombre Aula</label>
             <input style="cursor: not-allowed;" type="text" name="nombre" id="nombre" value="<?php echo $aula['nombre'] ?>">
         </div>
-        <div>
-            <label for="capacidad">Disponible desde Dia:</label>
+        <div class="form-group">
+            <label for="capacidad">Dia <span style="font-style: italic;">(Desde)</span>:</label>
             <select id="dia_desde" name="dia_desde" required>
                 <option value="">Seleccionar</option>
                 <?php for ($dia = 1; $dia <= 7; $dia++) { ?>
@@ -82,8 +103,8 @@
                 <?php } ?>
             </select>
         </div>
-        <div>
-            <label for="created_at">Hasta dia:</label>
+        <div class="form-group">
+            <label for="created_at">Dia <span style="font-style: italic;">(Hasta)</span>:</label>
             <select id="dia_hasta" name="dia_hasta" required>
                 <option value="">Seleccionar</option>
                 <?php for ($dia = 1; $dia <= 7; $dia++) { ?>
@@ -93,15 +114,19 @@
                 <?php } ?>
             </select>
         </div>
-        <div>
-            <label for="hora_inicio">Desde horario:</label>
+        <div class="form-group">
+            <label for="hora_inicio">Horario <span style="font-style: italic;">(Desde)</span>:</label>
             <input type="time" name="hora_inicio" id="hora_inicio" required>
         </div>
-        <div>
-            <label for="hora_fin">Desde horario:</label>
+        <div class="form-group">
+            <label for="hora_fin">Horario <span style="font-style: italic;">(Hasta)</span>:</label>
             <input type="time" name="hora_fin" id="hora_fin" required>
         </div>
-        <button type="submit">Crear Disponibilidad</button>
+
+        <div class="form-actions">
+            <button class="btn-action" type="submit">Crear Disponibilidad</button>
+            <a class="btn-back" href="../aulas/ver-aulas.php">Volver</a>
+        </div>
     </form>
 </main>
 

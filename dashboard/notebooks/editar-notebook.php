@@ -49,11 +49,17 @@
                 // Notificacion Administrador
                 sendMailNotify(
                     ['nombre' => 'Sistema de Reservas', 'email' => 'antruxxi@gmail.com'],
-                    'Se ha editado una notebook',
-                    notifyEditNotebookAdmin($nombreNotebook, $numeroSerie,$carroSeleccionado, $cart ? $cart['nombre'] : null)
+                    'Gestion de notebooks',
+                    notifyOperationNotebookAdmin(
+                        ['title' => '¡Se edito una notebook en el Sistema!', 'subtitle' => 'Los datos nuevos de la notebook son:'],
+                        $nombreNotebook, 
+                        $numeroSerie, 
+                        $carroSeleccionado, 
+                        $cart ? $cart['nombre'] : null
+                    )
                 );
 
-                notify("Edicion de notebook exitoso");
+                notify("Edición de notebook con éxito");
                 redirect('/dashboard/notebooks/ver-notebooks.php');
 
             }catch(Exception $error){

@@ -2,9 +2,9 @@
     require_once __DIR__ . "/config/functions.php";
     require_once __DIR__ . "/config/validations.php";
     require_once __DIR__ . "/config/db.php";
+    require_once __DIR__ . "/config/sendMailNotify.php";
     require_once __DIR__ . "/config/email/templates/message.php";
 
-    require_once __DIR__ . "/config/sendMailNotify.php";
 
     if (isLoggedIn()) {
         redirect('/dashboard/');
@@ -35,20 +35,26 @@
                 $crearUsuario->execute([$nombre, $email, $hashedPassword, $role]);
                 
 
-                //1)ESTA PRIMERA LLAMADA A LA FUNCION DE NOTIFICACION DE ENVIO DE MAIL ES PARA AVISAR AL PROFESOOR QUE SE REGISTRO EN EL SISTEMA.
-              
-                sendMailNotify(
-                    ['nombre' => $nombre, 'email' => $email], 
-                    "Sistema Reservas IFTS N°4", 
-                    notifyProfesor($nombre, $email));
-
-                //2)ESTA SEGUNDA LLAMADA A LA FUNCION DE NOTIFICACION DE ENVIO DE MAIL ES PARA AVISAR A LOS MAIL  DEL SISTEMA QUE SE REGISTRO UN PROFESOR NUEVO.
-                
+                //Notificacion Admin
                 sendMailNotify(
                     ['nombre' => 'Sistema de Reservas', 'email' => 'antruxxi@gmail.com'],
                     "¡Nuevo profesor registrado!",
-                    notifyAdmin($nombre, $email)
+                    notifyRegister(
+                        ['title' => '¡Se registro un nuevo profesor en el Sistema!', 'subtitle' => 'Los datos del profesor son:'],
+                        $nombre, 
+                        $email)
                 );
+                //Notificacion al Profesor 
+                sendMailNotify(
+                    ['nombre' => $nombre, 'email' => $email], 
+                    "Sistema Reservas IFTS N°4", 
+                    notifyRegister(
+                        ['title' => '¡Registro exitoso!', 'subtitle' => 'Tus datos son:'],
+                        $nombre, 
+                        $email
+                    )
+                );
+
 
                 notify("Registro exitoso. Ahora puedes iniciar sesión.", 'success');
                 redirect('/login.php');

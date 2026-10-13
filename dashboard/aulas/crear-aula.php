@@ -2,6 +2,8 @@
 require_once __DIR__ . "/../../config/functions.php";
 require_once __DIR__ . "/../../config/validations.php";
 require_once __DIR__ . "/../../config/db.php";
+require_once __DIR__ . "/../../config/sendMailNotify.php";
+require_once __DIR__ . "/../../config/email/templates/message.php";
 
 $usuario = getUser();
 
@@ -28,10 +30,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $crearAula = $pdo->prepare($sql);
             $crearAula->execute([$nombre_aula, $capacidad]);
 
-            $nombre = $_SESSION['usuario']['nombre'];
-            $email = $_SESSION['usuario']['email'];
-
-
+           sendMailNotify(
+                ['nombre' => 'Sistema de Reservas', 'email' => 'antruxxi@gmail.com'],
+                "Gestión de aulas",
+                notifyOperationAulaAdmin(
+                    ['title' => '¡Se creó una nueva aula en el Sistema!', 'subtitle' => 'Los datos del aula son:'],
+                    $nombre_aula,
+                    $capacidad
+                )
+           );
             
             notify("Creacion de aula exitoso.", 'success');
             redirect('/dashboard/aulas/crear-aula.php');
