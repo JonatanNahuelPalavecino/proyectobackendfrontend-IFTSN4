@@ -772,7 +772,7 @@ body > main {
   color: var(--navy-2);
 }
 
-.no-results {
+.no-results   {
   margin-top: 20px;
   border-radius: 12px;
   padding: 20px 5px; 
@@ -810,6 +810,56 @@ body > main {
 .verReservas a:hover {
   color: var(--secondary-color);
   text-decoration: underline;
+}
+
+.verReservas-header {
+  background-color: var(--light-color);
+  border-radius: 12px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.verReservas-header .exportar-excel {
+  margin-left: auto;
+  display: inline-block;
+  text-decoration: none;
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  padding: 8px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out ;
+}
+
+.verReservas-header .exportar-excel:hover {
+  text-decoration: none;
+  background-color: var(--secondary-color);
+  color: var(--white-color);
+}
+
+.verReservas-emoji{
+  font-size: 2rem;
+  box-shadow: 0px 0px 5px  var(--gray-color);
+  border-radius: 8px;
+}
+
+.verReservas-logo{
+ background-color: var(--primary-color); 
+ padding:5px 6px; 
+ border-radius:8px; 
+ font-family: var(--font-family-heading); 
+ color:var(--white-color); 
+ font-size:17px; 
+ letter-spacing:3px;
+ font-weight: bold;
+}
+
+.verReservas-divisor{
+  width: 1px;
+  background-color: var(--gray-color) ;
+  height: 35px;
 }
 
 .verReservas-container {

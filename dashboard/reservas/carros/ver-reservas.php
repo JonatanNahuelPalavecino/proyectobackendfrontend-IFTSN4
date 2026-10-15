@@ -27,113 +27,135 @@
 
 <?php require_once __DIR__ . "/../../../components/header.php"; ?>
 
-<main class="verReservas">
-    <section>
+    <main >
+        <section class="verReservas">
 
-        <?php if ($usuario['rol'] === 'admin'): ?>
-            <!-- VISTA DEL ADMINISTRADOR -->
-            <div>
-                <h1>📊 Reservas de carros del Sistema</h1>
-                <p>Todas las reservas de carros del sistema.</p>
-            </div>
+            <?php if ($usuario['rol'] === 'admin'): ?>
+                <!-- VISTA DEL ADMINISTRADOR -->
+                <article class="verReservas-header">
 
-            <div>
-                <?php if (!empty($reservas_admin)): ?>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Carro</th>
-                                <th>Fecha</th>
-                                <th>Estado</th>
-                                <th>Comentarios</th>
-                                <th>Editar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($reservas_admin as $reserva): ?>
+                    <span class="verReservas-emoji">📊</span>
+
+                    <div>
+                        <h1> Reservas de carros</h1>
+                        <p>Todas las reservas de carros del sistema.</p>
+                    </div>
+
+                    <span class="verReservas-divisor"></span>
+
+                    <div>
+                        <span class="verReservas-logo">SISTEMA</span>
+                    </div>
+                    
+                </article>
+
+                <section class="verReservas-container">
+                    <?php if (!empty($reservas_admin)): ?>
+                        <table>
+                            <thead>
                                 <tr>
-                                    <td><?= htmlspecialchars($reserva['carro']) ?></td>
-                                    <td><?= htmlspecialchars(date("d/m/Y", strtotime($reserva['fecha']))) ?></td>
-
-                                    <td>
-                                        <span style="<?= $reserva['estado'] === 'reservado' ? 'background-color: #fff3cd; color: #856404;' :
-                                            ($reserva['estado'] === 'entregado' ? 'background-color: #d4edda; color: #155724;' :
-                                            'background-color: #e2e3e5; color: #383d41;') ?>">
-                                            <?= htmlspecialchars(ucfirst($reserva['estado'])) ?>
-                                        </span>
-                                    </td>
-
-                                    <td><?= htmlspecialchars($reserva['comentario']) ?></td>
-
-                                    <td class="verReservas-acciones">
-                                        <a class="verReservas-editar" href="modificar.php?id=<?= $reserva['id'] ?>">Editar</a>
-
-                                        <a class="verReservas-eliminar" href="eliminar.php?id=<?= $reserva['id'] ?>" onclick="return confirm('¿Estás seguro de eliminar este carro permanentemente?');">Eliminar</a>
-                                    </td>
+                                    <th>Carro</th>
+                                    <th>Fecha</th>
+                                    <th>Estado</th>
+                                    <th>Comentarios</th>
+                                    <th>Editar</th>
                                 </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                <?php else: ?>
-                    <p class="no-results">No hay reservas de carros en el sistema.</p>
-                <?php endif; ?>
-                <a href="../../index.php">Volver</a>
-            </div>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($reservas_admin as $reserva): ?>
+                                    <tr>
+                                        <td><?= htmlspecialchars($reserva['carro']) ?></td>
+                                        <td><?= htmlspecialchars(date("d/m/Y", strtotime($reserva['fecha']))) ?></td>
 
-        <?php else: ?>
-            <div>
-                <h1>💻 Mis reservas | Carros</h1>
-                <p>Aquí podrás ver tus reservas de carros activas.</p>
-            </div>
+                                        <td>
+                                            <span style="<?= $reserva['estado'] === 'reservado' ? 'background-color: #fff3cd; color: #856404;' :
+                                                ($reserva['estado'] === 'entregado' ? 'background-color: #d4edda; color: #155724;' :
+                                                'background-color: #e2e3e5; color: #383d41;') ?>">
+                                                <?= htmlspecialchars(ucfirst($reserva['estado'])) ?>
+                                            </span>
+                                        </td>
 
-            <section class="verReservas-container">
-                <?php if (!empty($reservas_user)): ?>
-                    <table >
-                        <thead>
-                            <tr>
-                                <th>Carro</th>
-                                <th>Fecha</th>
-                                <th>Estado</th>
-                                <th>Comentarios</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($reservas_user as $reserva): ?>
+                                        <td><?= htmlspecialchars($reserva['comentario']) ?></td>
+
+                                        <td class="verReservas-acciones">
+                                            <a class="verReservas-editar" href="modificar.php?id=<?= $reserva['id'] ?>">Editar</a>
+
+                                            <button class="verReservas-eliminar" href="eliminar.php?id=<?= $reserva['id'] ?>" onclick="return confirm('¿Estás seguro de eliminar este carro permanentemente?');">Eliminar</button>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    <?php else: ?>
+                        <p class="no-results">No hay reservas de carros en el sistema.</p>
+                    <?php endif; ?>
+                    <a href="../../index.php">Volver</a>
+                </section>
+
+            <?php else: ?>
+                <article class="verReservas-header">
+
+                    <span class="verReservas-emoji">🛒</span>
+
+                    <div>
+                        <h1>Mis reservas de Carros</h1>
+                        <p>Aquí podrás ver tus reservas de carros activas.</p>
+                    </div>
+
+                    <span class="verReservas-divisor"></span>
+
+                    <div>
+                        <span class="verReservas-logo">USUARIO</span>
+                    </div>
+
+                </article>
+
+                <section class="verReservas-container">
+                    <?php if (!empty($reservas_user)): ?>
+                        <table >
+                            <thead>
                                 <tr>
-                                    <td><?= htmlspecialchars($reserva['carro']) ?></td>
-                                    <td><?= htmlspecialchars(date("d/m/Y", strtotime($reserva['fecha']))) ?></td>
-
-                                    <td>
-                                        <span style="<?= $reserva['estado'] === 'reservado' ? 'background-color: #fff3cd; color: #856404;' :
-                                            ($reserva['estado'] === 'entregado' ? 'background-color: #d4edda; color: #155724;' :
-                                            'background-color: #e2e3e5; color: #383d41;') ?>">
-                                            <?= htmlspecialchars(ucfirst($reserva['estado'])) ?>
-                                        </span>
-                                    </td>
-
-                                    <td><?= htmlspecialchars($reserva['comentario']) ?></td>
-
-                                    <td class="verReservas-acciones">
-                                        <a class="verReservas-editar" href="<?= BASE_URL ?>/dashboard/reservas/carros/modificar.php?id=<?= $reserva['id'] ?>">Editar</a>
-                                        <button class="verReservas-eliminar" type="button" popovertarget="eliminar-reserva-<?= $reserva['id'] ?>">Eliminar</button>
-                                    </td>
+                                    <th>Carro</th>
+                                    <th>Fecha</th>
+                                    <th>Estado</th>
+                                    <th>Comentarios</th>
+                                    <th>Acciones</th>
                                 </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                <?php else: ?>
-                    <article>
-                        <p class="p-sin-reservas">No tienes reservas de carros activas.</p>
-                        <a href="<?= BASE_URL ?>/dashboard/reservas/carros/crear-reserva.php">Ir a Reservar</a>
-                    </article>
-                <?php endif; ?>
-            </section>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($reservas_user as $reserva): ?>
+                                    <tr>
+                                        <td><?= htmlspecialchars($reserva['carro']) ?></td>
+                                        <td><?= htmlspecialchars(date("d/m/Y", strtotime($reserva['fecha']))) ?></td>
 
-        <?php endif; ?>
+                                        <td>
+                                            <span style="<?= $reserva['estado'] === 'reservado' ? 'background-color: #fff3cd; color: #856404;' :
+                                                ($reserva['estado'] === 'entregado' ? 'background-color: #d4edda; color: #155724;' :
+                                                'background-color: #e2e3e5; color: #383d41;') ?>">
+                                                <?= htmlspecialchars(ucfirst($reserva['estado'])) ?>
+                                            </span>
+                                        </td>
 
-    </section>
-</main>
+                                        <td><?= htmlspecialchars($reserva['comentario']) ?></td>
+
+                                        <td class="verReservas-acciones">
+                                            <a class="verReservas-editar" href="<?= BASE_URL ?>/dashboard/reservas/carros/modificar.php?id=<?= $reserva['id'] ?>">Editar</a>
+                                            <button class="verReservas-eliminar" type="button" popovertarget="eliminar-reserva-<?= $reserva['id'] ?>">Eliminar</button>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    <?php else: ?>
+                        <p class="no-results">No tienes reservas de carros activas.</p>
+                    <?php endif; ?>
+                    <a href="../../index.php">Volver</a>
+                </section>
+
+            <?php endif; ?>
+
+        </section>
+    </main>
 
     <?php if ($usuario['rol'] === 'user' && !empty($reservas_user)): ?>
         <?php foreach ($reservas_user as $reserva): ?>
