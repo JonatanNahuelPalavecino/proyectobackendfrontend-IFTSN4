@@ -24,106 +24,127 @@ require_once __DIR__ . "/../../../components/header.php";
 ?>
 
 
-<main class="verReservas">
-    <?php if ($usuario['rol'] === 'admin'): ?>
-        <h1>🏛️ Reservas de aulas del Sistema</h1>
-        <p>Todas las reservas aulas del sistema</p>
-        <?php if (!empty($reservasTotales)): ?>
-            <a href="<?= BASE_URL ?>/config/excel/exportar-reservas-aulas.php" class="exportar-excel">Exportar a Excel</a>
+<main>
+    <section class="verReservas">
+        <?php if ($usuario['rol'] === 'admin'): ?>
+            <article class="verReservas-header">
+
+                <span class="verReservas-emoji">🏛️</span>
+
+                <div>
+                    <h1>Reservas de Aulas</h1>
+                    <p>Todas las reservas aulas del sistema</p>
+                </div>
+
+                <span class="verReservas-divisor"></span>
+
+                <div>
+                    <span class="verReservas-logo">SISTEMA</span>
+                </div>
+
+                 <?php if (!empty($reservasTotales)): ?>
+                    <a href="<?= BASE_URL ?>/config/excel/exportar-reservas-aulas.php" class="exportar-excel">
+                        ⬇️ Exportar a Excel
+                    </a>
+                <?php endif ?>
+                
+            </article>
+
+           
+
+            <section class="verReservas-container">
+                <?php if (!empty($reservasTotales)): ?>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Quien reserva</th>
+                                <th>Nombre aula</th>
+                                <th>Fecha</th>
+                                <th>Hora</th>
+                                <th>Capacidad</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($reservasTotales as $reserva): ?>
+                                <tr style="color: <?= $reserva['fecha'] < date('Y-m-d') ? "grey" : "black" ?>;">
+                                    <td><?= htmlspecialchars($reserva['usuario']) ?></td>
+                                    <td><?= htmlspecialchars($reserva['aula']) ?></td>
+                                    <td><?= formatDate(htmlspecialchars($reserva['fecha'])) ?></td>
+                                    <td><?= htmlspecialchars($reserva['hora_inicio']) ?>hs - <?= htmlspecialchars($reserva['hora_fin']) ?>hs</td>
+                                    <td><?= htmlspecialchars($reserva['capacidad']) ?></td>
+                                    <td><span class="verReservas-status <?= $reserva['fecha'] < date('Y-m-d') ? 'confirmed' : 'pending' ?>"><?= $reserva['fecha'] < date('Y-m-d') ? 'Cumplida' : 'Activa' ?></span></td>
+                                </tr>
+                            <?php endforeach ?>
+                        </tbody>
+                    </table>
+                <?php else: ?>
+                    <article>
+                        <p>No existen reservas activas</p>
+                    </article>
+                <?php endif ?>
+                <a href="<?= BASE_URL ?>/dashboard/">Volver</a>
+            </section>
+
+
+        <?php else: ?>
+            <h1>🏛️ Mis Reservas de aulas</h1>
+            <p>Aca podras ver tus reservas de aulas</p>
+            
+            <section class="verReservas-container">
+
+                <?php if (!empty($reservasPropias)): ?>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nombre aula</th>
+                                <th>Fecha</th>
+                                <th>Hora</th>
+                                <th>Capacidad</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($reservasPropias as $reserva): ?>
+                                <tr style="color: <?= $reserva['fecha'] < date('Y-m-d') ? "grey" : "black" ?>;">
+                                    <td><?= htmlspecialchars($reserva['aula']) ?></td>
+                                    <td><?= formatDate(htmlspecialchars($reserva['fecha'])) ?></td>
+                                    <td><?= htmlspecialchars($reserva['hora_inicio']) ?>hs - <?= htmlspecialchars($reserva['hora_fin']) ?>hs</td>
+                                    <td><?= htmlspecialchars($reserva['capacidad']) ?></td>
+                                    <td><span class="verReservas-status <?= $reserva['fecha'] < date('Y-m-d') ? 'confirmed' : 'pending' ?>"><?= $reserva['fecha'] < date('Y-m-d') ? 'Cumplida' : 'Activa' ?></span></td>
+                                    <td class="verReservas-acciones">
+                                        <?php if ($reserva['fecha'] < date('Y-m-d')): ?>
+                                            <span
+                                                class="verReservas-editar disabled">
+                                                Editar
+                                            </span>
+                                            <span class="verReservas-eliminar disabled">Eliminar</span>
+                                        <?php else: ?>
+                                            <a
+                                                class="verReservas-editar"
+                                                href="<?= BASE_URL ?>/dashboard/reservas/aulas/editar-reserva.php?id=<?= $reserva['id'] ?>">
+                                                Editar
+                                            </a>
+                                            <button class="verReservas-eliminar" popovertarget="eliminar-reserva-<?php echo $reserva['id'] ?>">Eliminar</button>
+                                        <?php endif ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach ?>
+                        </tbody>
+                    </table>
+
+                <?php else: ?>
+                    <article>
+                        <p>No tienes reservas activas</p>
+                        <a href="<?= BASE_URL ?>/dashboard/reservas/aulas/crear-reserva.php">Ir a Reservar</a>
+                    </article>
+                <?php endif ?>
+
+            </section>
+
         <?php endif ?>
-
-        <section class="verReservas-container">
-            <?php if (!empty($reservasTotales)): ?>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Quien reserva</th>
-                            <th>Nombre aula</th>
-                            <th>Fecha</th>
-                            <th>Hora</th>
-                            <th>Capacidad</th>
-                            <th>Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($reservasTotales as $reserva): ?>
-                            <tr style="color: <?= $reserva['fecha'] < date('Y-m-d') ? "grey" : "black" ?>;">
-                                <td><?= htmlspecialchars($reserva['usuario']) ?></td>
-                                <td><?= htmlspecialchars($reserva['aula']) ?></td>
-                                <td><?= formatDate(htmlspecialchars($reserva['fecha'])) ?></td>
-                                <td><?= htmlspecialchars($reserva['hora_inicio']) ?>hs - <?= htmlspecialchars($reserva['hora_fin']) ?>hs</td>
-                                <td><?= htmlspecialchars($reserva['capacidad']) ?></td>
-                                <td><span class="verReservas-status <?= $reserva['fecha'] < date('Y-m-d') ? 'confirmed' : 'pending' ?>"><?= $reserva['fecha'] < date('Y-m-d') ? 'Cumplida' : 'Activa' ?></span></td>
-                            </tr>
-                        <?php endforeach ?>
-                    </tbody>
-                </table>
-            <?php else: ?>
-                <article>
-                    <p>No existen reservas activas</p>
-                </article>
-            <?php endif ?>
-            <a href="<?= BASE_URL ?>/dashboard/">Volver</a>
-        </section>
-
-
-    <?php else: ?>
-        <h1>🏛️ Mis Reservas de aulas</h1>
-        <p>Aca podras ver tus reservas de aulas</p>
-        
-        <section class="verReservas-container">
-
-            <?php if (!empty($reservasPropias)): ?>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nombre aula</th>
-                            <th>Fecha</th>
-                            <th>Hora</th>
-                            <th>Capacidad</th>
-                            <th>Estado</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($reservasPropias as $reserva): ?>
-                            <tr style="color: <?= $reserva['fecha'] < date('Y-m-d') ? "grey" : "black" ?>;">
-                                <td><?= htmlspecialchars($reserva['aula']) ?></td>
-                                <td><?= formatDate(htmlspecialchars($reserva['fecha'])) ?></td>
-                                <td><?= htmlspecialchars($reserva['hora_inicio']) ?>hs - <?= htmlspecialchars($reserva['hora_fin']) ?>hs</td>
-                                <td><?= htmlspecialchars($reserva['capacidad']) ?></td>
-                                <td><span class="verReservas-status <?= $reserva['fecha'] < date('Y-m-d') ? 'confirmed' : 'pending' ?>"><?= $reserva['fecha'] < date('Y-m-d') ? 'Cumplida' : 'Activa' ?></span></td>
-                                <td class="verReservas-acciones">
-                                    <?php if ($reserva['fecha'] < date('Y-m-d')): ?>
-                                        <span
-                                            class="verReservas-editar disabled">
-                                            Editar
-                                        </span>
-                                        <span class="verReservas-eliminar disabled">Eliminar</span>
-                                    <?php else: ?>
-                                        <a
-                                            class="verReservas-editar"
-                                            href="<?= BASE_URL ?>/dashboard/reservas/aulas/editar-reserva.php?id=<?= $reserva['id'] ?>">
-                                            Editar
-                                        </a>
-                                        <button class="verReservas-eliminar" popovertarget="eliminar-reserva-<?php echo $reserva['id'] ?>">Eliminar</button>
-                                    <?php endif ?>
-                                </td>
-                            </tr>
-                        <?php endforeach ?>
-                    </tbody>
-                </table>
-
-            <?php else: ?>
-                <article>
-                    <p>No tienes reservas activas</p>
-                    <a href="<?= BASE_URL ?>/dashboard/reservas/aulas/crear-reserva.php">Ir a Reservar</a>
-                </article>
-            <?php endif ?>
-
-        </section>
-
-    <?php endif ?>
+    </section>
 </main>
 
 <?php if ($usuario['rol'] === 'user'): ?>
