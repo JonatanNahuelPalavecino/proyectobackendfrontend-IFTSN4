@@ -36,7 +36,7 @@
         $borrarAula->execute([$id]);
 
         sendMailNotify(
-                ['nombre' => 'Sistema de Reservas', 'email' => 'antruxxi@gmail.com'],
+                ['nombre' => NAME_SISTEMA, 'email' => MAIL_USERNAME],
                 "Gestión de aulas",
                 notifyOperationAulaAdmin(
                     ['title' => '¡Se eliminó un aula en el Sistema!', 'subtitle' => 'Los datos del aula eliminada eran:'],

@@ -48,7 +48,7 @@
                 $cart = getCartById($pdo, $carroSeleccionado);
                 // Notificacion Administrador
                 sendMailNotify(
-                    ['nombre' => 'Sistema de Reservas', 'email' => 'antruxxi@gmail.com'],
+                    ['nombre' => NAME_SISTEMA, 'email' => MAIL_USERNAME],
                     'Gestion de notebooks',
                     notifyOperationNotebookAdmin(
                         ['title' => '¡Se edito una notebook en el Sistema!', 'subtitle' => 'Los datos nuevos de la notebook son:'],

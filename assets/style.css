@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 /* ---BASE--- */
 
 * {
@@ -22,6 +24,12 @@
   --dark-color: #010304;
   --font-family: "Roboto", sans-serif;
   --font-family-heading: "Caacupe One", cursive;
+
+  --font-family-title : "Sora", sans-serif;
+  --font-family-description:"Inter", sans-serif ; 
+  --title-color : #0F1B2D;
+  --description-color: #5B6B7A; 
+  
   --aside-closed-width: 76px;
   --layout-gap: 1rem;
 
@@ -43,6 +51,7 @@ body {
   gap: var(--layout-gap);
   padding: var(--layout-gap);
   font-family: var(--font-family);
+  /* background-color: #F3F6F4; */
 }
 
 body > main {
@@ -647,28 +656,62 @@ body > main {
 }
 
 /*--- DASHBOARD ---*/
+.dashboard {
+  background-color: #F3F6F4;
+  border-radius: 12px;
+  padding: 15px 5px;
+}
 
-.dashboard-welcome {
+.dashboard-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 35px 15px 10px;
+  /* justify-content: space-between;
+  align-items: center; */
+  flex-direction: column  ;
+  padding: 15px 20px;
   border-radius: 10px;
   background-color: var(--light-color);
 }
 
-.dashboard-welcome h2 {
-  font-size: 1.5rem;
-  color: var(--navy);
-  font-weight: 900;
+.dh-welcome {
+  display: flex;
+  align-items: center;
+}
+
+.dh-panel{
+  color: var(--white-color);
+  background-color: var(--navy-2);
+  padding: 5px;
+  border-radius: 8px;
+  font-family: var(--font-family-description);
+  font-size: 8px;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+}
+
+.dh-welcome-title{
+  font-family: var(--font-family-title);
+  font-size: 1.9rem;
+  color: var(--title-color);
   letter-spacing: 1.2px;
+  margin: 5px 0px;
 }
 
-.dashboard-welcome p {
-  color: var(--navy-2);
+.dh-welcome-label{
+  color: var(--description-color);
+  font-family: var(--font-family-description);
+  font-weight: 600;
+  font-size: 0.8rem;
 }
 
-.dashboard-welcome a {
+.dh-actions {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  gap: 10px;
+}
+
+/* .dashboard-welcome a {
   display: inline-block;
   width: 155px;
   
@@ -684,93 +727,103 @@ body > main {
 
 .dashboard-welcome a:hover {
   background-color: var(--secondary-color);
-}
-
-.dashboard-cards {
-  margin: 1.5rem 0;
-  padding: 0 35px 0 10px;
-  display: flex;
-  gap: 30px;
-}
+} */
 
 /* CARDS DASHBOARD */
 
-.card-info {
-  border-radius: 12px;
-  border-left: 3px solid var(--navy);
-  font-size: 1.5rem;
-  display: flex;
-  align-items: center;
-  padding: 10px 18px;
-  background-color: var(--light-color);
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+.dashboard-stats {
+  /* margin: 1.5rem 0; */
+  padding: 20px 10px ;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  border: 2px solid red;
 }
 
-.card-info span {
-  font-size: 2rem;
-  color: var(--navy-2);
-  margin-right: 1rem;
-}
-
-.dashboard-reservas {
-  margin: 2rem 0;
-  padding: 0 35px 0 10px;
-}
-
-.dashboard-reservas h2 {
-  font-size: 1.5rem;
-  color: var(--navy);
-  font-weight: 900;
-  letter-spacing: 1.2px;
-}
-
-.dashboard-reservas a {
-  color: var(--navy-2);
-  text-decoration: none;
-}
-
-.dashboard-reservas a:hover {
-  color: var(--secondary-color);
-  text-decoration: underline;
-}
-
-.dashboard-reservas section {
+.stat-card {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  margin: 1rem 0;
-}
-
-.dashboard-reservas article {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-radius: 12px;
+  align-items: start;
+  gap: 12px;
+  padding: 20px;
+  background-color: var(--white-color);
+  border: 1px solid #DDE5E0;
+  border-radius: 16px;
+  /* border-left: 3px solid var(--navy); */
   font-size: 1.5rem;
-  padding: 18px 18px;
-  background-color: rgba(0, 255, 9, 0.342);
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
 }
 
-.dashboard-reservas article h3 {
+.stat-number{
+  font-size: 2rem;
+  color: var(--navy-2);
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 1.1;
+}
+
+.stat-label{
+  font-size: 13px;
+  color: #5B6B7A;
+}
+
+
+/* DASHBOARD RESERVAS */
+
+.dashboard-reservas{
+  border: 2px solid red;
+  /* margin-top: 10px; */
+  padding: 20px 10px;
+}
+
+.dashboard-reservas-container{
+  background-color: var(--white-color);
+  border-radius: 12px;
+}
+
+.db-reservas-header {
+  display: flex;
+  align-items: center;
+  padding: 20px;  
+}
+.db-reservas-title {
+  font-family: var(--font-family-title);
   font-size: 1.2rem;
-  color: var(--navy-2);
+}
+.btn {
+  display: inline-block;
+  text-decoration: none;
+  border-radius: 10px;
+  padding: 10px 15px;
+  text-align: center;
+  font-family: var(--description-color);
+  font-weight: 600;
+}
+.btn-excel{
+  color: var(--title-color);
+  border: 1px solid #C9D5CE;
+  box-shadow: 0 0 5px #C9D5CE;
+  background-color: var(--white-color);
+  transition: 0.3s ease-in-out;
+}
+.btn-excel:hover{
+  background-color: #C9D5CE;
 }
 
-.dashboard-reservas article p {
-  font-size: 1rem;
-  color: var(--navy-2);
+.btn-gestion{
+  color: var(--white-color);
+  background-color: var(--primary-color);
+  transition: 0.3s ease-in-out;
+}
+.btn-gestion:hover{
+  background-color: var(--secondary-color);
 }
 
-.dashboard-reservas article p:last-child {
-  text-align: right;
-  width: 140px;
+
+.db-reservas-info{
+  padding: 0px 25px ;
 }
 
-.dashboard-reservas p {
-  font-size: 1rem;
-  color: var(--navy-2);
-}
 
 .no-results   {
   margin-top: 20px;

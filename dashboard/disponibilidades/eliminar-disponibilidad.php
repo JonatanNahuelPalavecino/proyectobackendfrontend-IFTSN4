@@ -37,8 +37,8 @@
         $borrarDisponiblidad->execute([$id]);
 
         sendMailNotify(
-            ['nombre' => 'Sistema de Reservas', 'email' => 'antruxxi@gmail.com'],
-            "Gestion de disponibilidad de aulas",
+            ['nombre' => NAME_SISTEMA, 'email' => MAIL_USERNAME],
+            "Gestion de Disponibilidad de Aulas",
             notifyOperationDisponibilidadAulaAdmin(
                 ['title' => 'Disponibilidad de aula eliminada', 'subtitle' => 'Los datos de la disponibilidad de aula eliminada eran:'],
                 getClassroomById($pdo, $id)['nombre'],

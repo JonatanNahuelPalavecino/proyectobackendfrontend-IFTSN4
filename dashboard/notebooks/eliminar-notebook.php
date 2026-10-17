@@ -36,7 +36,7 @@
         $cart = getCartById($pdo, $notebook['cart_id']);
         //Notificacion admin
         sendMailNotify(
-            ['nombre' => 'Sistema de Reservas', 'email' => 'antruxxi@gmail.com'],
+            ['nombre' => NAME_SISTEMA, 'email' => MAIL_USERNAME],
             'Gestion de notebooks',
             notifyOperationNotebookAdmin(
                 ['title' => '¡Se eliminó una notebook en el Sistema!', 'subtitle' => 'Los datos de la notebook eran:'],

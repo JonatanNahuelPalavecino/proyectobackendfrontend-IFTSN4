@@ -8,13 +8,19 @@ require_once __DIR__ . '/PHPMailer/PHPMailer.php';
 require_once __DIR__ . '/PHPMailer/SMTP.php';
 
 
+define('MAIL_USERNAME', 'reservas.ifts@gmail.com');
+define('NAME_SISTEMA', 'Sistema Integral de Reserva de Aulas y Carros');
+define('PASSWORD_SISTEMA', 'pvteoyejadjjzhgm');
+define('ASUNTO_SISTEMA', 'SIRAUCA | IFTS N°4');
+
+
 function sendMailNotify( array $destinatario, string $asunto, string $mensaje):bool
 {
 
     // PARAMETROS A CONFIGURAR DE CUENTA HOST
     $mailHost = 'smtp.gmail.com';
-    $mailUsername = 'antruxxi@gmail.com';
-    $mailPassword= 'ltvyglwbjampvbvz'; //Contraseña de aplicacion. No de mail
+    $mailUsername = MAIL_USERNAME;
+    $mailPassword= PASSWORD_SISTEMA; //Contraseña de aplicacion. No de mail
     $mailPort = 587;
     
     //Create an instance; passing `true` enables exceptions
@@ -38,7 +44,7 @@ function sendMailNotify( array $destinatario, string $asunto, string $mensaje):b
         // REMITENTE Y DESTINATARIO
     
         // Usamos el correo del SISTEMA como remitente.
-        $mail->setFrom($mailUsername, 'Sistema de reservas');
+        $mail->setFrom($mailUsername, NAME_SISTEMA);
         //Destinatario (A QUIEN VA EL MAIL )
         $mail->addAddress($email, $name);
         //Reply-To : el correo del visitante

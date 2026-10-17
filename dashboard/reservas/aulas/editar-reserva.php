@@ -89,8 +89,8 @@
 
                 // Notificacion Admin
                 sendMailNotify(
-                    ['nombre' => 'Sistema de Reservas', 'email' => 'antruxxi@gmail.com'],
-                    'Se modificó una reserva de aula',
+                    ['nombre' => NAME_SISTEMA, 'email' => MAIL_USERNAME],
+                    'Gestión de Reservas de Aula',
                     notifyOperationReservAulaAdmin(
                         ['title' => '¡Se modificó una reserva de aula!', 'subtitle' => 'Los datos de la nueva reserva son:'],
                         $usuario['nombre'],

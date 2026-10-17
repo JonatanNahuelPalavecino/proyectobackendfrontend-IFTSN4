@@ -52,8 +52,8 @@
 
                     // Notificacion Admin
                     sendMailNotify(
-                        ['nombre' => 'Sistema de Reservas', 'email' => 'antruxxi@gmail.com'],
-                        'Sistema de Reservas',
+                        ['nombre' => NAME_SISTEMA, 'email' => MAIL_USERNAME],
+                        'Gestión de Reservas de Carro',
                         notifyOperationReservCarroAdmin(
                             ['title' => '¡Se registro una nueva reserva de carro en el Sistema!', 'subtitle' => 'Los datos de la reserva de carro son:'],
                             $usuario['nombre'],

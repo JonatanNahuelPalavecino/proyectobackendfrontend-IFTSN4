@@ -46,8 +46,8 @@
 
         // Notificacion Administrador
         sendMailNotify(
-            ['nombre' => 'Sistema de Reservas', 'email' => 'antruxxi@gmail.com'],
-            'Se eliminó una reserva de aula',
+            ['nombre' => NAME_SISTEMA, 'email' => MAIL_USERNAME],
+            'Gestión de Reservas de Aulas',
             notifyOperationReservAulaAdmin(
                 ['title' => '¡Se eliminó una reserva de aula!', 'subtitle' => 'Los datos de la reserva eran:'],
                 $usuario['nombre'],

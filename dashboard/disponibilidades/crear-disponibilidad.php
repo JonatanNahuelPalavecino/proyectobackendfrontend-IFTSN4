@@ -50,8 +50,8 @@
 
 
                 sendMailNotify(
-                    ['nombre' => 'Sistema de Reservas', 'email' => 'antruxxi@gmail.com'],
-                    "Gestion de disponibilidad de aulas",
+                    ['nombre' => NAME_SISTEMA, 'email' => MAIL_USERNAME],
+                    "Gestion de Disponibilidad de Aulas",
                     notifyOperationDisponibilidadAulaAdmin(
                         ['title' => 'Nueva disponibilidad de aula creada', 'subtitle' => 'Los datos de la nueva     disponibilidad de aula son:'],
                         $aula['nombre'],

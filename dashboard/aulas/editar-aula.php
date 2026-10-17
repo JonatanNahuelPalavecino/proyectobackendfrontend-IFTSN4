@@ -49,7 +49,7 @@
                 $editarAula->execute([$nombre_aula, $capacidad, $id]);
                 
                 sendMailNotify(
-                ['nombre' => 'Sistema de Reservas', 'email' => 'antruxxi@gmail.com'],
+                ['nombre' => NAME_SISTEMA, 'email' => MAIL_USERNAME],
                 "Gestión de aulas",
                 notifyOperationAulaAdmin(
                     ['title' => '¡Se editó un aula en el Sistema!', 'subtitle' => 'Los datos nuevos del aula son:'],
