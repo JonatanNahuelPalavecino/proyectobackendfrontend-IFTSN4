@@ -12,30 +12,36 @@
 
 :root {
   --primary-color: #049d48;
-  --secondary-color: #0a618b;
+  --secondary-color: #1D5BA8;
   --success-color: #28a745;
   --danger-color: #dc3545;
   --warning-color: #ffc107;
   --info-color: #17a2b8;
   --light-color: #f3f3f3;
   --white-color: #fff;
-  --vacio-color: #ff660050;
   --gray-color: #afafaf;
   --dark-color: #010304;
   --font-family: "Roboto", sans-serif;
-  --font-family-heading: "Caacupe One", cursive;
-
-  --font-family-title : "Sora", sans-serif;
-  --font-family-description:"Inter", sans-serif ; 
-  --title-color : #0F1B2D;
-  --description-color: #5B6B7A; 
-  
+  --font-family-heading: "Caacupe One", cursive;  
   --aside-closed-width: 76px;
   --layout-gap: 1rem;
-
+  
+  /* Nuevos variables globales  de dashboard */
+  --body-background: #F3F6F4;
+  --boxShadow-cards-pattern : 0 0 15px 1px rgba(0, 0, 0, 0.12);
+  --boxShadow-cards-children: 0 0 5px var(--gray-color);
+  --borderRadius-cards-pattern: 12px ;
+  --borderRadius-cards-children: 16px;
+  --font-family-title : "Sora", sans-serif;
+  --font-family-description:"Inter", sans-serif ; 
+  --secondary-color-background: #E5EEF9;
+  --title-color : #0F1B2D;
+  --description-color: #5B6B7A; 
+  --vacio-color: #ff660050;
+  --verde-suave-background : #08803F2F ;
+  --verde-fuerte-color : #065F2E ;
   --verde: #1e9e4c;
   --verde-oscuro: #167a3b;
-  --verde-brillante: #66ff00;
   --navy: #0f2438;
   --navy-2: #16324a;
 }
@@ -51,7 +57,7 @@ body {
   gap: var(--layout-gap);
   padding: var(--layout-gap);
   font-family: var(--font-family);
-  /* background-color: #F3F6F4; */
+  background-color: var(--body-background);
 }
 
 body > main {
@@ -656,33 +662,26 @@ body > main {
 }
 
 /*--- DASHBOARD ---*/
-.dashboard {
-  background-color: #F3F6F4;
-  border-radius: 12px;
-  padding: 15px 5px;
-}
 
 .dashboard-header {
-  display: flex;
-  /* justify-content: space-between;
-  align-items: center; */
-  flex-direction: column  ;
-  padding: 15px 20px;
-  border-radius: 10px;
-  background-color: var(--light-color);
+  padding: 20px 10px ;
 }
 
 .dh-welcome {
   display: flex;
   align-items: center;
+  padding: 20px;
+  background-color: var(--white-color);
+  box-shadow: var(--boxShadow-cards-pattern);
+  border-radius: var(--borderRadius-cards-pattern);
 }
 
 .dh-panel{
+  font-family: var(--font-family-description);
   color: var(--white-color);
   background-color: var(--navy-2);
   padding: 5px;
   border-radius: 8px;
-  font-family: var(--font-family-description);
   font-size: 8px;
   text-transform: uppercase;
   font-weight: 500;
@@ -711,33 +710,13 @@ body > main {
   gap: 10px;
 }
 
-/* .dashboard-welcome a {
-  display: inline-block;
-  width: 155px;
-  
-  padding: 10px 0px;
-  text-align: center;
-  border-radius: 10px;
-  text-decoration: none;
-  color: var(--white-color);
-  font-weight: 900;
-  background-color: var(--primary-color);
-  transition: 0.2s ease-in-out;
-}
-
-.dashboard-welcome a:hover {
-  background-color: var(--secondary-color);
-} */
-
 /* CARDS DASHBOARD */
 
 .dashboard-stats {
-  /* margin: 1.5rem 0; */
   padding: 20px 10px ;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 16px;
-  border: 2px solid red;
 }
 
 .stat-card {
@@ -746,12 +725,17 @@ body > main {
   align-items: start;
   gap: 12px;
   padding: 20px;
+  border: 0 solid var(--white-color);
   background-color: var(--white-color);
-  border: 1px solid #DDE5E0;
-  border-radius: 16px;
-  /* border-left: 3px solid var(--navy); */
+  border-radius: var(--borderRadius-cards-children);
+  box-shadow: var(--boxShadow-cards-children);;
   font-size: 1.5rem;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+}
+
+.stat-icon{
+  padding: 5px 10px;
+  border-radius: 10px;
+  box-shadow: var(--boxShadow-cards-children);
 }
 
 .stat-number{
@@ -764,27 +748,63 @@ body > main {
 
 .stat-label{
   font-size: 13px;
-  color: #5B6B7A;
+  font-weight: 500;
+}
+.stat-label-aulas{
+  color: var(--verde-fuerte-color);
+}
+.stat-label-carts{
+  color: var(--secondary-color);
+}
+.stat-label-pcs{
+  color: var(--gray-color);
 }
 
+.stat-label-users{
+  color: var(--navy);
+}
+
+.line-aulas{
+  border-left-color: var(--verde-fuerte-color);
+  border-left-width: 10px;
+}
+.line-carts{
+  border-left-color: var(--secondary-color);
+  border-left-width: 10px;
+}
+.line-pcs{
+  border-left-color: var(--gray-color);
+  border-left-width: 10px;
+}
+.line-users{
+  border-left-color: var(--navy);
+  border-left-width: 10px;
+}
+
+.reserv-cart-hoy {
+  background-color: #E5EEF9;
+}
+
+.reserv-aula-hoy{
+  background-color: var(--verde-suave-background);
+}
 
 /* DASHBOARD RESERVAS */
 
 .dashboard-reservas{
-  border: 2px solid red;
-  /* margin-top: 10px; */
-  padding: 20px 10px;
+  padding: 20px 10px  ;
 }
 
 .dashboard-reservas-container{
   background-color: var(--white-color);
-  border-radius: 12px;
+  box-shadow: var(--boxShadow-cards-pattern);
+  border-radius: var(--borderRadius-cards-pattern);
+  padding: 20px;
 }
 
 .db-reservas-header {
   display: flex;
   align-items: center;
-  padding: 20px;  
 }
 .db-reservas-title {
   font-family: var(--font-family-title);
@@ -798,7 +818,18 @@ body > main {
   text-align: center;
   font-family: var(--description-color);
   font-weight: 600;
+  color: var(--white-color);
 }
+.btn-gestion-pcs{
+  background-color: var(--gray-color);
+  box-shadow: var(--boxShadow-cards-children);
+  transition: 0.3s ease-in-out;
+}
+.btn-gestion-pcs:hover{
+  background-color: #C9D5CE;
+}
+
+
 .btn-excel{
   color: var(--title-color);
   border: 1px solid #C9D5CE;
@@ -810,25 +841,141 @@ body > main {
   background-color: #C9D5CE;
 }
 
-.btn-gestion{
-  color: var(--white-color);
+.btn-gestion-aulas{
   background-color: var(--primary-color);
   transition: 0.3s ease-in-out;
 }
-.btn-gestion:hover{
+.btn-gestion-aulas:hover{
   background-color: var(--secondary-color);
 }
 
+.btn-gestion-carts {
+  background-color:#1D5BA8; 
+  transition: 0.3s ease-in-out;
+}
+.btn-gestion-carts:hover{
+  background-color: #1D5BA87F
+}
 
-.db-reservas-info{
-  padding: 0px 25px ;
+.db-reservas-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 20px;
+  padding: 15px 0;
+}
+
+.db-reservas-item{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  /* border: 2px solid black; */
+  border-radius: var(--borderRadius-cards-children);
+  box-shadow: var(--boxShadow-cards-children);
+}
+
+.db-reserva-iconCart{
+  width: 100px;
+  height: 100px;
+  flex: none;      
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: var(--secondary-color-background);
+  color: var(--secondary-color); 
+  box-shadow: 0 0 4px var(--secondary-color);
+}
+
+.db-reserva-iconAula{
+  width: 100px;
+  height: 100px;
+  flex: none;      
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background-color: #08803F2F;
+  color: var(--verde-fuerte-color);
+  box-shadow: 0 0 4px var(--verde-fuerte-color);
+}
+
+.db-reserva-icon{
+  width: 50px;
+  height: 50px;
+}
+
+.db-reservas-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.db-reserva-inline {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+.db-reserva-subtitle{
+  font-family: var(--font-family-title);
+  text-transform: uppercase;
+  font-size: 16px;
+}
+
+.db-reserva-chipActiva {
+  margin-left: auto;
+  background-color: var(--verde-suave-background);
+  padding: 5px 12px;
+  color: var(--verde-fuerte-color);
+  border-radius: 5px ;
+  font-family: var(--font-family-title);
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.db-reserva-firstLetter {
+  background-color: var(--navy);
+  color: var(--white-color);
+  padding: 4px 8px;
+  border-radius: 50% ;
+}
+
+.db-reserva-name {
+  font-family: var(--font-family-description);
+  letter-spacing: 1px;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.db-reserva-comment {
+  background-color: #E5EEF9;
+  color: #174A88;
+  padding: 8px 12px;
+  border-radius: 12px;
+  overflow-wrap: break-word;
+}
+
+.db-reserva-schedule {
+  background-color: #08803F2F;
+  color: #065F2E;
+  padding: 8px 12px;
+  border-radius: 12px;
+  overflow-wrap: break-word;
+}
+
+.db-reserva-fechaAula{
+  padding: 8px 12px;
+  box-shadow: 0 0 2px var(--gray-color);  
+  max-width: 600px;
+  border-radius: 12px;
 }
 
 
-.no-results   {
+.no-results {
   margin-top: 20px;
   border-radius: 12px;
-  padding: 20px 5px; 
+  padding: 60px 0px; 
   background-color: var(--vacio-color); 
   text-align: center;
   font-weight: bold;

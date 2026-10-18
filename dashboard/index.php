@@ -39,7 +39,7 @@ require __DIR__ . '/../components/header.php';
 ?>
 
 
-<main class="dashboard">
+<main>
     <section class="dashboard-header">
         <!-- DASHBOARD HEADER ADMIN -->
         <?php if ($usuario['rol'] === 'admin'): ?>            
@@ -52,7 +52,7 @@ require __DIR__ . '/../components/header.php';
                 </article>
                 
                 <article class="dh-actions">
-                    <a href="<?= BASE_URL ?>/dashboard/notebooks/ver-notebooks.php" class="btn reservar">Gestionar Pcs</a>
+                    <a href="<?= BASE_URL ?>/dashboard/notebooks/ver-notebooks.php" class="btn btn-gestion-pcs">Gestionar Pcs</a>
                 
                 </article>
             </article>
@@ -67,51 +67,50 @@ require __DIR__ . '/../components/header.php';
                     <p class="dh-welcome-label">Revisá tus reservas y realiza nuevas reservas de aulas o carros</p>
                 </article>
                 
-                <article class="dh-actions">
-                    <a href="<?= BASE_URL ?>/dashboard/reservas/aulas/crear-reserva.php" class="btn reservar">Gestionar Perfil</a>
-                </article>
+                <!-- <article class="dh-actions">
+                    <a href="<?= BASE_URL ?>/dashboard/reservas/aulas/crear-reserva.php" class="btn btn-gestion-aulas">Gestionar Perfil</a>
+                </article> -->
 
             </article>
         <?php endif; ?>
-
     </section>
     <!--DASHBOARD CARDS ADMIN -->
     <?php if ($usuario["rol"] == "admin"): ?>
         <section class="dashboard-stats">
-            <article class="stat-card">
+            <article class="stat-card line-aulas">
                 <span class="stat-icon">🏫</span>
                 <span class="stat-number"><?= $totalAulas ?></span>
-                <p class="stat-label">Aulas Totales</p>
+                <p class="stat-label stat-label-aulas">Aulas Totales</p>
             </article>
 
-            <article class="stat-card">
+            <article class="stat-card line-users">
                 <span class="stat-icon">👨‍🏫</span>
                 <span class="stat-number"><?= $totalUsers ?></span>
-                <p class="stat-label">Profesores Registrados</p>
+                <p class="stat-label stat-label-users">Profesores Registrados</p>
             </article>
 
-            <article class="stat-card">
+            <article class="stat-card line-pcs">
                 <span class="stat-icon">💻</span>
                 <span class="stat-number"><?= $totalNotebooks ?></span>
-                <p class="stat-label">Notebooks Totales</p>
+                <p class="stat-label stat-label-pcs">Notebooks Totales</p>
             </article>
 
-            <article class="stat-card">
+            <article class="stat-card line-carts">
                 <span class="stat-icon">🛒</span>
                 <span class="stat-number"><?= $totalCarts ?></span>
-                <p class="stat-label">Carros Totales</p>
+                <p class="stat-label stat-label-carts">Carros Totales</p>
             </article>
 
-            <article class="stat-card">
+            <article class="stat-card line-aulas reserv-aula-hoy">
                 <span class="stat-icon">🏫</span>
                 <span class="stat-number"><?= $totalReservasAulasHoy ?></span>
-                <p class="stat-label">Reservas de aulas hoy</p>
+                <p class="stat-label stat-label-aulas">Reservas de aulas hoy</p>
             </article>
 
-            <article class="stat-card">
+            <article class="stat-card line-carts reserv-cart-hoy">
                 <span class="stat-icon">🛒</span>
                 <span class="stat-number"><?= $totalReservasCarrosHoy ?></span>
-                <p class="stat-label">Reservas de carros hoy</p>
+                <p class="stat-label stat-label-carts">Reservas de carros hoy</p>
             </article>
 
         </section>
@@ -119,28 +118,28 @@ require __DIR__ . '/../components/header.php';
     <!-- DASHBOARD CARDS PROFESOR -->
     <?php else: ?>
         <section class="dashboard-stats">
-            <article class="stat-card">
-                <span class="stat-icon">🏫</span>
-                <span class="stat-number"><?= $totalReservasAulasActivas ?></span>
-                <p class="stat-label">Reservas de aulas activas</p>
-            </article>
-
-            <article class="stat-card">
+            
+            <article class="stat-card line-aulas">
                 <span class="stat-icon">🏫</span>
                 <span class="stat-number"><?= $totalReservasAulas ?></span>
-                <p class="stat-label">Total de reservas de aulas</p>
+                <p class="stat-label stat-label-aulas">Total de reservas de aulas</p>
             </article>
-
-            <article class="stat-card">
-                <span class="stat-icon">🛒</span>
-                <span class="stat-number"><?= $totalReservasCarrosActivas?></span>
-                <p class="stat-label">Reservas de carros activas</p>
-            </article>
-
-            <article class="stat-card">
+            
+            <article class="stat-card line-carts">
                 <span class="stat-icon">🛒</span>
                 <span class="stat-number"><?= $totalReservasCarros ?></span>
-                <p class="stat-label">Total de reservas de carros</p>
+                <p class="stat-label stat-label-carts">Total de reservas de carros</p>
+            </article>
+            
+            <article class="stat-card line-aulas reserv-aula-hoy">
+                <span class="stat-icon">🏫</span>
+                <span class="stat-number"><?= $totalReservasAulasActivas ?></span>
+                <p class="stat-label stat-label-aulas">Reservas de aulas activas</p>
+            </article>
+            <article class="stat-card line-carts reserv-cart-hoy">
+                <span class="stat-icon">🛒</span>
+                <span class="stat-number"><?= $totalReservasCarrosActivas?></span>
+                <p class="stat-label stat-label-carts">Reservas de carros activas</p>
             </article>
         </section>
     <?php endif; ?>
@@ -156,7 +155,7 @@ require __DIR__ . '/../components/header.php';
                         <?php if (!empty($detalleReservasAulasHoy)):?>
                             <a class="btn btn-excel" href="<?= BASE_URL ?>/config/excel/descargar-reservas-aulas-hoy.php" target="_blank">⬇️ Descargar Excel</a>
                         <?php endif;?>
-                        <a href="<?= BASE_URL ?>/dashboard/aulas/ver-aulas.php" class="btn btn-gestion">Gestionar Aulas</a>
+                        <a href="<?= BASE_URL ?>/dashboard/aulas/ver-aulas.php" class="btn btn-gestion-aulas">Gestionar Aulas</a>
                     </article>
                 </article>
 
@@ -165,31 +164,28 @@ require __DIR__ . '/../components/header.php';
                 <div class="db-reservas-cards">
                     <?php foreach($detalleReservasAulasHoy as $reserva):?>
                         <article class ="db-reservas-item">
-                            <div class="db-reservas-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-building" viewBox="0 0 16 16">
+                            <div class="db-reserva-iconAula">
+                                <svg class="db-reserva-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-building" viewBox="0 0 16 16">
                                     <path d="M4 2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM4 5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zM7.5 5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zM4.5 8a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z"/>
                                     <path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1zm11 0H3v14h3v-2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V15h3z"/>
                                 </svg>
                             </div>
 
                             <div class="db-reservas-body">
-                                <div>
-                                    <h3><?= htmlspecialchars($reserva['aula']) ?></h3>
-                                    <span>Activa</span>
+                                <div class="db-reserva-inline">
+                                    <h3 class="db-reserva-subtitle"><?= htmlspecialchars($reserva['aula']) ?></h3>
+                                    <span class="db-reserva-chipActiva">Activa</span>
+                                </div>
+                                
+                                <div class="db-reserva-inline">
+                                    <span class="db-reserva-firstLetter"><?= htmlspecialchars(ucwords(substr($reserva['usuario'],0,1)));?></span>
+                                    <p class="db-reserva-name"><?= htmlspecialchars(ucwords($reserva['usuario'])) ?></p>
                                 </div>
                                 
                                 <div>
-                                    <span class="db-card-firstLetter"><?= htmlspecialchars(substr($reserva['usuario'],0,1));?></span>
-                                    <p><?= htmlspecialchars($reserva['usuario']) ?></p>
-                                </div>
-                                
-                                <div>
-                                    <p><?= htmlspecialchars($reserva['hora_inicio']) ?>hs - <?= htmlspecialchars($reserva['hora_fin']) ?>hs</p>
+                                    <p class="db-reserva-schedule"><?= htmlspecialchars($reserva['hora_inicio']) ?> hs - <?= htmlspecialchars($reserva['hora_fin']) ?> hs</p>
                                 </div>
                             </div>
-
-                            
-
                         </article>
                     <?php endforeach ?>
                 </div>
@@ -207,9 +203,9 @@ require __DIR__ . '/../components/header.php';
                     <h2 class="db-reservas-title">Reservas de Carros para hoy</h2>
                     <article class="dh-actions">
                         <?php if (!empty($detalleReservasCarrosHoy)):?>
-                            <a class="btn btn-excel" href="<?= BASE_URL ?>/config/excel/descargar-reservas-aulas-hoy.php" target="_blank">⬇️ Descargar Excel</a>
+                            <a class="btn btn-excel" href="<?= BASE_URL ?>/config/excel/descargar-reservas-carros-hoy.php" target="_blank">⬇️ Descargar Excel</a>
                         <?php endif;?>
-                        <a href="<?= BASE_URL ?>/dashboard/carros/ver-carros.php" class="btn reservar">Gestionar Carros</a>
+                        <a href="<?= BASE_URL ?>/dashboard/carros/ver-carros.php" class="btn btn-gestion-carts">Gestionar Carros</a>
                     </article>
                 </article>
 
@@ -218,24 +214,24 @@ require __DIR__ . '/../components/header.php';
                 <div class="db-reservas-cards">
                     <?php foreach($detalleReservasCarrosHoy as $reserva):?>
                         <article class ="db-reservas-item">
-                            <div class="db-reservas-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
+                            <div class="db-reserva-iconCart">
+                                <svg class="db-reserva-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
                                     <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l.84 4.479 9.144-.459L13.89 4zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
                                 </svg>
                             </div>
                             <div class="db-reservas-body">
-                                <div class="">
-                                    <h3><?= htmlspecialchars($reserva['carro']) ?></h3>
-                                    <span>Activa</span>
+                                <div class="db-reserva-inline">
+                                    <h3 class="db-reserva-subtitle"><?= htmlspecialchars($reserva['carro']) ?></h3>
+                                    <span class="db-reserva-chipActiva">Activa</span>
                                 </div>
 
-                                <div>
-                                    <span class="db-card-firstLetter"><?= htmlspecialchars(substr($reserva['usuario'],0,1));?></span>
-                                    <p><?= htmlspecialchars($reserva['usuario']) ?></p>
+                                <div class="db-reserva-inline">
+                                    <span class="db-reserva-firstLetter"><?= htmlspecialchars(ucwords(substr($reserva['usuario'],0,1)));?></span>
+                                    <p class="db-reserva-name"><?= htmlspecialchars(ucwords($reserva['usuario']))?></p>
                                 </div>
                                 
                                 <div>
-                                    <p><?= htmlspecialchars($reserva['comentario'])?></p>
+                                    <p class ="db-reserva-comment"><?= empty($reserva['comentario']) ? "Sin comentarios" : htmlspecialchars($reserva['comentario']); ?></p>
                                 </div>
                             </div>
                             
@@ -256,26 +252,33 @@ require __DIR__ . '/../components/header.php';
                 <article class="db-reservas-header">
                     <h2 class="db-reservas-title">Próximas reservas de aulas</h2>
                     <article class="dh-actions">
-                        <a href="<?= BASE_URL ?>/dashboard/aulas/ver-aulas.php" class="btn btn-gestion">Reservar Aula</a>
+                        <a href="<?= BASE_URL ?>/dashboard/reservas/aulas/crear-reserva.php" class="btn btn-gestion-aulas">Reservar Aulas</a>
                     </article>
                 </article>
 
             <?php if (!empty($detalleReservasAulasFuturas)):?>
-                <!-- aca -->
                 <div class="db-reservas-cards">
                     <?php foreach($detalleReservasAulasFuturas as $reserva):?>
-                        <article class ="db-card-item">
-                            <div class="">
-                                <h3>Aula: <span><?= htmlspecialchars($reserva['aula']) ?></span></h3>
-                                <span>Activa</span>
+                        <article class ="db-reservas-item">
+                            <div class="db-reserva-iconAula">
+                                <svg class="db-reserva-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-building" viewBox="0 0 16 16">
+                                    <path d="M4 2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM4 5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zM7.5 5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zM4.5 8a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z"/>
+                                    <path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1zm11 0H3v14h3v-2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V15h3z"/>
+                                </svg>
                             </div>
-                            
-                            <div>
-                                <p>Fecha: <span><?= formatDate($reserva['fecha']) ?></span></p>
-                            </div>
+                            <div class="db-reservas-body">
+                                <div class="db-reserva-inline">
+                                    <h3 class="db-reserva-subtitle"><?= htmlspecialchars($reserva['aula']) ?></h3>
+                                    <span class="db-reserva-chipActiva">Activa</span>
+                                </div>
 
-                            <div>
-                                <p>Hora: <span><?= htmlspecialchars($reserva['hora_inicio']) ?>hs - <?= htmlspecialchars($reserva['hora_fin']) ?>hs</span></p>
+                                <div>
+                                    <p class="db-reserva-fechaAula">Fecha: <?= formatDate($reserva['fecha']) ?></span></p>
+                                </div>
+
+                                <div>
+                                    <p class="db-reserva-schedule">Hora: <span><?= htmlspecialchars($reserva['hora_inicio']) ?>hs - <?= htmlspecialchars($reserva['hora_fin']) ?>hs</span></p>
+                                </div>
                             </div>
                         </article>
                     <?php endforeach ?>
@@ -293,7 +296,7 @@ require __DIR__ . '/../components/header.php';
                 <article class="db-reservas-header">
                     <h2 class="db-reservas-title">Próximas reservas de carro</h2>
                     <article class="dh-actions">
-                        <a href="<?= BASE_URL ?>/dashboard/reservas/carros/crear-reserva.php">Reservar Carros</a>
+                        <a href="<?= BASE_URL ?>/dashboard/reservas/carros/crear-reserva.php" class="btn btn-gestion-carts">Reservar Carros</a>
                     </article>
                 </article>
 
@@ -301,18 +304,25 @@ require __DIR__ . '/../components/header.php';
                 
                 <div class="db-reservas-cards">
                     <?php foreach($detalleReservasCarrosFuturas as $reserva):?>
-                        <article class ="db-card-item">
-                            <div class="">
-                                <h3>Carro: <span><?= htmlspecialchars($reserva['carro']) ?></span></h3>
-                                <span>Activa</span>
-                            </div>
-                            
-                            <div>
-                                <p>Fecha: <span><?= formatDate(htmlspecialchars($reserva['fecha'])) ?> </span></p>
+                        <article class ="db-reservas-item">
+                            <div class="db-reserva-iconCart">
+                                <svg class="db-reserva-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
+                                    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l.84 4.479 9.144-.459L13.89 4zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                                </svg>
                             </div>
 
-                            <div>
-                                <p>Comentario : <span><?= htmlspecialchars($reserva['comentario']) ?></span></p>
+                            <div class="db-reservas-body">
+                                <div class="db-reserva-inline">
+                                    <h3 class="db-reserva-subtitle"><?= htmlspecialchars($reserva['carro']) ?></h3>
+                                    <span class="db-reserva-chipActiva">Activa</span>
+                                </div>
+                                <div>
+                                    <p class="db-reserva-fechaAula">Fecha: <span><?= formatDate(htmlspecialchars($reserva['fecha'])) ?> </span></p>
+                                </div>
+                                
+                                <div>
+                                    <p class ="db-reserva-comment"><?= htmlspecialchars($reserva['comentario']) ?></p>
+                                </div>
                             </div>
                         </article>
                     <?php endforeach ?>
