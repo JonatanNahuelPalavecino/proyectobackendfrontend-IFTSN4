@@ -149,7 +149,7 @@
                     <?php else: ?>
                         <p class="no-results">No tienes reservas de carros activas.</p>
                     <?php endif; ?>
-                    <a href="../../index.php">Volver</a>
+                    
                 </section>
 
             <?php endif; ?>

@@ -66,11 +66,6 @@ require __DIR__ . '/../components/header.php';
                     <h2 class="dh-welcome-title">Hola, <?= htmlspecialchars(ucwords($usuario['nombre'])) ?></h2>
                     <p class="dh-welcome-label">Revisá tus reservas y realiza nuevas reservas de aulas o carros</p>
                 </article>
-                
-                <!-- <article class="dh-actions">
-                    <a href="<?= BASE_URL ?>/dashboard/reservas/aulas/crear-reserva.php" class="btn btn-gestion-aulas">Gestionar Perfil</a>
-                </article> -->
-
             </article>
         <?php endif; ?>
     </section>
@@ -153,7 +148,7 @@ require __DIR__ . '/../components/header.php';
                     <h2 class="db-reservas-title">Reservas de aulas para hoy</h2>
                     <article class="dh-actions">
                         <?php if (!empty($detalleReservasAulasHoy)):?>
-                            <a class="btn btn-excel" href="<?= BASE_URL ?>/config/excel/descargar-reservas-aulas-hoy.php" target="_blank">⬇️ Descargar Excel</a>
+                            <a class="btn btn-excel" href="<?= BASE_URL ?>/config/excel/descargar-reservas-aulas-hoy.php" target="_blank">⬇ Descargar Excel</a>
                         <?php endif;?>
                         <a href="<?= BASE_URL ?>/dashboard/aulas/ver-aulas.php" class="btn btn-gestion-aulas">Gestionar Aulas</a>
                     </article>
@@ -203,7 +198,7 @@ require __DIR__ . '/../components/header.php';
                     <h2 class="db-reservas-title">Reservas de Carros para hoy</h2>
                     <article class="dh-actions">
                         <?php if (!empty($detalleReservasCarrosHoy)):?>
-                            <a class="btn btn-excel" href="<?= BASE_URL ?>/config/excel/descargar-reservas-carros-hoy.php" target="_blank">⬇️ Descargar Excel</a>
+                            <a class="btn btn-excel" href="<?= BASE_URL ?>/config/excel/descargar-reservas-carros-hoy.php" target="_blank">⬇ Descargar Excel</a>
                         <?php endif;?>
                         <a href="<?= BASE_URL ?>/dashboard/carros/ver-carros.php" class="btn btn-gestion-carts">Gestionar Carros</a>
                     </article>
