@@ -34,7 +34,7 @@
 
                 notify("Creación de notebook con éxito");
                 sendMailNotify(
-                    ['nombre' => 'Sistema de Reservas', 'email' => 'antruxxi@gmail.com'],
+                    ['nombre' => NAME_SISTEMA, 'email' => MAIL_USERNAME],
                     'Gestion de notebooks',
                     notifyOperationNotebookAdmin(
                     ['title' => '¡Se creó una nueva notebook en el Sistema!', 'subtitle' => 'Los datos de la notebook son:'],

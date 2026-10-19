@@ -49,8 +49,8 @@
                 $crearDisponibilidad->execute([$dia_desde, $dia_hasta, $hora_inicio, $hora_fin, $aula['classroom_id']]);
                 
                 sendMailNotify(
-                    ['nombre' => 'Sistema de Reservas', 'email' => 'antruxxi@gmail.com'],
-                    "Gestion de disponibilidad de aulas",
+                    ['nombre' => NAME_SISTEMA, 'email' => MAIL_USERNAME],
+                    "Gestion de Disponibilidad de Aulas",
                     notifyOperationDisponibilidadAulaAdmin(
                         ['title' => 'Disponibilidad de aula editada', 'subtitle' => 'Los datos de la nueva disponibilidad de aula son:'],
                         $aula['nombre'],

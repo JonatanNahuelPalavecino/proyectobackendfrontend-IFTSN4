@@ -63,8 +63,8 @@
 
                 //ADMIN
                 sendMailNotify(
-                    ['nombre' => 'Sistema de Reservas', 'email' => 'antruxxi@gmail.com'],
-                    "¡Se registro una Nueva Reserva de Aula!",
+                    ['nombre' => NAME_SISTEMA, 'email' => MAIL_USERNAME],
+                    "Gestion de Reservas de Aula",
                     notifyOperationReservAulaAdmin(
                         ['title' => '¡Se registro una nueva reserva de aula!', 'subtitle' => 'Los datos de la reserva son:'],
                         $usuario['nombre'],

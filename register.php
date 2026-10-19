@@ -37,8 +37,8 @@
 
                 //Notificacion Admin
                 sendMailNotify(
-                    ['nombre' => 'Sistema de Reservas', 'email' => 'antruxxi@gmail.com'],
-                    "¡Nuevo profesor registrado!",
+                    ['nombre' => NAME_SISTEMA, 'email' => MAIL_USERNAME],
+                    "Gestión de Usuarios",
                     notifyRegister(
                         ['title' => '¡Se registro un nuevo profesor en el Sistema!', 'subtitle' => 'Los datos del profesor son:'],
                         $nombre, 
@@ -47,7 +47,7 @@
                 //Notificacion al Profesor 
                 sendMailNotify(
                     ['nombre' => $nombre, 'email' => $email], 
-                    "Sistema Reservas IFTS N°4", 
+                    ASUNTO_SISTEMA, 
                     notifyRegister(
                         ['title' => '¡Registro exitoso!', 'subtitle' => 'Tus datos son:'],
                         $nombre, 

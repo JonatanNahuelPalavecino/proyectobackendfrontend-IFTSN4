@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $crearAula->execute([$nombre_aula, $capacidad]);
 
            sendMailNotify(
-                ['nombre' => 'Sistema de Reservas', 'email' => 'antruxxi@gmail.com'],
+                ['nombre' => NAME_SISTEMA, 'email' => MAIL_USERNAME],
                 "Gestión de aulas",
                 notifyOperationAulaAdmin(
                     ['title' => '¡Se creó una nueva aula en el Sistema!', 'subtitle' => 'Los datos del aula son:'],
