@@ -122,10 +122,11 @@ function getClassroomById($conn, $id)
 
 function getReservasCarrosAdmin($conn)
 {
-    $sql = "SELECT r.id, r.fecha, r.comentario, r.estado, r.entregado_at, r.devuelto_at, c.nombre AS carro
+    $sql = "SELECT r.id, r.fecha, r.comentario, r.estado, r.entregado_at, r.devuelto_at, c.nombre AS carro, u.nombre
                 FROM carts c
                 INNER JOIN cart_reservations r ON r.cart_id = c.id
-                ORDER BY r.fecha DESC";
+                INNER JOIN users u ON r.user_id = u.id
+                ORDER BY r.fecha ASC";
 
     $consulta = $conn->prepare($sql);
     $consulta->execute();
