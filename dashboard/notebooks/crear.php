@@ -22,7 +22,7 @@
         $numeroSerie = trim($_POST['numeroSerie']);
         $carro = trim($_POST['carros']) !== "" ? trim($_POST['carros']) : null; 
 
-        $error = validateInputsCreateorEditNotebooks($nombreNotebook, $numeroSerie, $pdo);
+        $error = validateInputsCreateorEditNotebooks($nombreNotebook, $numeroSerie, $pdo, null, $carro);
         
         if($error){
             notify($error, "error");    
@@ -33,17 +33,17 @@
                 $crearNotebook->execute([$nombreNotebook, $numeroSerie, $carro]);
 
                 notify("Creación de notebook con éxito");
-                sendMailNotify(
-                    ['nombre' => NAME_SISTEMA, 'email' => MAIL_USERNAME],
-                    'Gestion de notebooks',
-                    notifyOperationNotebookAdmin(
-                    ['title' => '¡Se creó una nueva notebook en el Sistema!', 'subtitle' => 'Los datos de la notebook son:'],
-                    $nombreNotebook,
-                    $numeroSerie,
-                    $carro, 
-                    $carro ? getCartById($pdo, $carro)['nombre'] : null
-                    )   
-                );
+                // sendMailNotify(
+                //     ['nombre' => NAME_SISTEMA, 'email' => MAIL_USERNAME],
+                //     'Gestion de notebooks',
+                //     notifyOperationNotebookAdmin(
+                //     ['title' => '¡Se creó una nueva notebook en el Sistema!', 'subtitle' => 'Los datos de la notebook son:'],
+                //     $nombreNotebook,
+                //     $numeroSerie,
+                //     $carro, 
+                //     $carro ? getCartById($pdo, $carro)['nombre'] : null
+                //     )   
+                // );
 
             }catch(Exception $error){
                 die("Error al insertar en la bd: " . $error->getMessage());
