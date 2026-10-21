@@ -28,11 +28,11 @@
 <?php require_once __DIR__ . "/../../../components/header.php"; ?>
 
     <main >
-        <section class="verReservas">
+        <section class="verReservas-header">
 
             <?php if ($usuario['rol'] === 'admin'): ?>
                 <!-- VISTA DEL ADMINISTRADOR -->
-                <article class="verReservas-header">
+                <article >
 
                     <span class="verReservas-emoji">📊</span>
 

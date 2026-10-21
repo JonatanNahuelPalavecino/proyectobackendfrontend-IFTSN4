@@ -48,7 +48,7 @@ require __DIR__ . '/../components/header.php';
                 <article>
                     <span class="dh-panel">Panel de administracion</span>
                     <h2 class="dh-welcome-title">Bienvenido, <?= htmlspecialchars(ucwords($usuario['nombre'])) ?></h2>
-                    <p class="dh-welcome-label">Gestioná aulas, carros, PCs y todas tus reservas desde acá</p>
+                    <p class="dh-welcome-label">Gestioná aulas, carros, PCs y todas las reservas del sistema</p>
                 </article>
                 
                 <article class="dh-actions">
@@ -185,7 +185,9 @@ require __DIR__ . '/../components/header.php';
                     <?php endforeach ?>
                 </div>
             <?php else:?>
-                <p class="no-results">No hay reservas de aulas para hoy.</p>
+                <article class="no-results no-results-aulas">
+                    <p class="text-sinResultsAulas">No hay reservas de aulas para hoy.</p>
+                </article>
             <?php endif;?>
 
             </div>
@@ -235,7 +237,9 @@ require __DIR__ . '/../components/header.php';
                     <?php endforeach ?>
                 </div>
             <?php else:?>
-                <p class="no-results">No hay reservas de aulas para hoy.</p>
+                <article class="no-results no-results-carts">
+                    <p class="text-sinResultsCarts">No hay reservas de carros para hoy.</p>
+                </article>
             <?php endif;?>
             </div>
         </section>
@@ -279,7 +283,9 @@ require __DIR__ . '/../components/header.php';
                     <?php endforeach ?>
                 </div>
             <?php else:?>
-                <p class="no-results">No tenes reservas de aulas próximas.</p>
+                <article class="no-results no-results-aulas">
+                    <p class="text-sinResultsAulas">No tenes reservas de aulas próximas.</p>
+                </article>
             <?php endif;?>
 
             </div>
@@ -323,7 +329,9 @@ require __DIR__ . '/../components/header.php';
                     <?php endforeach ?>
                 </div>
             <?php else:?>
-                <p class="no-results">No tenes reservas de carros próximas.</p>
+                <article class="no-results no-results-carts">
+                    <p class="text-sinResultsCarts">No tenes reservas de carros próximas.</p>
+                </article>
             <?php endif;?>
             </div>
         </section>

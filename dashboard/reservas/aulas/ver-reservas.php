@@ -37,7 +37,7 @@ require_once __DIR__ . "/../../../components/header.php";
                 
                 <span class="vr-divisor"></span>
                 
-                <span class="vr-logo">SISTEMA</span>
+                <span class="vr-logo">ADMINISTRADOR</span>
                 
 
                 <div class= "dh-actions">
@@ -59,7 +59,7 @@ require_once __DIR__ . "/../../../components/header.php";
                 
                 <span class="vr-divisor"></span>
 
-                <span class="vr-logo">USUARIO</span>
+                <span class="vr-logo">PROFESOR</span>
                 
                 <div class ="dh-actions">
                     <?php if (!empty($reservasTotales)): ?>
@@ -108,8 +108,8 @@ require_once __DIR__ . "/../../../components/header.php";
                     </table>
                 </div>
             <?php else: ?>
-                <article>
-                    <p>No existen reservas activas</p>
+                <article class="no-results no-results-aulas">
+                    <p class="text-sinResultsAulas" >No existen reservas de aulas aún</p>
                 </article>
             <?php endif ?>
         </section>
@@ -117,49 +117,53 @@ require_once __DIR__ . "/../../../components/header.php";
     <?php else: ?>
         <section class="verReservas-container">
             <?php if (!empty($reservasPropias)): ?>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nombre aula</th>
-                            <th>Fecha</th>
-                            <th>Hora</th>
-                            <th>Capacidad</th>
-                            <th>Estado</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($reservasPropias as $reserva): ?>
-                            <tr style="color: <?= $reserva['fecha'] < date('Y-m-d') ? "grey" : "black" ?>;">
-                                <td><?= htmlspecialchars($reserva['aula']) ?></td>
-                                <td><?= formatDate(htmlspecialchars($reserva['fecha'])) ?></td>
-                                <td><?= htmlspecialchars($reserva['hora_inicio']) ?>hs - <?= htmlspecialchars($reserva['hora_fin']) ?>hs</td>
-                                <td><?= htmlspecialchars($reserva['capacidad']) ?></td>
-                                <td><span class="verReservas-status <?= $reserva['fecha'] < date('Y-m-d') ? 'confirmed' : 'pending' ?>"><?= $reserva['fecha'] < date('Y-m-d') ? 'Cumplida' : 'Activa' ?></span></td>
-                                <td class="verReservas-acciones">
-                                    <?php if ($reserva['fecha'] < date('Y-m-d')): ?>
-                                        <span
-                                            class="verReservas-editar disabled">
-                                            Editar
-                                        </span>
-                                        <span class="verReservas-eliminar disabled">Eliminar</span>
-                                    <?php else: ?>
-                                        <a
-                                            class="verReservas-editar"
-                                            href="<?= BASE_URL ?>/dashboard/reservas/aulas/editar-reserva.php?id=<?= $reserva['id'] ?>">
-                                            Editar
-                                        </a>
-                                        <button class="verReservas-eliminar" popovertarget="eliminar-reserva-<?php echo $reserva['id'] ?>">Eliminar</button>
-                                    <?php endif ?>
-                                </td>
+                <article class="vr-tabla-card">
+                    <table class="vr-table">
+                        <thead>
+                            <tr>
+                                <th>Nombre aula</th>
+                                <th>Fecha</th>
+                                <th>Hora</th>
+                                <th class="col-centro">Capacidad</th>
+                                <th class="col-centro">Estado</th>
+                                <th class="col-centro">Acciones</th>
                             </tr>
-                        <?php endforeach ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($reservasPropias as $reserva): ?>
+                                <?php $fila_cumplida = $reserva['fecha'] < date('Y-m-d'); ?>
+                                <tr class="<?= $fila_cumplida ? 'vr-fila-cumplida' : 'vr-fila-activa' ?>">
+                                    <td class="vr-td-fuerte"><?= htmlspecialchars($reserva['aula']) ?></td>
+                                    <td><?= formatDate(htmlspecialchars($reserva['fecha'])) ?></td>
+                                    <td><?= htmlspecialchars($reserva['hora_inicio']) ?>hs - <?= htmlspecialchars($reserva['hora_fin']) ?>hs</td>
+                                    <td class="col-centro"><?= htmlspecialchars($reserva['capacidad']) ?></td>
+                                    <td class="col-centro">
+                                        <span class="verReservas-status <?= $fila_cumplida ? 'confirmed' : 'pending' ?>">
+                                            <?= $fila_cumplida ? 'Cumplida' : 'Activa' ?>
+                                        </span>
+                                    </td>
+                                    <td class="col-centro" class="verReservas-acciones">
+                                        <?php if ($fila_cumplida): ?>
+                                            <span class="btn btn-edit disabled">Editar</span>
+                                            <span class="btn btn-delete disabled">Eliminar</span>
+                                        <?php else: ?>
+                                            <a
+                                                class="btn btn-edit"
+                                                href="<?= BASE_URL ?>/dashboard/reservas/aulas/editar-reserva.php?id=<?= $reserva['id'] ?>">
+                                                Editar
+                                            </a>
+                                            <button class="btn btn-delete" popovertarget="eliminar-reserva-<?php echo $reserva['id'] ?>">Eliminar</button>
+                                        <?php endif ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach ?>
+                        </tbody>
+                    </table>
+                </article>
             <?php else: ?>
-                <article>
-                    <p>No tienes reservas activas</p>
-                    <a href="<?= BASE_URL ?>/dashboard/reservas/aulas/crear-reserva.php">Ir a Reservar</a>
+                <article class="no-results no-results-aulas">
+                    <p class="text-sinResultsAulas">No hay reservas de aulas registradas</p>
+                    <a class="btn btn-gestion-aulas" href="<?= BASE_URL ?>/dashboard/reservas/aulas/crear-reserva.php">Ir a Reservar</a>
                 </article>
             <?php endif ?>
 
