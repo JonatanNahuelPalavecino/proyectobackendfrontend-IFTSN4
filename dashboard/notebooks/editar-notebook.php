@@ -35,7 +35,7 @@
         $carroSeleccionado = trim($_POST['carro']) !== "" ? trim($_POST['carro']) : null;
 
 
-        $error= validateInputsCreateorEditNotebooks($nombreNotebook, $numeroSerie, $pdo, $idNotebook);
+        $error= validateInputsCreateorEditNotebooks($nombreNotebook, $numeroSerie, $pdo, $idNotebook, $carroSeleccionado);
         
         if($error){
             notify($error, "error");

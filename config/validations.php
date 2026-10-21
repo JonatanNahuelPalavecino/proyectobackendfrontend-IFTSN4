@@ -1,5 +1,5 @@
 <?php
-function validateInputsCreateorEditNotebooks($nombreNotebook, $numeroSerie, $conn, $idNotebook = null)
+function validateInputsCreateorEditNotebooks($nombreNotebook, $numeroSerie, $conn, $idNotebook = null, $carro)
 {
 
     if ($nombreNotebook == "" || $numeroSerie == "") {
@@ -34,6 +34,14 @@ function validateInputsCreateorEditNotebooks($nombreNotebook, $numeroSerie, $con
         return "El numero de serie ya está registrado";
     }
 
+    $consulta = "SELECT COUNT(*) AS total FROM computers WHERE cart_id = :carro";
+    $carroVerify = $conn->prepare($consulta);
+    $carroVerify->execute([':carro' => $carro]);
+
+    if ($carroVerify->fetch()['total'] >= 30) {
+        return "El carro seleccionado no tiene más espacio disponible.";
+    }
+
     return null;
 }
 
@@ -55,7 +63,6 @@ function validateInputsCreateOrEditReservations($pdo, $aulaId, $fecha, $horaInic
 
     if (!fechaPermitida($fecha, $aula)) {
         return 'Ese día no está habilitado para esta aula.';
-
     }
 
     if (!preg_match('/^\d{2}:00$/', $horaInicio) || !preg_match('/^\d{2}:00$/', $horaFin)) {
@@ -118,6 +125,31 @@ function validateInputsCreateorEditClassroom($nombre_aula, $capacidad)
 
     if ($capacidad <= 0 || !is_numeric($capacidad)) {
         return "La capacidad del aula debe ser mayor a cero.";
+    }
+
+    return null;
+}
+
+function validateInputsCreateOrEditReservationsCarros($cart_id, $fecha, $comentario, $tieneComputadoras, $pdo)
+{
+    if ($cart_id === '' || $fecha === '' || $comentario === '') {
+        return "Todos los campos son obligatorios.";
+    }
+
+    if ($fecha < date('Y-m-d')) {
+        return "La fecha de la reserva no puede ser anterior a la fecha actual";
+    }
+
+    if (empty($tieneComputadoras)) {
+        return "El carro seleccionado no tiene computadoras asignadas";
+    }
+    
+    $sql = "SELECT * FROM cart_reservations WHERE cart_id = :cart_id AND fecha = :fecha";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute(['cart_id' => $cart_id, 'fecha' => $fecha]);
+
+    if ($stmt->rowCount() > 0) {
+        return "El carro ya está reservado para esa fecha.";
     }
 
     return null;
