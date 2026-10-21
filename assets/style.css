@@ -50,6 +50,7 @@
   --btn-color-pcs: #4B5B6C ;
   --btn-color-delete: #D92D20;
   --btn-color-excel: #FFFFFF;
+  --btn-color-edit: #5CBF88;
   
   --btn-border-excelHover: #08803F;
   --btn-border-excel: #C9D5CE;
@@ -59,6 +60,7 @@
   --btn-pcs-hover: #364454;
   --btn-delete-hover: #B42318;  
   --btn-excel-hover:#F3F6F4 ;
+  --btn-edit-hover: #4AB278;
 
   --verde-suave-background : #08803F2F ;
   --verde-fuerte-color : #065F2E ;
@@ -758,7 +760,7 @@ body > main {
 .stat-icon{
   padding: 5px 10px;
   border-radius: 10px;
-  box-shadow: var(--boxShadow-cards-children);
+  box-shadow: 0 0 3px var(--gray-color);
 }
 
 .stat-number{
@@ -829,6 +831,8 @@ body > main {
 .db-reservas-header {
   display: flex;
   align-items: center;
+  /* border: 2px solid red; */
+  margin-bottom: 10px;
 }
 .db-reservas-title {
   font-family: var(--font-family-title);
@@ -838,11 +842,13 @@ body > main {
   display: inline-block;
   text-decoration: none;
   border-radius: 10px;
+  border: none;
   padding: 10px 15px;
   text-align: center;
   font-family: var(--description-color);
   font-weight: 600;
   color: var(--white-color);
+  cursor: pointer;
 }
 .btn-gestion-pcs{
   background-color: var(--btn-color-pcs);
@@ -864,6 +870,7 @@ body > main {
   background-color: var(--btn-excel-hover);
   border: 1px solid var(--btn-border-excelHover);
 }
+
 
 .btn-gestion-aulas{
   background-color: var(--btn-color-aulas);
@@ -889,7 +896,13 @@ body > main {
 .btn-delete:hover {
   background-color: var(--btn-delete-hover);
 }
-
+.btn-edit{
+  background-color: var(--btn-color-edit);
+}
+.btn-edit:hover {
+  background-color: var(--btn-edit-hover);
+  
+}
 
 
 .db-reservas-cards {
@@ -1008,12 +1021,44 @@ body > main {
 
 
 .no-results {
-  margin-top: 20px;
-  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+  gap: 16px;
+  /* margin-top: 10px; */
+  border-radius: var(--borderRadius-cards-children);
   padding: 60px 0px; 
-  background-color: var(--vacio-color); 
+  border: 1px dashed;
+  /* background-color: var(--vacio-color);  */
   text-align: center;
   font-weight: bold;
+}
+.no-results-aulas {
+  background-color: var(--verde-suave-background);
+  border-color: var(--verde-fuerte-color);
+  /* color: var(--verde-fuerte-color); */
+}
+.no-results-carts{
+  background-color: var(--secondary-color-background);
+  border-color: var(--secondary-color);
+}
+
+.text-sinResultsAulas {
+  font-size: 15px;
+  /* font-weight: 800; */
+  text-shadow: 0px 0px 1px var(--verde);
+  font-style: italic;
+  color: var(--verde-fuerte-color);
+  text-transform: uppercase;
+}
+.text-sinResultsCarts {
+  font-size: 15px;
+  /* font-weight: 900; */
+  text-shadow: 0px 0px 1px var(--secondary-color);
+  font-style: italic;
+  color: var(--secondary-color);
+  text-transform: uppercase;
 }
 
 
@@ -1185,6 +1230,10 @@ body > main {
   gap: 10px;
 }
 
+
+
+
+/* 
 .verReservas-editar,
 .verReservas-eliminar {
   padding: 5px 10px;
@@ -1206,10 +1255,10 @@ body > main {
   padding: 6px 10px;
   border: none;
   cursor: pointer;
-}
+} */
 
-.verReservas-editar.disabled,
-.verReservas-eliminar.disabled {
+.btn-delete.disabled,
+.btn-edit.disabled {
   background-color: var(--gray-color);
   cursor: not-allowed;
 }
