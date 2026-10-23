@@ -1,32 +1,71 @@
 <?php
-require_once __DIR__ . "/../../../config/db.php";
-require_once __DIR__ . "/../../../config/functions.php";
-    
-$usuario = getUser();
+    require_once __DIR__ . "/../../../config/db.php";
+    require_once __DIR__ . "/../../../config/functions.php";
 
-// Guardia de seguridad: Debe estar logueado
-if (!$usuario){
-    notify("Debes iniciar sesión para acceder.", "error");
-    redirect("/login.php");
-}
+    $usuario = getUser();
 
-if($usuario['rol'] === "admin") {
+    // Guardia de seguridad: Debe estar logueado
+    if (!$usuario) {
+        notify("Debes iniciar sesión para acceder.", "error");
+        redirect("/login.php");
+    }
 
-    $titulo = "Total de Reservas | Reserva tu carro";
+    if ($usuario['rol'] === "admin") {
+
+        $titulo = "Total de Reservas | Reserva tu carro";
 
         // Vista de Admin: Trae TODAS las reservas del sistema (usando tu nueva función)
-    $reservas_admin = getReservasCarrosAdmin($pdo);
-} else {
+        $reservas_admin = getReservasCarrosAdmin($pdo);
+    } else {
 
-    $titulo = "Mis reservas | Reserva tu carro";
-    
-    // Vista de Usuario: Trae solo las reservas activas del profesor logueado
-    $reservas_user = getReservasCarrosActivas($pdo, $usuario['id']);
-}
+        $titulo = "Mis reservas | Reserva tu carro";
 
-if (isset($_GET['success'])) {
-    notify($_GET['success'], 'success');
-}
+        // Vista de Usuario: Trae solo las reservas activas del profesor logueado
+        $reservas_user = getDetalleReservasCarrosByUser($pdo, $usuario['id']);
+    }
+
+    if (isset($_GET['success'])) {
+        notify($_GET['success'], 'success');
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+        $accion = $_POST['accion'] ?? null;
+        $reservaId = $_POST['reserva_id'] ?? null;
+
+
+        if (
+            $usuario['rol'] === 'admin'
+            &&
+            $accion === 'devolver'
+            &&
+            $reservaId
+        ) {
+
+            $consulta = $pdo->prepare(
+                "UPDATE cart_reservations
+                SET
+                    estado = 'devuelto',
+                    devuelto_at = NOW()
+                WHERE id = :id
+                AND estado = 'entregado'"
+            );
+
+            $consulta->execute([
+                'id' => $reservaId
+            ]);
+
+            notify(
+                "El carro fue marcado como devuelto.",
+                "success"
+            );
+
+            redirect(
+                "/dashboard/reservas/carros/ver-reservas.php"
+            );
+        }
+    }
+
 ?>
 
 <?php require_once __DIR__ . "/../../../components/header.php"; ?>
@@ -37,20 +76,20 @@ if (isset($_GET['success'])) {
             <article class="vr-containerInfo">
                 <span class="vr-emojiCart">🏛️</span>
                 <div>
-                    <h2 class ="vr-title">Reservas de Carros</h2>
+                    <h2 class="vr-title">Reservas de Carros</h2>
                     <p class="vr-description">Todas las reservas de carros del sistema</p>
                 </div>
 
                 <span class="vr-divisor"></span>
-                    
+
                 <span class="vr-logo">SISTEMA</span>
             </article>
         <?php else: ?>
             <article class="vr-containerInfo">
                 <span class="vr-emojiCart">🛒</span>
                 <div>
-                    <h2 class ="vr-title">Mis reservas de Carros</h1>
-                    <p class="vr-description">Aquí podrás ver tus reservas de carros activas.</p>
+                    <h2 class="vr-title">Mis reservas de Carros</h1>
+                        <p class="vr-description">Aquí podrás ver tus reservas de carros activas.</p>
                 </div>
 
                 <span class="vr-divisor"></span>
@@ -63,7 +102,7 @@ if (isset($_GET['success'])) {
     </section>
 
 
-    <?php if ($usuario['rol'] === 'admin'): ?>        
+    <?php if ($usuario['rol'] === 'admin'): ?>
         <section class="verReservas-container">
             <?php if (!empty($reservas_admin)): ?>
                 <article class="vr-tabla-card">
@@ -75,7 +114,7 @@ if (isset($_GET['success'])) {
                                 <th>Fecha</th>
                                 <th class="col-centro">Estado</th>
                                 <th>Comentarios</th>
-                                <th class= "col-centro">Entrega</th>
+                                <th class="col-centro">Entrega</th>
                             </tr>
                         </thead>
 
@@ -89,19 +128,32 @@ if (isset($_GET['success'])) {
                                     <td><?= htmlspecialchars($reserva['comentario']) ?></td>
 
                                     <td class="verReservas-acciones col-centro">
-                                         <?php if ($reserva['estado'] === 'reservado'): ?>
+                                        <?php if ($reserva['estado'] === 'reservado'): ?>
                                             <button
                                                 type="button"
                                                 class="entregar-carro"
                                                 data-id="<?= $reserva['id'] ?>"
-                                                data-entregar-url="<?= BASE_URL ?>/config/pdf/entregar-carro.php"
+                                                data-entregar-url="<?= BASE_URL ?>/dashboard/reservas/carros/estados/entregar-carro.php"
                                                 data-remito-url="<?= BASE_URL ?>/config/pdf/remito-carro.php"
-                                                data-volver-url="<?= BASE_URL ?>/dashboard/reservas/carros/ver-reservas.php"
-                                            >
+                                                data-volver-url="<?= BASE_URL ?>/dashboard/reservas/carros/ver-reservas.php">
                                                 Entregar
                                             </button>
                                         <?php elseif ($reserva['estado'] === 'entregado'): ?>
-                                            <span>Entregado</span>
+                                            <form method="post">
+
+                                                <input
+                                                    type="hidden"
+                                                    name="reserva_id"
+                                                    value="<?= $reserva['id'] ?>">
+
+                                                <button
+                                                    type="submit"
+                                                    name="accion"
+                                                    value="devolver">
+                                                    Devolver
+                                                </button>
+
+                                            </form>
                                         <?php else: ?>
                                             <span>Devuelto</span>
                                         <?php endif; ?>
@@ -124,36 +176,35 @@ if (isset($_GET['success'])) {
         <section class="verReservas-container">
             <?php if (!empty($reservas_user)): ?>
                 <article class="vr-tabla-card">
-                    <table class="vr-table" >
+                    <table class="vr-table">
                         <thead>
                             <tr>
                                 <th>Carro</th>
                                 <th>Fecha</th>
                                 <th class="col-centro">Estado</th>
                                 <th>Comentarios</th>
-                                <th class= "col-centro">Acciones</th>
+                                <th class="col-centro">Acciones</th>
                             </tr>
                         </thead>
-    
+
                         <tbody>
                             <?php foreach ($reservas_user as $reserva): ?>
                                 <tr>
                                     <td><?= htmlspecialchars($reserva['carro']) ?></td>
                                     <td><?= htmlspecialchars(date("d/m/Y", strtotime($reserva['fecha']))) ?></td>
-    
+
                                     <td>
-                                        <span style="<?= $reserva['estado'] === 'reservado' ? 'background-color: #fff3cd; color: #856404;' :
-                                            ($reserva['estado'] === 'entregado' ? 'background-color: #d4edda; color: #155724;' :
-                                            'background-color: #e2e3e5; color: #383d41;') ?>">
+                                        <span style="<?= $reserva['estado'] === 'reservado' ? 'background-color: #fff3cd; color: #856404;' : ($reserva['estado'] === 'entregado' ? 'background-color: #d4edda; color: #155724;' :
+                                                            'background-color: #e2e3e5; color: #383d41;') ?>">
                                             <?= htmlspecialchars(ucfirst($reserva['estado'])) ?>
                                         </span>
                                     </td>
-    
+
                                     <td><?= htmlspecialchars($reserva['comentario']) ?></td>
-    
+
                                     <td class="verReservas-acciones col-centro">
                                         <a class="btn btn-edit" href="<?= BASE_URL ?>/dashboard/reservas/carros/modificar.php?id=<?= $reserva['id'] ?>">Editar</a>
-                                        
+
                                         <button class="btn btn-delete" type="button" popovertarget="eliminar-reserva-<?= $reserva['id'] ?>">Eliminar</button>
                                     </td>
                                 </tr>
@@ -166,53 +217,53 @@ if (isset($_GET['success'])) {
                     <p class="text-sinResultsCarts">No tienes reservas de carros activas.</p>
                     <a href="">Ir a reservar</a>
                 </article>
-            <?php endif; ?>  
+            <?php endif; ?>
         </section>
     <?php endif; ?>
 </main>
 
-    <?php if ($usuario['rol'] === 'user' && !empty($reservas_user)): ?>
-        <?php foreach ($reservas_user as $reserva): ?>
-            <section id="eliminar-reserva-<?= $reserva['id'] ?>" popover class="popover-eliminar">
-                <section class="popover-eliminar-content">
-                    <h2>Eliminar Reserva</h2>
+<?php if ($usuario['rol'] === 'user' && !empty($reservas_user)): ?>
+    <?php foreach ($reservas_user as $reserva): ?>
+        <section id="eliminar-reserva-<?= $reserva['id'] ?>" popover class="popover-eliminar">
+            <section class="popover-eliminar-content">
+                <h2>Eliminar Reserva</h2>
+                <p>
+                    ¿Estás seguro que quieres eliminar tu reserva?
+                </p>
+                <section class="popover-eliminar-info">
                     <p>
-                        ¿Estás seguro que quieres eliminar tu reserva?
+                        <strong>Carro:</strong>
+                        <?= htmlspecialchars($reserva['carro']) ?>
                     </p>
-                    <section class="popover-eliminar-info">
-                        <p>
-                            <strong>Carro:</strong>
-                            <?= htmlspecialchars($reserva['carro']) ?>
-                        </p>
-                        <p>
-                            <strong>Fecha:</strong>
-                            <?= htmlspecialchars(date("d/m/Y", strtotime($reserva['fecha']))) ?>
-                        </p>
-                        <p>
-                            <strong>Estado:</strong>
-                            <?= htmlspecialchars(ucfirst($reserva['estado'])) ?>
-                        </p>
-
-                    </section>
-                    <section class="popover-eliminar-actions">
-                        <a 
-                            class="popover-confirmar"
-                            href="<?= BASE_URL ?>/dashboard/reservas/carros/eliminar.php?id=<?= $reserva['id'] ?>">
-                            Eliminar
-                        </a>
-                        <button 
-                            type="button" 
-                            class="popover-cancelar"
-                            popovertarget="eliminar-reserva-<?= $reserva['id'] ?>" 
-                            popovertargetaction="hide">
-                            Cancelar
-                        </button>
-                    </section>
+                    <p>
+                        <strong>Fecha:</strong>
+                        <?= htmlspecialchars(date("d/m/Y", strtotime($reserva['fecha']))) ?>
+                    </p>
+                    <p>
+                        <strong>Estado:</strong>
+                        <?= htmlspecialchars(ucfirst($reserva['estado'])) ?>
+                    </p>
 
                 </section>
+                <section class="popover-eliminar-actions">
+                    <a
+                        class="popover-confirmar"
+                        href="<?= BASE_URL ?>/dashboard/reservas/carros/eliminar.php?id=<?= $reserva['id'] ?>">
+                        Eliminar
+                    </a>
+                    <button
+                        type="button"
+                        class="popover-cancelar"
+                        popovertarget="eliminar-reserva-<?= $reserva['id'] ?>"
+                        popovertargetaction="hide">
+                        Cancelar
+                    </button>
+                </section>
+
             </section>
-        <?php endforeach; ?>
-    <?php endif; ?>
+        </section>
+    <?php endforeach; ?>
+<?php endif; ?>
 
 
 <?php include __DIR__ . "/../../../components/footer.php"; ?>
