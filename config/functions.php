@@ -250,12 +250,12 @@ function getDetalleReservasAulasByUser($conn, $id)
 }
 
 
-function getReservasCarrosActivas($conn, $id)
+function getDetalleReservasCarrosByUser($conn, $id)
 {
     $sql = "SELECT r.id, r.fecha, r.comentario, r.estado, c.nombre AS carro 
                 FROM carts c
                 INNER JOIN cart_reservations r ON r.cart_id = c.id
-                WHERE r.user_id = :id AND r.fecha >= CURDATE() 
+                WHERE r.user_id = :id 
                 ORDER BY r.fecha ASC";
 
     $consulta = $conn->prepare($sql);
