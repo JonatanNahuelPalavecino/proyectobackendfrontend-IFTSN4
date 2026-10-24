@@ -295,7 +295,7 @@ require __DIR__ . '/../components/header.php';
         <section class="dashboard-reservas">
             <div class ="dashboard-reservas-container">
                 <article class="db-reservas-header">
-                    <h2 class="db-reservas-title">Próximas reservas de carro</h2>
+                    <h2 class="db-reservas-title">Próximas reservas de carros</h2>
                     <article class="dh-actions">
                         <a href="<?= BASE_URL ?>/dashboard/reservas/carros/crear-reserva.php" class="btn btn-gestion-carts">Reservar Carros</a>
                     </article>
