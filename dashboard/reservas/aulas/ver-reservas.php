@@ -61,13 +61,6 @@ require_once __DIR__ . "/../../../components/header.php";
 
                 <span class="vr-logo">PROFESOR</span>
                 
-                <div class ="dh-actions">
-                    <?php if (!empty($reservasTotales)): ?>
-                        <a href="<?= BASE_URL ?>/config/excel/exportar-reservas-aulas.php" class="btn btn-excel">
-                            ⬇️ Exportar a Excel
-                        </a>
-                    <?php endif ?>
-                </div>
             </article>
         <?php endif?>
     </section>

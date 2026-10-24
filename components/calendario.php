@@ -34,7 +34,7 @@
 ?>
 
 <section class="reservation-calendar" id="calendario">
-    <h2>Calendario de <?= htmlspecialchars($aulaSeleccionada['nombre']) ?></h2>
+    <h2 class="vr-title">Calendario de <?= htmlspecialchars($aulaSeleccionada['nombre']) ?></h2>
 
     <div class="calendar-navigation">
         <?php if ($mesAnterior >= date('Y-m')): ?>

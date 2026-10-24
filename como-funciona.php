@@ -46,7 +46,7 @@ include __DIR__ . "/components/header.php";
     <section class="cf-section">
         <h3 class="cf-subtitle">¿Te quedaron algunas dudas adicionales?</h3>
         <article class="cf-article">
-            <p class="cf-description">Si tienes alguna pregunta o necesitas ayuda adicional, no dudes en contactarnos por mail a <a class="cf-link" href="mailto:bedelesifts4@gmail.com">bedelesifts4@gmail.com</a></p>
+            <p class="cf-description">Si tienes alguna pregunta o necesitas ayuda adicional, no dudes en contactarnos por mail a <a class="cf-link" href="mailto:sirauca@gmail.com">sirauca@gmail.com</a></p>
         </article>
     </section>
 </main>

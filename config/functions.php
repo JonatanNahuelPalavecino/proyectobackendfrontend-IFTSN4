@@ -259,7 +259,7 @@ function getDetalleReservasCarrosByUser($conn, $id)
 
 function getCarrosDisponibles($conn)
 {
-    $sql = "SELECT id, nombre, capacidad FROM carts ORDER BY nombre ASC";
+    $sql = "SELECT carts.id, carts.nombre, COUNT(computers.id) AS total_computadoras FROM carts LEFT JOIN computers ON computers.cart_id = carts.id GROUP BY carts.id, carts.nombre ORDER BY carts.id";
     return $conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 }
 

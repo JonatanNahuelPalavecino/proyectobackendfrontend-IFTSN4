@@ -7,17 +7,13 @@ require_once __DIR__ . "/../../../config/email/templates/message.php";
 
 $usuario = getUser();
 
-// Guardia de seguridad estricto: Solo pueden entrar Usuarios (Profesores)
 if (!$usuario || $usuario['rol'] !== 'user') {
     notify('No tenés permisos para crear reservas de carros.', 'error');
     redirect('/dashboard/index.php');
 }
 
-// 1. Operación READ delegada a la función
 $carros = getCarrosDisponibles($pdo);
 
-// 2. Operación CREATE procesada al enviar el formulario
-// 2. Operación CREATE procesada al enviar el formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $cart_id = trim($_POST['cart_id']);
     $fecha = trim($_POST['fecha']);
@@ -104,43 +100,52 @@ $titulo = 'Reservar Carro Móvil | IFTS N° 4';
 
 <?php require __DIR__ . '/../../../components/header.php'; ?>
 
-<main class="form-page" s>
-    <article class="form-header">
-        <h2>💻 Reservar Carro Móvil</h2>
-        <p>Selecciona el carro que necesitas junto con las especificaciones requeridas.</p>
+<main class="reserva-carro">
+    <article class="vr-containerInfo reserva-carro-title">
+        <span class="vr-emojiAula">🛒</span>
+
+        <div>
+            <h2 class="vr-title">Reserva de Carros</h2>
+            <p class="vr-description">Aca podras reservar el carro que necesites</p>
+        </div>
+
+        <span class="vr-divisor"></span>
+
+        <span class="vr-logo">PROFESOR</span>
+
     </article>
 
-    <!-- Formulario limpio y conectado a las funciones -->
-    <form method="POST" class="create-form" style="max-width: 600px; margin-top: 20px;">
-        <div class="form-group">
-            <label for="cart_id">Seleccionar Carro Móvil:</label>
-            <select name="cart_id" id="cart_id" required>
-                <option value="">-- Elige un carro --</option>
+    <form method="POST" class="reserva-carro-form" style="max-width: 600px; margin-top: 20px;">
+        <h2 class="db-reservas-title">Selecciona un carro</h2>
+        <div class="reserva-carro-group">
+            <label class="reserva-carro-label" for="cart_id">Seleccionar:</label>
+            <select class="reserva-carro-input" name="cart_id" id="cart_id" required>
+                <option value="">Elegi el carro</option>
                 <?php foreach ($carros as $carro): ?>
-                    <option value="<?= htmlspecialchars($carro['id']) ?>">
-                        <?= htmlspecialchars($carro['nombre']) ?>
-                        (Cap. <?= htmlspecialchars($carro['capacidad']) ?> notebooks)
+                    <option 
+                        value="<?= htmlspecialchars($carro['id']) ?>"
+                        <?= $carro['total_computadoras'] == 0 ? "disabled" : "" ?>
+                    >
+                        <?= htmlspecialchars($carro['nombre']) ?> - 
+                        <?= $carro['total_computadoras'] == 0 ? "Sin computadoras asignadas" : "Total de computadoras: " . $carro['total_computadoras'] ."un." ?>
                     </option>
                 <?php endforeach; ?>
             </select>
         </div>
 
-        <div class="form-group">
-            <label for="fecha">Fecha de la reserva:</label>
-            <input type="date" name="fecha" id="fecha" class="auth-input" min="<?= date('Y-m-d') ?>" required>
+        <div class="reserva-carro-group">
+            <label class="reserva-carro-label" for="fecha">Fecha de la reserva:</label>
+            <input class="reserva-carro-input" type="date" name="fecha" id="fecha" class="auth-input" min="<?= date('Y-m-d') ?>" required>
         </div>
 
 
-        <div class="auth-field">
-            <label for="comentario">Comentario (Configuración necesaria):</label>
-            <textarea name="comentario" id="comentario" class="auth-input" rows="3" placeholder="Ej: Necesito que todas tengan AutoCAD instalado..." required></textarea>
+        <div class="reserva-carro-group">
+            <label class="reserva-carro-label" for="comentario">Comentario <i>(Config. necesaria):</i></label>
+            <textarea class="reserva-carro-textarea" name="comentario" id="comentario" class="auth-input" rows="3" placeholder="Ej: Necesito que todas tengan AutoCAD instalado..." required></textarea>
         </div>
 
-        <div class="form-actions">
-            <button class="btn-action" type="submit" class="auth-button">Confirmar reserva</button>
-            <a class="btn-back" href="../../index.php" class="btn back">Volver</a>
+        <button class="btn reserva-carro-button" type="submit" class="auth-button">Confirmar reserva</button>
 
-        </div>
     </form>
 </main>
 
