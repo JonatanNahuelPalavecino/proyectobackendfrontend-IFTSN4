@@ -200,7 +200,7 @@
                                     <td><?= htmlspecialchars($reserva['carro']) ?></td>
                                     <td><?= htmlspecialchars(date("d/m/Y", strtotime($reserva['fecha']))) ?></td>
     
-                                    <td class="col-centro">
+                                    <td>
                                         <span style="<?= $reserva['estado'] === 'reservado' ? 'background-color: #fff3cd; color: #856404;' :
                                             ($reserva['estado'] === 'entregado' ? 'background-color: #d4edda; color: #155724;' :
                                             'background-color: #e2e3e5; color: #383d41;') ?>">
