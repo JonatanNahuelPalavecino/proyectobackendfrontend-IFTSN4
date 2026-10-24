@@ -70,9 +70,20 @@
             <input class="auth-input" type="password" id="password" name="password" placeholder="Ingresa tu contraseña" required>
             <img id="eye" src="<?= BASE_URL . '/' . htmlspecialchars('assets/images/eye-open.svg') ?>" alt="Mostrar/Ocultar contraseña" class="eye-icon">
         </div>
-        <a class="auth-link" href="<?= BASE_URL ?>/register.php">¿No tienes una cuenta? Regístrate</a>
+
+        <div class="auth-actions"> 
+            <button class="btn auth-button" type="submit">Iniciar sesión</button>
+            <div class="auth-divider">
+                <span class="auth-lineDivisor"></span>
+                <span class="auth-circle"></span>
+                <span class="auth-lineDivisor"></span>
+            </div>
+            
+            <span class="auth-questionRegister">¿No tienes una cuenta? Regístrate aca</span>
+    
+            <a class="auth-link" href="<?= BASE_URL ?>/register.php">Crear cuenta </a>
+        </div>
         
-        <button class="auth-button" type="submit">Iniciar sesión</button>
     </form>
     <script src="<?= BASE_URL ?>/assets/js/slider.js"></script>
     <script src="<?= BASE_URL ?>/assets/js/eyePass.js"></script>

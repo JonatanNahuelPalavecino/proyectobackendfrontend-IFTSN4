@@ -99,13 +99,13 @@ require __DIR__ . '/../components/header.php';
             <article class="stat-card line-aulas reserv-aula-hoy">
                 <span class="stat-icon">🏫</span>
                 <span class="stat-number"><?= $totalReservasAulasHoy ?></span>
-                <p class="stat-label stat-label-aulas">Reservas de aulas hoy</p>
+                <p class="stat-label stat-label-aulas">Reservas de aulas activas</p>
             </article>
 
             <article class="stat-card line-carts reserv-cart-hoy">
                 <span class="stat-icon">🛒</span>
                 <span class="stat-number"><?= $totalReservasCarrosHoy ?></span>
-                <p class="stat-label stat-label-carts">Reservas de carros hoy</p>
+                <p class="stat-label stat-label-carts">Reservas de carros activas</p>
             </article>
 
         </section>

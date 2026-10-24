@@ -71,28 +71,35 @@ if (isset($_GET['success'])) {
                         <thead>
                             <tr>
                                 <th>Carro</th>
-                                <th>Reservado por</th>
+                                <th>Reservante</th>
                                 <th>Fecha</th>
                                 <th class="col-centro">Estado</th>
                                 <th>Comentarios</th>
-                                <th class= "col-centro">Entrega</th>
+                                <th class= "col-centro">Acciones</th>
                             </tr>
                         </thead>
 
                         <tbody>
                             <?php foreach ($reservas_admin as $reserva): ?>
-                                <tr>
+                                <?php 
+                                    $reserva_entregado= $reserva['estado'] === "entregado";
+                                    $reserva_reservado = $reserva['estado'] === "reservado";    
+                                ?>  
+                                <tr class="<?= ($reserva_entregado) ? "vr-estadoEntregado": (($reserva_reservado) ? 'vr-estadoReservado': "") ?>">
                                     <td><?= htmlspecialchars($reserva['carro']) ?></td>
-                                    <td><?= htmlspecialchars($reserva['nombre']) ?></td>
+                                    <td><?= htmlspecialchars(ucwords($reserva['nombre'])) ?></td>
                                     <td><?= htmlspecialchars(formatDate($reserva['fecha'])) ?></td>
-                                    <td class="col-centro"><?= htmlspecialchars(ucfirst($reserva['estado'])) ?></td>
+                                    <td class="col-centro">
+                                        <!-- Faltaria implementar el color devuelto -->
+                                        <span class="verReservas-status <?= ($reserva_entregado) ? "confirmed": (($reserva_reservado) ? "reservado" : "") ?>"><?= htmlspecialchars(ucfirst($reserva['estado'])) ?></span>
+                                    </td>
                                     <td><?= htmlspecialchars($reserva['comentario']) ?></td>
 
                                     <td class="verReservas-acciones col-centro">
                                          <?php if ($reserva['estado'] === 'reservado'): ?>
                                             <button
                                                 type="button"
-                                                class="entregar-carro"
+                                                class="btn entregar-carro"
                                                 data-id="<?= $reserva['id'] ?>"
                                                 data-entregar-url="<?= BASE_URL ?>/config/pdf/entregar-carro.php"
                                                 data-remito-url="<?= BASE_URL ?>/config/pdf/remito-carro.php"
@@ -101,7 +108,12 @@ if (isset($_GET['success'])) {
                                                 Entregar
                                             </button>
                                         <?php elseif ($reserva['estado'] === 'entregado'): ?>
-                                            <span>Entregado</span>
+                                            <button 
+                                                type="button"
+                                                class="btn entregar-carro"
+                                                disabled>
+                                                Entregar
+                                            </button>
                                         <?php else: ?>
                                             <span>Devuelto</span>
                                         <?php endif; ?>
@@ -141,7 +153,7 @@ if (isset($_GET['success'])) {
                                     <td><?= htmlspecialchars($reserva['carro']) ?></td>
                                     <td><?= htmlspecialchars(date("d/m/Y", strtotime($reserva['fecha']))) ?></td>
     
-                                    <td>
+                                    <td class="col-centro">
                                         <span style="<?= $reserva['estado'] === 'reservado' ? 'background-color: #fff3cd; color: #856404;' :
                                             ($reserva['estado'] === 'entregado' ? 'background-color: #d4edda; color: #155724;' :
                                             'background-color: #e2e3e5; color: #383d41;') ?>">
@@ -164,7 +176,7 @@ if (isset($_GET['success'])) {
             <?php else: ?>
                 <article class="no-results no-results-carts">
                     <p class="text-sinResultsCarts">No tienes reservas de carros activas.</p>
-                    <a href="">Ir a reservar</a>
+                    <a class="btn btn-gestion-carts" href="<?= BASE_URL ?>/dashboard/reservas/carros/crear-reserva.php">Ir a reservar</a>
                 </article>
             <?php endif; ?>  
         </section>

@@ -99,9 +99,17 @@
             <input class="auth-input" type="password" id="password" name="password" placeholder="Ingresa tu contraseña" required>
             <img id="eye" src="<?= BASE_URL . '/' . htmlspecialchars('assets/images/eye-open.svg') ?>" alt="Mostrar/Ocultar contraseña" class="eye-icon">
         </div>
-        <a class="auth-link" href="<?= BASE_URL ?>/login.php">¿Ya tienes una cuenta? Inicia sesión</a>
-        
-        <button class="auth-button" type="submit">Registrarse</button>
+
+        <div class="auth-actions"> 
+            <button class="auth-link" type="submit">Registrarme</button>
+            <div class="auth-divider">
+                <span class="auth-lineDivisor"></span>
+                <span class="auth-circle"></span>
+                <span class="auth-lineDivisor"></span>
+            </div>
+            <span class="auth-questionRegister">¿Ya tienes una cuenta?</span>
+            <a class="btn auth-button" href="<?= BASE_URL ?>/login.php">Iniciar sesión</a>
+        </div>
     </form>
     <script src="<?= BASE_URL ?>/assets/js/slider.js"></script>
     <script src="<?= BASE_URL ?>/assets/js/eyePass.js"></script>
