@@ -91,7 +91,7 @@
                     <h2 class="vr-title">Mis reservas de Carros</h1>
                         <p class="vr-description">Aquí podrás ver tus reservas de carros activas.</p>
                 </div>
-
+                
                 <span class="vr-divisor"></span>
 
                 <div>
@@ -123,14 +123,15 @@
                                 <?php 
                                     $reserva_entregado= $reserva['estado'] === "entregado";
                                     $reserva_reservado = $reserva['estado'] === "reservado";    
+                                    $reserva_devuelto = $reserva['estado'] === "devuelto";    
                                 ?>  
-                                <tr class="<?= ($reserva_entregado) ? "vr-estadoEntregado": (($reserva_reservado) ? 'vr-estadoReservado': "") ?>">
+                                <tr class="<?= ($reserva_entregado) ? "vr-fila-pendiente": (($reserva_reservado) ? 'vr-fila-activa': "vr-fila-finalizada") ?>"> 
                                     <td><?= htmlspecialchars($reserva['carro']) ?></td>
                                     <td><?= htmlspecialchars(ucwords($reserva['nombre'])) ?></td>
                                     <td><?= htmlspecialchars(formatDate($reserva['fecha'])) ?></td>
                                     <td class="col-centro">
                                         <!-- Faltaria implementar el color devuelto -->
-                                        <span class="verReservas-status <?= ($reserva_entregado) ? "confirmed": (($reserva_reservado) ? "reservado" : "") ?>"><?= htmlspecialchars(ucfirst($reserva['estado'])) ?></span>
+                                        <span class="verReservas-status <?= ($reserva_entregado) ? "vr-chipPendiente": (($reserva_reservado) ? "vr-chipActivo" : "vr-chipFinalizado") ?>"><?= htmlspecialchars(ucfirst($reserva['estado'])) ?></span>
                                     </td>
                                     <td><?= htmlspecialchars($reserva['comentario']) ?></td>
 
@@ -154,6 +155,7 @@
                                                     value="<?= $reserva['id'] ?>">
 
                                                 <button
+                                                    class="btn btn-devolver"
                                                     type="submit"
                                                     name="accion"
                                                     value="devolver">
@@ -162,7 +164,7 @@
 
                                             </form>
                                         <?php else: ?>
-                                            <span>Devuelto</span>
+                                            <button class ="btn btn-devolver" disabled>Devolver</button>
                                         <?php endif; ?>
                                     </td>
                                 </tr>

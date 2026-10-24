@@ -91,14 +91,14 @@ require_once __DIR__ . "/../../../components/header.php";
                         <tbody>
                             <?php foreach ($reservasTotales as $reserva): ?>
                                 <?php $fila_cumplida = $reserva['fecha'] < date('Y-m-d'); ?> 
-                                <tr class="<?= $fila_cumplida ? 'vr-fila-cumplida' : 'vr-fila-activa' ?>">
+                                <tr class="<?= $fila_cumplida ? 'vr-fila-finalizada' : 'vr-fila-activa' ?>">
                                     <td class="vr-td-fuerte"><?= htmlspecialchars(ucwords($reserva['usuario'])) ?></td>
                                     <td><?= htmlspecialchars($reserva['aula']) ?></td>
                                     <td><?= formatDate(htmlspecialchars($reserva['fecha'])) ?></td>
                                     <td><?= htmlspecialchars($reserva['hora_inicio']) ?> hs - <?= htmlspecialchars($reserva['hora_fin']) ?> hs</td>
                                     <td class="col-centro"><?= htmlspecialchars($reserva['capacidad']) ?></td>
                                     <td class="col-centro">
-                                        <span class="verReservas-status <?= $fila_cumplida ? 'confirmed' : 'pending' ?>">
+                                        <span class="verReservas-status <?= $fila_cumplida ? 'vr-chipFinalizado' : 'vr-chipActivo' ?>">
                                             <?= $fila_cumplida ? 'Cumplida' : 'Activa' ?>
                                         </span>
                                     </td>
@@ -138,7 +138,7 @@ require_once __DIR__ . "/../../../components/header.php";
                                     <td><?= htmlspecialchars($reserva['hora_inicio']) ?>hs - <?= htmlspecialchars($reserva['hora_fin']) ?>hs</td>
                                     <td class="col-centro"><?= htmlspecialchars($reserva['capacidad']) ?></td>
                                     <td class="col-centro">
-                                        <span class="verReservas-status <?= $fila_cumplida ? 'confirmed' : 'pending' ?>">
+                                        <span class="verReservas-status <?= $fila_cumplida ? 'vr-chipFinalizado' : 'vr-chipActivo' ?>">
                                             <?= $fila_cumplida ? 'Cumplida' : 'Activa' ?>
                                         </span>
                                     </td>
