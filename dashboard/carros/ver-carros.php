@@ -12,7 +12,7 @@ if (!$usuario || $usuario['rol'] !== 'admin') {
 
 $titulo = "Inventario de Carros || Sistema";
 
-$inventario_completo = getInventarioCarrosCompleto($pdo);
+$carros = getInventarioCarrosCompleto($pdo);
 ?>
 
 <?php require_once __DIR__ . "/../../components/header.php"; ?>
@@ -21,53 +21,42 @@ $inventario_completo = getInventarioCarrosCompleto($pdo);
     <section>
         <div class="reservas-header">
             <h1>📦 Inventario Total de Carros</h1>
-            <p>Listado de todos los carros del sistema, incluyendo los disponibles.</p>
-            <div>
-                <a href="<?= BASE_URL ?>/dashboard/carros/crear.php" class="btn reservar">+ Carro</a>
-            </div>
-            <a href="<?php echo BASE_URL ?>/dashboard">
-                ⬅ Volver al dashboard
-            </a>
+            <a href="<?= BASE_URL ?>/dashboard/carros/crear.php" class="btn reservar">+ Carro</a>
         </div>
 
-        <?php if (!empty($inventario_completo)): ?>
+        <?php if (!empty($carros)): ?>
             <table class="table-reservas" border="1">
                 <thead>
                     <tr>
                         <th>Carro</th>
-                        <th>Estado Actual</th>
-                        <th>Última Fecha Reserva</th>
-                        <th>Acciones de Inventario</th>
+                        <th>Descripcion</th>
+                        <th>Capacidad</th>
+                        <th>Fecha de Creación</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($inventario_completo as $carro): ?>
+                    <?php foreach ($carros as $carro): ?>
                         <tr>
                             <td>
-                                <strong><?= htmlspecialchars($carro['carro']) ?></strong>
+                                <strong><?= htmlspecialchars($carro['nombre']) ?></strong>
                             </td>
 
                             <td>
-                                <?php if (empty($carro['estado'])): ?>
-                                    <span>
-                                        Disponible (Sin reservas)
-                                    </span>
-                                <?php else: ?>
-                                    <span style="padding: 5px 10px; border-radius: 5px; font-weight: bold; font-size: 0.9em;
-                                            <?= $carro['estado'] === 'reservado' ? 'background-color: #fff3cd; color: #856404;' : ($carro['estado'] === 'entregado' ? 'background-color: #d4edda; color: #155724;' :
-                                                    'background-color: #e2e3e5; color: #383d41;') ?>">
-                                        <?= htmlspecialchars(ucfirst($carro['estado'])) ?>
-                                    </span>
-                                <?php endif; ?>
+                                <?= htmlspecialchars($carro['descripcion']) ?>
                             </td>
 
                             <td>
-                                <?= !empty($carro['fecha']) ? htmlspecialchars(date("d/m/Y", strtotime($carro['fecha']))) : '-' ?>
+                                <?= htmlspecialchars($carro['capacidad']) ?>
                             </td>
 
                             <td>
-                                <a href="modificar.php?id=<?= $carro['id'] ?>">Editar Carro</a>
-                                <a href="eliminar.php?id=<?= $carro['id'] ?>" onclick="return confirm('¿Estás seguro de eliminar este carro permanentemente de la base de datos?');">Eliminar Carro</a>
+                                <?= !empty($carro['created_at']) ? htmlspecialchars(date("d/m/Y", strtotime($carro['created_at']))) : '-' ?>
+                            </td>
+
+                            <td>
+                                <a href="<?= BASE_URL ?>/dashboard/carros/modificar.php?id=<?= $carro['id'] ?>">Editar</a>
+                                <button popovertarget="eliminar-carro-<?php echo $carro['id'] ?>">Eliminar</button>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -79,5 +68,43 @@ $inventario_completo = getInventarioCarrosCompleto($pdo);
 
     </section>
 </main>
+
+<?php foreach ($carros as $carro): ?>
+    <section id="eliminar-carro-<?php echo $carro['id'] ?>" popover class="popover-eliminar">
+        <section class="popover-eliminar-content">
+            <h2>Eliminar Carro</h2>
+            <p>
+                ¿Estas seguro que queres eliminar el carro?
+            </p>
+
+            <section class="popover-eliminar-info">
+                <p>
+                    <strong>ID Carro: </strong>
+                    <?= htmlspecialchars($carro['id']); ?>
+                </p>
+
+                <p>
+                    <strong>Nombre Carro: </strong>
+                    <?= htmlspecialchars($carro['nombre']); ?>
+                </p>
+                <p>
+                    <strong>Capacidad: </strong>
+                    <?= htmlspecialchars($carro['capacidad']); ?>
+                </p>    
+                
+                <p>
+                    <strong>Creado: </strong>
+                    <?= htmlspecialchars($carro['created_at']); ?>
+                </p> 
+            </section>
+
+            <section class="popover-eliminar-actions">
+                <a class="popover-confirmar" href="<?php echo BASE_URL; ?>/dashboard/carros/eliminar.php?id=<?php echo $carro['id']; ?>">Eliminar</a>
+                <button class="popover-cancelar" type="button" popovertarget="eliminar-carro-<?php echo $carro['id'] ?>" popovertargetaction="hide">Cancelar</button>
+            </section>
+
+        </section>        
+    </section>
+<?php endforeach ?>
 
 <?php require_once __DIR__ . "/../../components/footer.php"; ?>
