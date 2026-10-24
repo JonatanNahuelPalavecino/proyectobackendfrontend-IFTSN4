@@ -1221,65 +1221,76 @@ body > main {
   background: #f8faf9;
 }
 
-.vr-table tbody tr.vr-fila-activa {
-  background: #f0f8f3;
-}
+/* ESTILOS DE FILAS */
 
+/* Fila activa */
+.vr-table tbody tr.vr-fila-activa {
+  color: var(--verde-fuerte-color);
+  background: #F0F8F3;
+  font-weight: 400; 
+}
 .vr-table tbody tr.vr-fila-activa td {
   border-bottom-color: #dcebe2;
 }
-
 .vr-table tbody tr.vr-fila-activa:hover {
   background: #e6f3eb;
 }
+
+.vr-table tbody tr.vr-fila-pendiente {
+  background-color: #F0F5FA;
+  color: var(--btn-color-carts);
+  font-weight: 400;
+}
+.vr-table tbody tr.vr-fila-pendiente td {
+   border-bottom-color: #dcdceb; 
+}
+.vr-table tbody tr.vr-fila-pendiente:hover {
+  background-color: #E6EFF8;
+}
+
+/* Fila finalizada */
+.vr-table tbody tr.vr-fila-finalizada td { 
+  color: #b1bac2; 
+}
+
+
 
 .vr-table .col-centro {
   text-align: center;
 }
 
-.vr-estadoEntregado td {
-  color: #b1bac2;
-}
-.vr-table tbody tr.vr-estadoReservado {
-  background: var(--secondary-color-background);
-}
-.vr-table tbody tr.vr-estadoReservado td {
-  border-bottom-color: #cae0fb;
-}
 
-.vr-table tbody tr.vr-estadoReservado:hover {
-  background: #ddecfe;
-}
 
 .entregar-carro {
-  background-color: var(--btn-color-carts);
+  background-color: var(--verde);
   transition: 0.3s ease-in-out;
 }
 .entregar-carro:hover {
-  background-color: var(--btn-carts-hover);
-}
-.btn-devolver {
-  background-color: #9b6617;
+  background-color: var(--verde-oscuro);
 }
 
-.entregar-carro:disabled {
+.btn-devolver {
+  background-color: var(--btn-color-carts);
+  transition: 0.3s ease-in-out;
+}
+
+.btn-devolver:hover {
+  background-color: var(--btn-carts-hover);
+}
+
+.btn-devolver:disabled {
   background-color: #cccccc;
   color: #666666;
   cursor: not-allowed;
   opacity: 0.7;
 }
 
-.vr-fila-cumplida td {
-  color: #b1bac2;
-}
-.vr-fila-cumplida .vr-fuerte {
-  font-weight: 600;
-}
-.vr-fila-activa {
-  color: var(--verde-fuerte-color);
-  font-weight: 400;
-}
 
+
+
+/* .vr-fila-cumplida .vr-fuerte { 
+  font-weight: 600; 
+} */
 .verReservas-status {
   display: inline-block;
   padding: 4px 12px;
@@ -1290,51 +1301,36 @@ body > main {
   color: var(--white-color);
 }
 
-.verReservas-status.confirmed {
-  background: #e9edeb;
-  color: #5b6b7a;
-}
 
-.verReservas-status.pending {
-  background: #e1f0e8;
-  color: #065f2e;
+/* CHIPS DE COLUMNA 'ESTADO' DE CARROS */
+.verReservas-status.vr-chipActivo {
+  background: #E1F0E8; 
+  color: #065F2E;
   box-shadow: 0 0 3px var(--verde-fuerte-color);
 }
-.verReservas-status.reservado {
+.verReservas-status.vr-chipPendiente{
   background-color: var(--secondary-color-background);
   box-shadow: 0 0 3px var(--secondary-color);
   color: var(--secondary-color);
 }
+.verReservas-status.vr-chipFinalizado{
+  background: #E9EDEB; 
+  color: #5B6B7A;
+}
+
+/* .verReservas-status.reservado{
+  background-color: var(--secondary-color-background);
+  box-shadow: 0 0 3px var(--secondary-color);
+  color: var(--secondary-color);
+} */
+
 .verReservas-acciones {
   display: flex;
   justify-content: center;
   gap: 10px;
 }
 
-/* 
-.verReservas-editar,
-.verReservas-eliminar {
-  padding: 5px 10px;
-  border-radius: 12px;
-  font-size: 0.9rem;
-  font-weight: bold;
-  color: var(--white-color);
-}
-
-.verReservas-editar,
-.verReservas-editar:hover {
-  background-color: var(--primary-color);
-  text-decoration: none !important;
-  color: var(--white-color) !important;
-}
-
-.verReservas-eliminar {
-  background-color: var(--danger-color);
-  padding: 6px 10px;
-  border: none;
-  cursor: pointer;
-} */
-
+/* RESERVAS BOTONES PROFESOR */
 .btn-delete.disabled,
 .btn-edit.disabled {
   background-color: var(--gray-color);
