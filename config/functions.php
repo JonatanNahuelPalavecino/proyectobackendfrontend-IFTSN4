@@ -135,13 +135,7 @@ function getReservasCarrosAdmin($conn)
 
 function getInventarioCarrosCompleto($conn)
 {
-    $sql = "SELECT c.id, c.nombre AS carro, 
-                    MAX(r.fecha) as fecha, 
-                    (SELECT estado FROM cart_reservations WHERE cart_id = c.id ORDER BY fecha DESC LIMIT 1) as estado
-                FROM carts c
-                LEFT JOIN cart_reservations r ON r.cart_id = c.id
-                GROUP BY c.id, c.nombre
-                ORDER BY c.nombre ASC";
+    $sql = "SELECT id, nombre, descripcion, capacidad, created_at FROM carts ORDER BY id ASC";
 
     $consulta = $conn->prepare($sql);
     $consulta->execute();

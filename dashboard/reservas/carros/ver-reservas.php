@@ -11,16 +11,10 @@
     }
 
     if ($usuario['rol'] === "admin") {
-
         $titulo = "Total de Reservas | Reserva tu carro";
-
-        // Vista de Admin: Trae TODAS las reservas del sistema (usando tu nueva función)
         $reservas_admin = getReservasCarrosAdmin($pdo);
     } else {
-
         $titulo = "Mis reservas | Reserva tu carro";
-
-        // Vista de Usuario: Trae solo las reservas activas del profesor logueado
         $reservas_user = getDetalleReservasCarrosByUser($pdo, $usuario['id']);
     }
 
@@ -33,36 +27,13 @@
         $accion = $_POST['accion'] ?? null;
         $reservaId = $_POST['reserva_id'] ?? null;
 
+        if ($usuario['rol'] === 'admin' && $accion === 'devolver' && $reservaId) {
 
-        if (
-            $usuario['rol'] === 'admin'
-            &&
-            $accion === 'devolver'
-            &&
-            $reservaId
-        ) {
+            $consulta = $pdo->prepare("UPDATE cart_reservations SET estado = 'devuelto', devuelto_at = NOW() WHERE id = :id AND estado = 'entregado'");
+            $consulta->execute(['id' => $reservaId]);
 
-            $consulta = $pdo->prepare(
-                "UPDATE cart_reservations
-                SET
-                    estado = 'devuelto',
-                    devuelto_at = NOW()
-                WHERE id = :id
-                AND estado = 'entregado'"
-            );
-
-            $consulta->execute([
-                'id' => $reservaId
-            ]);
-
-            notify(
-                "El carro fue marcado como devuelto.",
-                "success"
-            );
-
-            redirect(
-                "/dashboard/reservas/carros/ver-reservas.php"
-            );
+            notify("El carro fue marcado como devuelto.", "success");
+            redirect("/dashboard/reservas/carros/ver-reservas.php");
         }
     }
 
@@ -89,7 +60,7 @@
                 <span class="vr-emojiCart">🛒</span>
                 <div>
                     <h2 class="vr-title">Mis reservas de Carros</h1>
-                        <p class="vr-description">Aquí podrás ver tus reservas de carros activas.</p>
+                    <p class="vr-description">Aquí podrás ver tus reservas de carros activas.</p>
                 </div>
 
                 <span class="vr-divisor"></span>
