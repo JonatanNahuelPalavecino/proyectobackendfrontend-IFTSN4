@@ -125,8 +125,8 @@ require_once __DIR__ . "/../../../components/header.php";
                         <tbody>
                             <?php foreach ($reservasPropias as $reserva): ?>
                                 <?php $fila_cumplida = $reserva['fecha'] < date('Y-m-d'); ?>
-                                <tr class="<?= $fila_cumplida ? 'vr-fila-cumplida' : 'vr-fila-activa' ?>">
-                                    <td class="vr-td-fuerte"><?= htmlspecialchars($reserva['aula']) ?></td>
+                                <tr class="<?= $fila_cumplida ? 'vr-fila-finalizada' : 'vr-fila-activa' ?>">
+                                    <td><?= htmlspecialchars($reserva['aula']) ?></td>
                                     <td><?= formatDate(htmlspecialchars($reserva['fecha'])) ?></td>
                                     <td><?= htmlspecialchars($reserva['hora_inicio']) ?>hs - <?= htmlspecialchars($reserva['hora_fin']) ?>hs</td>
                                     <td class="col-centro"><?= htmlspecialchars($reserva['capacidad']) ?></td>

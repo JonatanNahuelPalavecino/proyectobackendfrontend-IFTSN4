@@ -140,53 +140,78 @@
 <?php include __DIR__ . "/../../../components/header.php"; ?>
 
 <main>
-    <h1>Editar reserva</h1>
+    <section style="padding: 20px 10px;">
 
-    <section>
-        <h2>Aula: <?= htmlspecialchars($aulaSeleccionada['nombre']) ?></h2>
-        <p>Elegí otra fecha o modificá el horario de tu reserva.</p>
+        <article class="vr-containerInfo">
+            <span class="vr-emojiAula">🏛️</span>
+        
+            <div>
+                <h2 class ="vr-title">Edicion de Aulas</h2>
+                <p class="vr-description">Elegí otra fecha o modificá el horario de tu reserva</p>
+            </div>
+                        
+            <span class="vr-divisor"></span>
+                        
+            <span class="vr-logo">PROFESOR</span>
+    
+        </article>
+
     </section>
 
     <?php include __DIR__ . "/../../../components/calendario.php"; ?>
 
-    <section id="horarios">
-        <h2>Horarios disponibles del <?= htmlspecialchars($fechaSeleccionada) ?></h2>
-
-        <?php if (count($rangosLibres) === 0): ?>
-            <p>No quedan horarios libres para esta fecha.</p>
-        <?php else: ?>
-            <form method="post">
-                <input type="hidden" name="reservation_id" value="<?= (int) $reservaId ?>">
-                <input type="hidden" name="fecha" value="<?= htmlspecialchars($fechaSeleccionada) ?>">
-
-                <label for="hora_inicio">Desde</label>
-                <select id="hora_inicio" name="hora_inicio" required>
-                    <?php foreach ($rangosLibres as $rango): ?>
-                        <?php for ($minutos = horaAMinutos($rango['inicio']); $minutos < horaAMinutos($rango['fin']); $minutos += 60): ?>
-                            <?php $hora = minutosAHora($minutos); ?>
-                            <option value="<?= $hora ?>" <?= $hora === $horaInicioSeleccionada ? 'selected' : '' ?>>
-                                <?= $hora ?>
-                            </option>
-                        <?php endfor; ?>
-                    <?php endforeach; ?>
-                </select>
-
-                <label for="hora_fin">Hasta</label>
-                <select id="hora_fin" name="hora_fin" required>
-                    <?php foreach ($rangosLibres as $rango): ?>
-                        <?php for ($minutos = horaAMinutos($rango['inicio']) + 60; $minutos <= horaAMinutos($rango['fin']); $minutos += 60): ?>
-                            <?php $hora = minutosAHora($minutos); ?>
-                            <option value="<?= $hora ?>" <?= $hora === $horaFinSeleccionada ? 'selected' : '' ?>>
-                                <?= $hora ?>
-                            </option>
-                        <?php endfor; ?>
-                    <?php endforeach; ?>
-                </select>
-
-                <button type="submit">Guardar cambios</button>
-            </form>
-        <?php endif; ?>
+    <section class="dashboard-reservas">
+        <article class="dashboard-reservas-container" id="horarios" >
+            <article>
+                <h2 class="vr-title">
+                    Horarios disponibles del <?= htmlspecialchars($fechaSeleccionada) ?>
+                </h2>
+            </article>
+    
+            <?php if (count($rangosLibres) === 0): ?>
+    
+                <article class="no-results no-results-aulas">
+                    <p class="text-sinResultsAulas">No quedan horarios libres para esta fecha.</p>
+                </article>
+    
+            <?php else: ?>
+                <article class="horario-contenedor">
+    
+                    <form class="horario-form" method="post">
+                        <input type="hidden" name="reservation_id" value="<?= (int) $reservaId ?>">
+                        <input type="hidden" name="fecha" value="<?= htmlspecialchars($fechaSeleccionada) ?>">
+        
+                        <label for="hora_inicio">Desde</label>
+                        <select class="horario-input" id="hora_inicio" name="hora_inicio" required>
+                            <?php foreach ($rangosLibres as $rango): ?>
+                                <?php for ($minutos = horaAMinutos($rango['inicio']); $minutos < horaAMinutos($rango['fin']); $minutos += 60): ?>
+                                    <?php $hora = minutosAHora($minutos); ?>
+                                    <option value="<?= $hora ?>" <?= $hora === $horaInicioSeleccionada ? 'selected' : '' ?>>
+                                        <?= $hora ?>
+                                    </option>
+                                <?php endfor; ?>
+                            <?php endforeach; ?>
+                        </select>
+        
+                        <label for="hora_fin">Hasta</label>
+                        <select class="horario-input" id="hora_fin" name="hora_fin" required>
+                            <?php foreach ($rangosLibres as $rango): ?>
+                                <?php for ($minutos = horaAMinutos($rango['inicio']) + 60; $minutos <= horaAMinutos($rango['fin']); $minutos += 60): ?>
+                                    <?php $hora = minutosAHora($minutos); ?>
+                                    <option value="<?= $hora ?>" <?= $hora === $horaFinSeleccionada ? 'selected' : '' ?>>
+                                        <?= $hora ?>
+                                    </option>
+                                <?php endfor; ?>
+                            <?php endforeach; ?>
+                        </select>
+        
+                        <button class="btn btn-gestion-aulas" type="submit">Guardar cambios</button>
+                    </form>
+                </article>
+            <?php endif; ?>
+        </article>
     </section>
+
 </main>
 
 <?php include __DIR__ . "/../../../components/footer.php"; ?>
