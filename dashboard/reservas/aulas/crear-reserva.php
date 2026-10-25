@@ -101,26 +101,28 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 <?php include __DIR__ . "/../../../components/header.php"; ?>
 
 <main>
-    <article class="vr-containerInfo">
-        <span class="vr-emojiAula">🏛️</span>
+    <section style ="padding: 20px 10px;">
+        <article class="vr-containerInfo">
+            <span class="vr-emojiAula">🏛️</span>
+    
+            <div>
+                <h2 class="vr-title">Reserva de Aula</h2>
+                <p class="vr-description">Aca podras reservar el aula que necesites</p>
+            </div>
+    
+            <span class="vr-divisor"></span>
+    
+            <span class="vr-logo">PROFESOR</span>
+    
+        </article>
+        
+    </section>
 
-        <div>
-            <h2 class="vr-title">Reserva de Aula</h2>
-            <p class="vr-description">Aca podras reservar el aula que necesites</p>
-        </div>
-
-        <span class="vr-divisor"></span>
-
-        <span class="vr-logo">PROFESOR</span>
-
-    </article>
-
-    <section class="dashboard-reservas" style="padding: 20px 0;">
-
+    <section class="dashboard-reservas" >
 
         <?php if (count($aulas) === 0): ?>
-            <article class="no-results no-results-carts">
-                <p class="text-sinResultsCarts">No hay aulas con disponibilidad configurada.</p>
+            <article class="no-results no-results-aulas">
+                <p class="text-sinResultsAulas">No hay aulas con disponibilidad configurada.</p>
             </article>
         <?php else: ?>
             <div class="dashboard-reservas-container">
@@ -131,7 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 <div class="db-reservas-cards">
                     <?php foreach ($aulas as $aula): ?>
                         <article class="db-reservas-item">
-                            <div class="db-reserva-iconCart">
+                            <div class="db-reserva-iconAula">
                                 <svg class="db-reserva-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-building" viewBox="0 0 16 16">
                                     <path d="M4 2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM4 5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zM7.5 5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zM4.5 8a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z"/>
                                     <path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1zm11 0H3v14h3v-2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V15h3z"/>
@@ -167,72 +169,75 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     <?php if ($aulaSeleccionada && $fechaSeleccionada): ?>
 
-        <section class="dashboard-reservas-container" style="margin: 20px 0" id="horarios">
-            <h2 class="vr-title">
-                Horarios disponibles del
-                <?php echo formatDate(htmlspecialchars($fechaSeleccionada)); ?>
-            </h2>
+        <section class="dashboard-reservas">
 
-            <?php if (count($rangosLibres) === 0): ?>
-
-                <p>No quedan horarios libres para esta fecha.</p>
-
-            <?php else: ?>
-
-                <?php foreach ($rangosLibres as $rango): ?>
-
-                    <article class="horario-contenedor">
-                        <h3 class="horario-titulo">
-                            <?php echo htmlspecialchars($rango['inicio']); ?> hs
-                            -
-                            <?php echo htmlspecialchars($rango['fin']); ?>
-                            hs
-                        </h3>
-
-                        <form class="horario-form" method="post">
-                            <input
-                                type="hidden"
-                                name="classroom_id"
-                                value="<?php echo $aulaSeleccionada['id']; ?>">
-
-                            <input
-                                type="hidden"
-                                name="fecha"
-                                value="<?php echo htmlspecialchars($fechaSeleccionada); ?>">
-
-                            <label class="horario-label">Desde</label>
-
-                            <input
-                                class="horario-input"
-                                type="time"
-                                name="hora_inicio"
-                                min="<?php echo htmlspecialchars($rango['inicio']); ?>"
-                                max="<?php echo htmlspecialchars($rango['fin']); ?>"
-                                step="3600"
-                                value="<?php echo htmlspecialchars($rango['inicio']); ?>"
-                                required>
-
-                            <label class="horario-label">Hasta</label>
-
-                            <input
-                                class="horario-input"
-                                type="time"
-                                name="hora_fin"
-                                min="<?php echo htmlspecialchars($rango['inicio']); ?>"
-                                max="<?php echo htmlspecialchars($rango['fin']); ?>"
-                                step="3600"
-                                value="<?php echo htmlspecialchars($rango['fin']); ?>"
-                                required>
-
-                            <button class="horario-button" type="submit">
-                                Reservar
-                            </button>
-                        </form>
-                    </article>
-
-                <?php endforeach; ?>
-
-            <?php endif; ?>
+            <article class="dashboard-reservas-container" id="horarios">
+                <h2 class="vr-title">
+                    Horarios disponibles del
+                    <?php echo formatDate(htmlspecialchars($fechaSeleccionada)); ?>
+                </h2>
+    
+                <?php if (count($rangosLibres) === 0): ?>
+    
+                    <p>No quedan horarios libres para esta fecha.</p>
+    
+                <?php else: ?>
+    
+                    <?php foreach ($rangosLibres as $rango): ?>
+    
+                        <article class="horario-contenedor">
+                            <h3 class="horario-titulo">
+                                <?php echo htmlspecialchars($rango['inicio']); ?> hs
+                                -
+                                <?php echo htmlspecialchars($rango['fin']); ?>
+                                hs
+                            </h3>
+    
+                            <form class="horario-form" method="post">
+                                <input
+                                    type="hidden"
+                                    name="classroom_id"
+                                    value="<?php echo $aulaSeleccionada['id']; ?>">
+    
+                                <input
+                                    type="hidden"
+                                    name="fecha"
+                                    value="<?php echo htmlspecialchars($fechaSeleccionada); ?>">
+    
+                                <label class="horario-label">Desde</label>
+    
+                                <input
+                                    class="horario-input"
+                                    type="time"
+                                    name="hora_inicio"
+                                    min="<?php echo htmlspecialchars($rango['inicio']); ?>"
+                                    max="<?php echo htmlspecialchars($rango['fin']); ?>"
+                                    step="3600"
+                                    value="<?php echo htmlspecialchars($rango['inicio']); ?>"
+                                    required>
+    
+                                <label class="horario-label">Hasta</label>
+    
+                                <input
+                                    class="horario-input"
+                                    type="time"
+                                    name="hora_fin"
+                                    min="<?php echo htmlspecialchars($rango['inicio']); ?>"
+                                    max="<?php echo htmlspecialchars($rango['fin']); ?>"
+                                    step="3600"
+                                    value="<?php echo htmlspecialchars($rango['fin']); ?>"
+                                    required>
+    
+                                <button class="horario-button" type="submit">
+                                    Reservar
+                                </button>
+                            </form>
+                        </article>
+    
+                    <?php endforeach; ?>
+    
+                <?php endif; ?>
+            </article>
         </section>
 
     <?php endif; ?>

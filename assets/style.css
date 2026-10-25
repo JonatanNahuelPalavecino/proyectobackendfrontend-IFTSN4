@@ -880,7 +880,7 @@ body > main {
   border: var(--border-cards);
   /* box-shadow: var(--boxShadow-cards-pattern); */
   border-radius: var(--borderRadius-cards-pattern);
-  padding: 20px;
+  padding: 20px 10px;
 }
 
 .db-reservas-header {
@@ -1145,6 +1145,7 @@ body > main {
 .vr-title {
   font-family: var(--font-family-title);
   font-weight: 600;
+  padding: 10px 0;
 }
 .vr-description {
   font-family: var(--font-family-description);
@@ -1253,13 +1254,9 @@ body > main {
   color: #b1bac2; 
 }
 
-
-
 .vr-table .col-centro {
   text-align: center;
 }
-
-
 
 .entregar-carro {
   background-color: var(--verde);
@@ -1456,7 +1453,7 @@ body > main {
 }
 
 .horario-input {
-  width: 100%;
+  width: 30%;
   box-sizing: border-box;
   padding: 11px 13px;
   border: 1px solid #d0d0d0;
@@ -1464,9 +1461,16 @@ body > main {
   font-size: 15px;
   background-color: #fff;
   transition:
-    border-color 0.2s,
-    box-shadow 0.2s;
+    border-color 0.2s ease-in-out,
+    box-shadow 0.2s ease-in-out;
   font-family: var(--font-family-description);
+}
+
+.horario-form input:focus,
+.horario-form select:focus {
+  outline: 2px solid rgba(4, 157, 72, 0.3);
+  border-color: var(--primary-color);
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25); */
 }
 
 .horario-button {
@@ -1480,8 +1484,13 @@ body > main {
   font-weight: 600;
   color: var(--white-color);
   cursor: pointer;
-  font-size: 1.2rem;
-  background-color: var(--primary-color);
+  font-size: 1rem;
+  background-color: var(--btn-color-aulas);
+  transition: 0.3s ease-in-out;
+}
+
+.horario-button:hover {
+  background-color: var(--btn-aulas-hover);
 }
 
 /* ---CALENDARIO DE RESERVAS--- */
@@ -1589,6 +1598,123 @@ body > main {
 }
 
 /* FORMULARIOS DE PC - NOTEBOOKS */
+.form-page {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: var(--light-color);
+  border-radius: 12px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+}
+
+.form-header {
+  margin-bottom: 28px;
+}
+
+.form-header h1 {
+  margin: 0 0 8px;
+  font-size: 28px;
+  color: var(--navy);
+  text-transform: uppercase;
+}
+
+.form-header p {
+  margin: 0;
+  color: var(--navy-2);
+  font-size: 15px;
+}
+
+.create-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: var(--dark-color);
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px 13px;
+  border: 1px solid #d0d0d0;
+  border-radius: 7px;
+  font-size: 15px;
+  background-color: #fff;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: 2px solid rgba(4, 157, 72, 0.3);
+  border-color: var(--primary-color);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.form-group input::placeholder {
+  color: #999;
+}
+
+.form-info {
+  margin: 0;
+  padding: 12px;
+  border-radius: 7px;
+  background-color: var(--vacio-color);
+  color: #666;
+  font-size: 14px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.btn-action,
+.btn-back {
+  padding: 11px 20px;
+  border-radius: 7px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.btn-action {
+  border: none;
+  background-color: var(--primary-color);
+  color: var(--white-color);
+}
+
+.btn-action:hover {
+  background-color: var(--secondary-color);
+}
+
+.btn-back {
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: #444;
+}
+
+.btn-back:hover {
+  background-color: #f2f2f2;
+}
+
+
+/* ======================== */
 .form-page {
   max-width: 600px;
   margin: 40px auto;

@@ -169,24 +169,32 @@
 
                         <tbody>
                             <?php foreach ($reservas_user as $reserva): ?>
-                                <tr>
+                                <?php 
+                                    $reserva_entregado= $reserva['estado'] === "entregado";
+                                    $reserva_reservado = $reserva['estado'] === "reservado";    
+                                    $reserva_devuelto = $reserva['estado'] === "devuelto";    
+                                ?>  
+                                <tr class="<?= ($reserva_entregado) ? "vr-fila-pendiente": (($reserva_reservado) ? 'vr-fila-activa': "vr-fila-finalizada") ?>">
                                     <td><?= htmlspecialchars($reserva['carro']) ?></td>
                                     <td><?= htmlspecialchars(date("d/m/Y", strtotime($reserva['fecha']))) ?></td>
     
-                                    <td>
-                                        <span style="<?= $reserva['estado'] === 'reservado' ? 'background-color: #fff3cd; color: #856404;' :
-                                            ($reserva['estado'] === 'entregado' ? 'background-color: #d4edda; color: #155724;' :
-                                            'background-color: #e2e3e5; color: #383d41;') ?>">
-                                            <?= htmlspecialchars(ucfirst($reserva['estado'])) ?>
-                                        </span>
+                                    <td class="col-centro">
+                                        <!-- Faltaria implementar el color devuelto -->
+                                        <span class="verReservas-status <?= ($reserva_entregado) ? "vr-chipPendiente": (($reserva_reservado) ? "vr-chipActivo" : "vr-chipFinalizado") ?>"><?= htmlspecialchars(ucfirst($reserva['estado'])) ?></span>
                                     </td>
 
                                     <td><?= htmlspecialchars($reserva['comentario']) ?></td>
 
                                     <td class="verReservas-acciones col-centro">
-                                        <a class="btn btn-edit" href="<?= BASE_URL ?>/dashboard/reservas/carros/modificar.php?id=<?= $reserva['id'] ?>">Editar</a>
+                                        <?php if ($reserva_reservado): ?>
+                                            <a class="btn btn-edit" href="<?= BASE_URL ?>/dashboard/reservas/carros/modificar.php?id=<?= $reserva['id'] ?>">Editar</a>
 
-                                        <button class="btn btn-delete" type="button" popovertarget="eliminar-reserva-<?= $reserva['id'] ?>">Eliminar</button>
+                                            <button class="btn btn-delete" type="button" popovertarget="eliminar-reserva-<?= $reserva['id'] ?>">Eliminar</button>
+                                        <?php else:?>
+                                            <button class="btn btn-edit disabled" >Editar</button>
+                                            <button class="btn btn-delete disabled" >Eliminar</button>
+                                            
+                                        <?php endif ;?>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
