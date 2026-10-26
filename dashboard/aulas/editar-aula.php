@@ -77,8 +77,8 @@
 
 <main class="form-page">
     <article class="form-header">
-        <h1>Editar Aula</h1>
-        <p>Modifica el nombre y la capacidad del aula</p>
+        <span class="form-crudChip form-chipAulas">Editar Aula</span>
+        <p class="dh-welcome-label">Modifica el nombre y la capacidad del aula</p>
     </article>
 
     <form class="create-form" method="post">

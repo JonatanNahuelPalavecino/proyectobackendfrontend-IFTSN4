@@ -48,11 +48,11 @@ require __DIR__ . '/../components/header.php';
                 <article>
                     <span class="dh-panel">Panel de administracion</span>
                     <h2 class="dh-welcome-title">Bienvenido, <?= htmlspecialchars(ucwords($usuario['nombre'])) ?></h2>
-                    <p class="dh-welcome-label">Gestioná aulas, carros, PCs y todas las reservas del sistema</p>
+                    <p class="dh-welcome-label">Gestioná aulas, carros, Notebooks y todas las reservas del sistema</p>
                 </article>
                 
                 <article class="dh-actions">
-                    <a href="<?= BASE_URL ?>/dashboard/notebooks/ver-notebooks.php" class="btn btn-gestion-pcs">Gestionar Pcs</a>
+                    <a href="<?= BASE_URL ?>/dashboard/notebooks/ver-notebooks.php" class="btn btn-gestion-pcs">Gestionar Notebooks</a>
                 
                 </article>
             </article>

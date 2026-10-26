@@ -102,7 +102,7 @@ $titulo = 'Reservar Carro Móvil | IFTS N° 4';
 
 <main class="reserva-carro">
     <article class="vr-containerInfo reserva-carro-title">
-        <span class="vr-emojiAula">🛒</span>
+        <span class="vr-emojiCart">🛒</span>
 
         <div>
             <h2 class="vr-title">Reserva de Carros</h2>
@@ -117,9 +117,9 @@ $titulo = 'Reservar Carro Móvil | IFTS N° 4';
 
     <form method="POST" class="reserva-carro-form" style="max-width: 600px; margin-top: 20px;">
         <h2 class="db-reservas-title">Selecciona un carro</h2>
-        <div class="reserva-carro-group">
-            <label class="reserva-carro-label" for="cart_id">Seleccionar:</label>
-            <select class="reserva-carro-input" name="cart_id" id="cart_id" required>
+        <div class="form-group">
+            <label for="cart_id">Seleccionar:</label>
+            <select name="cart_id" id="cart_id" required>
                 <option value="">Elegi el carro</option>
                 <?php foreach ($carros as $carro): ?>
                     <option 
@@ -133,18 +133,20 @@ $titulo = 'Reservar Carro Móvil | IFTS N° 4';
             </select>
         </div>
 
-        <div class="reserva-carro-group">
-            <label class="reserva-carro-label" for="fecha">Fecha de la reserva:</label>
-            <input class="reserva-carro-input" type="date" name="fecha" id="fecha" class="auth-input" min="<?= date('Y-m-d') ?>" required>
+        <div class="form-group">
+            <label for="fecha">Fecha de la reserva:</label>
+            <input type="date" name="fecha" id="fecha" class="auth-input" min="<?= date('Y-m-d') ?>" required>
         </div>
 
 
-        <div class="reserva-carro-group">
-            <label class="reserva-carro-label" for="comentario">Comentario <i>(Config. necesaria):</i></label>
-            <textarea class="reserva-carro-textarea" name="comentario" id="comentario" class="auth-input" rows="3" placeholder="Ej: Necesito que todas tengan AutoCAD instalado..." required></textarea>
+        <div class="form-group">
+            <label for="comentario">Comentario <i>(Config. necesaria):</i></label>
+            <textarea  name="comentario" id="comentario" class="auth-input" rows="3" placeholder="Ej: Necesito que todas tengan AutoCAD instalado..." required></textarea>
         </div>
-
-        <button class="btn reserva-carro-button" type="submit" class="auth-button">Confirmar reserva</button>
+        
+        <div class="form-actions">
+            <button class="btn-action" type="submit" class="auth-button">Confirmar reserva</button>
+        </div>
 
     </form>
 </main>

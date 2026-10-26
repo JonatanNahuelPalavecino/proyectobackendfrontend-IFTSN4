@@ -77,8 +77,8 @@
 
 <main class="form-page">
     <article class="form-header">
-        <h1>Editar Disponibilidad de <?php echo $aula['nombre'] ?></h1>
-        <p>Modifica la disponibilidad del aula <?php echo $aula['nombre'] ?></p>
+        <span class="form-crudChip form-chipAulas">Editar Disponibilidad</span>
+        <p class="dh-welcome-label">Modifica la disponibilidad del aula: <?php echo $aula['nombre'] ?></p>
     </article>
 
     <form class="create-form" method="post">
@@ -91,7 +91,7 @@
             <input style="cursor: not-allowed;" type="text" name="nombre" id="nombre" value="<?php echo $aula['nombre'] ?>">
         </div>
         <div class="form-group">
-            <label for="capacidad">Desde Dia:</label>
+            <label for="capacidad">Dia (Inicio):</label>
             <select id="dia_desde" name="dia_desde" required>
                 <?php for ($dia = 1; $dia <= 7; $dia++) { ?>
                     <option value="<?php echo $dia; ?>" <?php if ($dia === $aula['dia_desde']) {echo "selected";} ?> >
@@ -101,7 +101,7 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="created_at">Hasta dia:</label>
+            <label for="created_at">Dia (Fin):</label>
             <select id="dia_hasta" name="dia_hasta" required>
                 <?php for ($dia = 1; $dia <= 7; $dia++) { ?>
                     <option value="<?php echo $dia; ?>" <?php if ($dia === $aula['dia_hasta']) {echo "selected";} ?> >
@@ -111,25 +111,32 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="hora_inicio">Desde horario:</label>
+            <label for="hora_inicio">Hora (Inicio)</label>
             <input type="time" name="hora_inicio" id="hora_inicio" value="<?php echo $aula['hora_inicio'] ?>" required>
         </div>
         <div class="form-group">
-            <label for="hora_fin">Hasta horario:</label>
+            <label for="hora_fin">Hora (Fin)</label>
             <input type="time" name="hora_fin" id="hora_fin" value="<?php echo $aula['hora_fin'] ?>" required>
         </div>
         <div class="form-actions">
             <button class="btn-action" type="submit">Editar</button>
-            <button class="btn-" popovertarget="eliminar-disponibilidad" type="button">Eliminar</button>
-            <a class="btn-back" href ="../aulas/ver-aulas.php">Volver</a>
+            <button class="btn btn-delete" popovertarget="eliminar-disponibilidad" type="button">Eliminar</button>
         </div>
     </form>
 </main>
 
-<section id="eliminar-disponibilidad" popover>
-    <p>¿estas seguro que queres eliminar la disponibilidad del <?php echo $aula['nombre'] ?> del sistema?</p>
-    <a href="<?php echo BASE_URL; ?>/dashboard/disponibilidades/eliminar-disponibilidad.php?id=<?php echo $aula['classroom_id']; ?>">Eliminar</a>
-    <button type="button" popovertarget="eliminar-disponibilidad" popovertargetaction="hide">Cancelar</button>
+<section id="eliminar-disponibilidad" popover class="popover-eliminar">
+    <article class="popover-eliminar-content">
+        <h2>Eliminar disponibilidad</h2>
+        <div class="popover-eliminar-info">
+            <p >¿Estas seguro que quieres eliminar la disponibilidad del <?php echo $aula['nombre'] ?>?</p>
+        </div>
+    
+        <article class="popover-eliminar-actions">
+            <a class="popover-confirmar" href="<?php echo BASE_URL; ?>/dashboard/disponibilidades/eliminar-disponibilidad.php?id=<?php echo $aula['classroom_id']; ?>">Eliminar</a>
+            <button class="popover-cancelar" type="button" popovertarget="eliminar-disponibilidad" popovertargetaction="hide">Cancelar</button>
+        </article>
+    </article>
 </section>
 
 <?php
