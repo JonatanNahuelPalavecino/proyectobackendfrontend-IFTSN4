@@ -78,8 +78,8 @@
 
 <main class="form-page">
     <article class="form-header">
-        <h1>💻Editar Notebook</h1>
-        <p>Modifica el nombre, numero de serie y carro de la notebook</p>
+        <span class="form-crudChip form-chipPcs">Editar Notebook</span>
+        <p class="dh-welcome-label">Modifica el nombre, numero de serie y carro de la notebook</p>
     </article>
 
     <form method="post" class="create-form">
@@ -120,7 +120,6 @@
 
         <div class="form-actions">
             <button class="btn-action" type="submit">Guardar</button>
-            <a class="btn-back" href="ver-notebooks.php">Volver</a>
         </div>
 
     </form>

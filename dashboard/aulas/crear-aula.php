@@ -56,8 +56,8 @@ include __DIR__ . "/../../components/header.php";
 
 <main class ="form-page">
     <div class="form-header">
-        <h1>🏛️ Crear Nueva Aula</h1>
-        <p>Añade una nueva aula al sistema.</p>
+        <span class="form-crudChip form-chipAulas">Nueva Aula</span>
+        <p class="dh-welcome-label">Ingrese nombre de aula y capacidad</p>
     </div>
 
     <form method="post" class="create-form">        

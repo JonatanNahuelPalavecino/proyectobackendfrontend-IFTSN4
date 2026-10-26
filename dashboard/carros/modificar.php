@@ -54,32 +54,37 @@
 
 <?php include __DIR__ . "/../../components/header.php"; ?>
 
-<main>
-    <h1>🛒 Modificar Carro</h1>
+<main class="form-page">
+    <article class="form-header">
+        <span class="form-crudChip form-chipCarts">Editar Carro</span>
+        <p class="dh-welcome-label">Modifica el nombre, comentario del carro</p>
+    </article>
 
-    <form method="POST">
+    <form class="create-form" method="POST">
         
-        <div>
+        <div class="form-group">
             <label for="id">ID del Carro (No modificable):</label>
             <input type="text" name="id" id="id" readonly style="cursor: not-allowed;" value="<?= htmlspecialchars($carro['id']) ?>">
         </div>
 
-        <div>
+        <div class="form-group">
             <label for="nombre">Nombre del Carro:</label>
             <input type="text" name="nombre" id="nombre" minlength="4" required value="<?= htmlspecialchars($carro['nombre']) ?>">
         </div>
         
-        <div>
+        <div class="form-group">
             <label for="descripcion">Descripción (Opcional):</label>
             <textarea name="descripcion" id="descripcion" rows="3"><?= htmlspecialchars($carro['descripcion'] ?? '') ?></textarea>
         </div>
         
-        <div>
+        <div class="form-group">
             <label>Capacidad del Carro:</label>
             <input type="text" readonly style="cursor: not-allowed;" value="<?= htmlspecialchars($carro['capacidad']) ?> notebooks fijas">
         </div>
 
-        <button type="submit">Guardar Cambios</button>
+        <div class="form-actions"> 
+            <button class="btn-action" type="submit">Guardar Cambios</button>
+        </div>
     </form>
 </main>
 

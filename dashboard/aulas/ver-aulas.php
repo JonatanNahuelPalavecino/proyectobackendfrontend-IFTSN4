@@ -33,7 +33,7 @@ include __DIR__ . "/../../components/header.php";
             </span>
 
             <article>
-                <h2 class="vr-title">Gestion de Aulas</h2>
+                <h2 class="vr-title">Gestión de Aulas</h2>
                 <p class="vr-description">Puedes ver y gestionar todas las aulas del sistema</p>
             </article>
 
@@ -42,7 +42,7 @@ include __DIR__ . "/../../components/header.php";
             <span class="vr-logo">ADMINISTRADOR</span>
 
             <article class="dh-actions">
-                <a href="<?= BASE_URL ?>/dashboard/aulas/crear-aula.php" class="btn btn-gestion-aulas">+ Aula</a>
+                <a href="<?= BASE_URL ?>/dashboard/aulas/crear-aula.php" class="btn btn-gestion-aulas">Nueva Aula</a>
             </article>
         </div>
     </section>

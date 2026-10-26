@@ -27,7 +27,7 @@ $carros = getInventarioCarrosCompleto($pdo);
             </span>
     
             <article>
-                <h2 class="vr-title">Gestion de Carros</h2>
+                <h2 class="vr-title">Gestión de Carros</h2>
                 <p class="vr-description">Puedes ver y gestionar todos los carros del sistema</p>
             </article>
     
@@ -36,7 +36,7 @@ $carros = getInventarioCarrosCompleto($pdo);
             <span class="vr-logo">ADMINISTRADOR</span>
     
             <article class="dh-actions">
-                <a href="<?= BASE_URL ?>/dashboard/carros/crear.php" class="btn reservar">+ Carro</a>
+                <a href="<?= BASE_URL ?>/dashboard/carros/crear.php" class="btn btn-gestion-carts">Nuevo Carro</a>
             </article>
         </div>
     </section>

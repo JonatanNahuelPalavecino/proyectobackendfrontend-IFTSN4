@@ -249,7 +249,7 @@
     <?php foreach ($reservas_user as $reserva): ?>
         <section id="eliminar-reserva-<?= $reserva['id'] ?>" popover class="popover-eliminar">
             <section class="popover-eliminar-content">
-                <h2>Eliminar Reserva</h2>
+                <h2>Eliminar Reserva de Carro</h2>
                 <p>
                     ¿Estás seguro que quieres eliminar tu reserva?
                 </p>

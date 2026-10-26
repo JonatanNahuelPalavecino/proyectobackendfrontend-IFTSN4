@@ -941,25 +941,16 @@ body > main {
 
 
 
-/* 
-.svg-delete {
-  color: var(--btn-delete-hover);
-}
-.svg-delete:hover {
-  color: var(--btn-color-delete);
-}
-
 
 .btn-delete {
-  background-color: var(--btn-color-delete);
+  background-color: var(--danger-color);
   transition: all 0.3s ease-in-out;
 }
 
 .btn-delete:hover {
   background-color: var(--btn-delete-hover);
-  color: var(--btn-color-delete);
 }
-.btn-edit {
+/* .btn-edit {
   background-color: var(--btn-color-edit);
 }
 .btn-edit:hover {
@@ -1732,27 +1723,44 @@ body > main {
   max-width: 600px;
   margin: 40px auto;
   padding: 30px;
-  background-color: var(--light-color);
+  background-color: var(--white-color);
+  border: var(--border-cards);
   border-radius: 12px;
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
 }
 
 .form-header {
-  margin-bottom: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 5px;
+  margin-bottom: 5px;
 }
 
-.form-header h1 {
-  margin: 0 0 8px;
-  font-size: 28px;
-  color: var(--navy);
+.form-crudChip{
+  /* width: fit-content; */
+  padding: 5px 8px;
+  font-family: var(--font-family-titles);
+  border-radius: var(--borderRadius-cards-children);
+  font-size: 12px;
   text-transform: uppercase;
+  letter-spacing: 1.1px;
+  font-weight: 900;
+  color: var(--white-color);
+
+}
+.form-chipPcs{
+  background-color: var(--btn-pcs-hover);
+}
+.form-chipAulas{
+  background-color: var(--verde-fuerte-color);
+}
+.form-chipCarts{
+  background-color: var(--secondary-color);
 }
 
-.form-header p {
-  margin: 0;
-  color: var(--navy-2);
-  font-size: 15px;
-}
+
+
 
 .create-form {
   display: flex;
@@ -1772,6 +1780,7 @@ body > main {
 }
 
 .form-group input,
+.form-group textarea,
 .form-group select {
   width: 100%;
   box-sizing: border-box;
@@ -1786,7 +1795,8 @@ body > main {
 }
 
 .form-group input:focus,
-.form-group select:focus {
+.form-group select:focus,
+.form-group textarea:focus {
   outline: 2px solid rgba(4, 157, 72, 0.3);
   border-color: var(--primary-color);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
@@ -1845,7 +1855,7 @@ body > main {
 
 
 /* ======================== */
-.form-page {
+/* .form-page {
   max-width: 600px;
   margin: 40px auto;
   padding: 30px;
@@ -1916,7 +1926,7 @@ body > main {
 
 .btn-back:hover {
   background-color: #f2f2f2;
-}
+} */
 
 /* CREAR RESERVAS | CARROS */
 

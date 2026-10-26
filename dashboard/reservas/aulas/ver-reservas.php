@@ -206,7 +206,7 @@ require_once __DIR__ . "/../../../components/header.php";
             id="eliminar-reserva-<?php echo $reserva['id'] ?>" class="popover-eliminar"
             popover>
             <section class="popover-eliminar-content">
-                    <h2>Eliminar reserva</h2>
+                    <h2>Eliminar reserva de aula</h2>
                     <p>
                         ¿Estás seguro de que querés eliminar la reserva de
                         <strong><?= htmlspecialchars($reserva['aula']) ?></strong>?

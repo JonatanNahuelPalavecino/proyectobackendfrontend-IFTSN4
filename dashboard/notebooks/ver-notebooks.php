@@ -31,7 +31,7 @@ require __DIR__ . "/../../components/header.php";
             </span>
             
             <div>
-                <h2 class="vr-title">Gestion de Notebooks</h2>
+                <h2 class="vr-title">Gestión de Notebooks</h2>
                 <p class="vr-description">Puedes ver y gestionar todas las notebooks del sistema</p>
             </div>
 
@@ -40,7 +40,7 @@ require __DIR__ . "/../../components/header.php";
             <span class="vr-logo">ADMINISTRADOR</span>
 
             <div class= "dh-actions">
-                <a href="<?= BASE_URL ?>/dashboard/notebooks/crear.php" class="btn btn-gestion-pcs">+ Pcs</a>
+                <a href="<?= BASE_URL ?>/dashboard/notebooks/crear.php" class="btn btn-gestion-pcs">Nueva Notebook</a>
             </div>
         </article>
     </section>
@@ -102,10 +102,48 @@ require __DIR__ . "/../../components/header.php";
 </main>
 
 <?php foreach ($getAllNotebooks as $notebook): ?>
-    <section id="eliminar-notebook-<?php echo $notebook['id']; ?>" popover>
-        <p>¿Estas seguro que quieres eliminar la notebook '<?php echo $notebook['nombre']; ?>' del sistema?</p>
-        <a href="<?php echo BASE_URL; ?>/dashboard/notebooks/eliminar-notebook.php?id=<?= $notebook['id']; ?>">Eliminar</a>
-        <button type="button" popovertarget="eliminar-notebook-<?php echo $notebook['id']; ?>" popovertargetaction="hide">Cancelar</button>
+    <section id="eliminar-notebook-<?php echo $notebook['id']; ?>" popover class="popover-eliminar">
+        <article class="popover-eliminar-content">
+            <h2>Eliminar Carro</h2>
+            <p>¿Estas seguro que quieres eliminar la notebook del sistema?</p>
+            
+            <div class="popover-eliminar-info">
+                <p>
+                    <strong>ID: </strong>
+                    <?= htmlspecialchars($notebook['id']); ?>
+                </p>
+
+                <p>
+                    <strong>Nombre Notebook: </strong>
+                    <?= htmlspecialchars($notebook['nombre']); ?>
+                </p>
+                <p>
+                    <strong>Numero de serie </strong>
+                    <?= htmlspecialchars($notebook['numero_serie']); ?>
+                </p>    
+                
+                <p>
+                    <strong>Creado: </strong>
+                    <?= htmlspecialchars($notebook['created_at']); ?>
+                </p> 
+                <p>
+                    <strong>ID Carro vinculado: </strong>
+                    <?php echo $notebook['cart_id'] ?? "Sin asignar"; ?>
+                </p> 
+                <p>
+                    <strong>Nombre de carro vinculado: </strong>
+                    <?php echo $notebook['carro'] ?? "Sin asignacion de carro"; ?>
+                </p>  
+
+            </div>
+
+
+            <article class="popover-eliminar-actions">
+                <a class="popover-confirmar" href="<?php echo BASE_URL; ?>/dashboard/notebooks/eliminar-notebook.php?id=<?= $notebook['id']; ?>">Eliminar</a>
+                <button class="popover-cancelar" type="button" popovertarget="eliminar-notebook-<?php echo $notebook['id']; ?>" popovertargetaction="hide">Cancelar</button>
+            </article>
+        </article>
+
     </section>
 <?php endforeach; ?>
 
