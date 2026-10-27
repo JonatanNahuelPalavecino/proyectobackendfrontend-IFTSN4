@@ -13,6 +13,12 @@ if (!$usuario || $usuario['rol'] !== 'admin') {
 $titulo = "Inventario de Carros || Sistema";
 
 $carros = getInventarioCarrosCompleto($pdo);
+
+foreach ($carros as $indice => $carro) {
+    $total = getTotalComputadorasenCarrosById($pdo, $carro['id']);
+    $carros[$indice]['computadorasAsignadas'] = $total;
+}
+
 ?>
 
 <?php require_once __DIR__ . "/../../components/header.php"; ?>
@@ -31,6 +37,7 @@ $carros = getInventarioCarrosCompleto($pdo);
                         <th>Carro</th>
                         <th>Descripcion</th>
                         <th>Capacidad</th>
+                        <th>Computadoras Asignadas</th>
                         <th>Fecha de Creación</th>
                         <th>Acciones</th>
                     </tr>
@@ -51,13 +58,24 @@ $carros = getInventarioCarrosCompleto($pdo);
                             </td>
 
                             <td>
-                                <?= !empty($carro['created_at']) ? htmlspecialchars(date("d/m/Y", strtotime($carro['created_at']))) : '-' ?>
+                                <?= htmlspecialchars($carro['computadorasAsignadas']) ?>
                             </td>
 
                             <td>
-                                <a href="<?= BASE_URL ?>/dashboard/carros/modificar.php?id=<?= $carro['id'] ?>">Editar</a>
-                                <button popovertarget="eliminar-carro-<?php echo $carro['id'] ?>">Eliminar</button>
+                                <?= !empty($carro['created_at']) ? htmlspecialchars(date("d/m/Y", strtotime($carro['created_at']))) : '-' ?>
                             </td>
+
+                            <?php if ($carro["estado"] == "reservado" || $carro["estado"] == "entregado"): ?>
+                                <td>
+                                    <span>Editar</span>
+                                    <span>Eliminar</span>
+                                </td>
+                            <?php else: ?>
+                                <td>
+                                    <a href="<?= BASE_URL ?>/dashboard/carros/modificar.php?id=<?= $carro['id'] ?>">Editar</a>
+                                    <button popovertarget="eliminar-carro-<?php echo $carro['id'] ?>">Eliminar</button>
+                                </td>
+                            <?php endif ?>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
