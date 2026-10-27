@@ -19,7 +19,7 @@
         redirect("/dashboard/carros/ver-carros.php");
     }
 
-    $sql = "SELECT carts.id, nombre, descripcion, cart_reservations.estado FROM carts LEFT JOIN cart_reservations ON cart_reservations.id = (SELECT MAX(cr.id) FROM cart_reservations AS cr WHERE cr.cart_id = carts.id) WHERE carts.id =?";
+    $sql = "SELECT carts.id, nombre, descripcion, capacidad, cart_reservations.estado FROM carts LEFT JOIN cart_reservations ON cart_reservations.id = (SELECT MAX(cr.id) FROM cart_reservations AS cr WHERE cr.cart_id = carts.id) WHERE carts.id =?";
     $consulta =$pdo->prepare($sql);
     $consulta->execute([$id]);
     $carro= $consulta->fetch(PDO::FETCH_ASSOC);
