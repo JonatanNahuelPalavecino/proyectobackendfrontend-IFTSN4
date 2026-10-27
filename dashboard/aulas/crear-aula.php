@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
            );
             
             notify("Creacion de aula exitoso.", 'success');
-            redirect('/dashboard/aulas/crear-aula.php');
+            redirect('/dashboard/aulas/ver-aulas.php');
         } catch (Exception $error) {
             die('Error de conexión a la base de datos: ' . $error->getMessage());
         }

@@ -5,6 +5,8 @@
     require_once __DIR__ . "/../../config/sendMailNotify.php";
     require_once __DIR__ . "/../../config/email/templates/message.php";
 
+    //CONSULTAR SI LA NOTEBOOK ESTA EN UN CARRO RESERVADO O ENTREGADO, SI ES ASI, NO PUEDE EDITARSE NI ELIMINARSE
+
     $usuario = getUser();
 
     if (!$usuario || $usuario['rol'] !== 'admin') {

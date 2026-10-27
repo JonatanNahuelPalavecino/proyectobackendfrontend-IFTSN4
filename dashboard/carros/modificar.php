@@ -19,7 +19,7 @@
         redirect("/dashboard/carros/ver-carros.php");
     }
 
-    $sql = "SELECT * FROM carts WHERE id =?";
+    $sql = "SELECT carts.id, nombre, descripcion, capacidad, cart_reservations.estado FROM carts LEFT JOIN cart_reservations ON cart_reservations.id = (SELECT MAX(cr.id) FROM cart_reservations AS cr WHERE cr.cart_id = carts.id) WHERE carts.id =?";
     $consulta =$pdo->prepare($sql);
     $consulta->execute([$id]);
     $carro= $consulta->fetch(PDO::FETCH_ASSOC);
@@ -27,8 +27,18 @@
     // Validación: Si el carro no existe, lo pateamos
     if(!$carro){
         notify ("El carro no existe.","error");
-        redirect('/dashboard/carros/ver-reservas.php');
+        redirect('/dashboard/carros/ver-carros.php');
     }
+
+    if ($carro['estado'] == "reservado" ) {
+        notify ("El carro esta reservado y no puede editarse.","error");
+        redirect('/dashboard/carros/ver-carros.php');
+    } 
+
+    if ($carro['estado'] == "entregado" ) {
+        notify ("El carro esta entregado y no puede editarse.","error");
+        redirect('/dashboard/carros/ver-carros.php');
+    } 
 
     if ($_SERVER['REQUEST_METHOD']==="POST"){
 
@@ -44,7 +54,7 @@
                 $editarCarro->execute([$nombre_carro, $descripcion_carro, $id]);
 
                 notify("Carro modificado exitosamente.", "success");
-                redirect('/dashboard/index.php'); 
+                redirect('/dashboard/carros/ver-carros.php'); 
             } catch (Exception $error) {
                 notify("Error al actualizar la base de datos.", "error");
             }

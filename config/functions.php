@@ -26,7 +26,8 @@ function getTotalCarts($conn)
     return $totalCarts['Total'];
 }
 
-function getCartById($conn, $cart_id){
+function getCartById($conn, $cart_id)
+{
     $consulta = $conn->prepare("SELECT * FROM carts WHERE id = :cart_id");
     $consulta->execute(['cart_id' => $cart_id]);
     return $consulta->fetch(PDO::FETCH_ASSOC);
@@ -55,6 +56,63 @@ function getTotalReservasCarrosToday($conn)
     $consulta->execute();
     $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
     return $resultado['Total'];
+}
+
+function getReservaCarroById($conn, $reservaId, $usuarioId)
+{
+    $sql = "SELECT id, cart_id, fecha, comentario, estado FROM cart_reservations WHERE id = ? AND user_id = ?";
+    $consulta = $conn->prepare($sql);
+    $consulta->execute([$reservaId, $usuarioId]);
+    $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+    return $resultado;
+}
+
+function getComputadorasenCarrosById($conn, $cartId)
+{
+    $sql = "SELECT computers.id, computers.nombre, numero_serie, carts.nombre AS pertenece_a_carro FROM carts JOIN computers ON carts.id = computers.cart_id WHERE carts.id = ?";
+    $consulta = $conn->prepare($sql);
+    $consulta->execute([$cartId]);
+
+    $tieneComputadoras = $consulta->fetchAll(PDO::FETCH_ASSOC);
+    return $tieneComputadoras;
+}
+
+function getTotalComputadorasenCarrosById($conn, $cartId)
+{
+    $sql = "SELECT COUNT(*) as total FROM carts JOIN computers ON carts.id = computers.cart_id WHERE carts.id = ?";
+    $consulta = $conn->prepare($sql);
+    $consulta->execute([$cartId]);
+
+    $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+    return $resultado['total'];
+}
+
+function getComputadorasReservadasById($conn, $idReservation)
+{
+    $sql = "SELECT * FROM cart_delivery_items WHERE cart_reservation_id = ?";
+    $consulta = $conn->prepare($sql);
+    $consulta->execute([$idReservation]);
+
+    $tieneComputadoras = $consulta->fetchAll(PDO::FETCH_ASSOC);
+    return $tieneComputadoras;
+}
+
+function guardarRegistroDeNotebookDeCarroReservado($conn, $computadoras, $idReserva)
+{
+    foreach ($computadoras as $computadora) {
+        $sql = "INSERT INTO cart_delivery_items (cart_reservation_id, nombre_computadora, numero_serie) VALUES (?, ?, ?)";
+        $registro = $conn->prepare($sql);
+        $registro->execute([$idReserva, $computadora["nombre"], $computadora["numero_serie"]]);
+    }
+}
+
+function eliminarRegistroDeNotebookDeCarroReservado($conn, $computadoras, $idReserva)
+{
+    foreach ($computadoras as $computadora) {
+        $sql = "DELETE FROM cart_delivery_items WHERE id = ? AND cart_reservation_id = ?";
+        $eliminacion = $conn->prepare($sql);
+        $eliminacion->execute([$computadora['id'], $idReserva]);
+    }
 }
 
 function getDetalleReservasAulasToday($conn)
@@ -135,7 +193,7 @@ function getReservasCarrosAdmin($conn)
 
 function getInventarioCarrosCompleto($conn)
 {
-    $sql = "SELECT id, nombre, descripcion, capacidad, created_at FROM carts ORDER BY id ASC";
+    $sql = "SELECT carts.id, carts.nombre, carts.descripcion, carts.capacidad, cart_reservations.estado, carts.created_at FROM carts LEFT JOIN cart_reservations ON cart_reservations.id = (SELECT MAX(cr.id) FROM cart_reservations AS cr WHERE cr.cart_id = carts.id) ORDER BY carts.id ASC";
 
     $consulta = $conn->prepare($sql);
     $consulta->execute();
@@ -222,7 +280,7 @@ function getDetalleReservasCarrosFuturas($conn, $id)
     $sql = "SELECT c.nombre AS carro, r.fecha, r.comentario
                 FROM cart_reservations r
                 INNER JOIN carts c ON r.cart_id = c.id
-                WHERE r.user_id = :id AND r.fecha >= CURDATE()
+                WHERE r.user_id = :id AND r.fecha >= CURDATE() AND r.estado = 'reservado'
                 ORDER BY r.fecha ASC";
     $consulta = $conn->prepare($sql);
     $consulta->execute([':id' => $id]);
@@ -584,6 +642,7 @@ function getDayString($number)
     }
 }
 
-function formatDate($date) {
+function formatDate($date)
+{
     return date("d-m-Y", strtotime($date));
 }
