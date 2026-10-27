@@ -62,8 +62,8 @@
 
 <main class="form-page">    
     <div class="form-header">
-        <h1>💻Crear Notebook</h1>
-        <p>Ingrese nombre, numero serie y carro para guardar la notebook</p>
+        <h2 class="form-crudChip form-chipPcs">Nueva Notebook</h2>
+        <p class="dh-welcome-label">Ingrese nombre, numero de serie y carro para guardar la notebook</p>
     </div>
     <form method="post" class="create-form">
         <div class="form-group">
@@ -95,7 +95,6 @@
 
         <div class="form-actions">
             <button class="btn-action" type="submit">Guardar</button>     
-            <a class="btn-back" href="../index.php" class="btn back">Volver</a>
         </div>
     </form>
 </main>

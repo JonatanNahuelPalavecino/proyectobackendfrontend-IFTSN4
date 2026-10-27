@@ -48,7 +48,7 @@
   --btn-color-aulas: #08803f;
   --btn-color-carts: #1d5ba8;
   --btn-color-pcs: #4b5b6c;
-  --btn-color-delete: #d92d20;
+  --btn-color-delete: #FEE2E2;
   --btn-color-excel: #ffffff;
   --btn-color-edit: #5cbf88;
 
@@ -58,7 +58,7 @@
   --btn-aulas-hover: #065f2e;
   --btn-carts-hover: #174a88;
   --btn-pcs-hover: #364454;
-  --btn-delete-hover: #b42318;
+  --btn-delete-hover: #B91C1C;
   --btn-excel-hover: #f3f6f4;
   --btn-edit-hover: #4ab278;
 
@@ -812,6 +812,37 @@ body > main {
   font-size: 1.5rem;
 }
 
+
+.container-smallEmoji {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 55px;
+    height: 55px;
+    border-radius: var(--borderRadius-cards-children);
+
+}
+.container-smallPcs{
+  background-color: #ccc;
+  color: var(--btn-pcs-hover);
+}
+.container-smallAulas{
+  background-color: var(--verde-suave-background);
+  color: var(--verde-fuerte-color);
+}
+
+.container-smallCarts{
+  background-color: var(--secondary-color-background);
+  color: var(--secondary-color);
+}
+
+.small-emoji{
+    width: 25px;
+    height: 25px;
+    flex-shrink: 0;
+}
+
+
 .stat-icon {
   padding: 5px 10px;
   border-radius: 10px;
@@ -905,6 +936,42 @@ body > main {
   color: var(--white-color);
   cursor: pointer;
 }
+
+
+
+
+
+
+.btn-delete {
+  background-color: var(--danger-color);
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-delete:hover {
+  background-color: var(--btn-delete-hover);
+}
+/* .btn-edit {
+  background-color: var(--btn-color-edit);
+}
+.btn-edit:hover {
+  background-color: var(--btn-edit-hover);
+} */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .btn-gestion-pcs {
   background-color: var(--btn-color-pcs);
   transition: 0.3s ease-in-out;
@@ -941,20 +1008,9 @@ body > main {
   background-color: var(--btn-carts-hover);
 }
 
-.btn-delete {
-  background-color: var(--btn-color-delete);
-  transition: 0.3s ease-in-out;
-}
 
-.btn-delete:hover {
-  background-color: var(--btn-delete-hover);
-}
-.btn-edit {
-  background-color: var(--btn-color-edit);
-}
-.btn-edit:hover {
-  background-color: var(--btn-edit-hover);
-}
+
+
 
 .db-reservas-cards {
   display: grid;
@@ -1093,6 +1149,11 @@ body > main {
   background-color: var(--secondary-color-background);
   border-color: var(--secondary-color);
 }
+.no-results-pcs{
+  background-color: var(--gray-color);
+  border-color: var(--btn-pcs-hover);
+}
+
 
 .text-sinResultsAulas {
   font-size: 15px;
@@ -1109,6 +1170,15 @@ body > main {
   font-style: italic;
   color: var(--secondary-color);
   text-transform: uppercase;
+}
+
+.text-sinResultsPcs{
+  font-size: 15px;
+  text-shadow: 0px 0px 1px var(--btn-color-pcs);
+  font-style: italic;
+  color: var(--btn-pcs-hover);
+  text-transform: uppercase;
+
 }
 
 /* ---VER RESERVAS--- */
@@ -1227,6 +1297,7 @@ body > main {
 /* Fila activa */
 .vr-table tbody tr.vr-fila-activa {
   color: var(--verde-fuerte-color);
+  font-family: var(--font-family-description);
   background: #F0F8F3;
   font-weight: 400; 
 }
@@ -1240,6 +1311,7 @@ body > main {
 .vr-table tbody tr.vr-fila-pendiente {
   background-color: #F0F5FA;
   color: var(--btn-color-carts);
+  font-family: var(--font-family-description);
   font-weight: 400;
 }
 .vr-table tbody tr.vr-fila-pendiente td {
@@ -1251,11 +1323,77 @@ body > main {
 
 /* Fila finalizada */
 .vr-table tbody tr.vr-fila-finalizada td { 
+  font-family: var(--font-family-description);
   color: #b1bac2; 
 }
 
 .vr-table .col-centro {
   text-align: center;
+}
+
+
+/* SVGS - EDITAR - ELIMINAR - CONFIGURACION */
+.verReservas-acciones {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap
+}
+
+.verReservas-acciones .btn-edit {
+    color: var(--verde-fuerte-color);
+    background-color: var(--verde-suave-background);
+    transition: 0.3s ease-in-out;
+    
+}
+
+.verReservas-acciones .btn-edit:hover {
+    background-color: var(--btn-edit-hover)
+}
+
+.verReservas-acciones .btn-delete {
+    background-color: #FEE2E2;
+    color: #B91C1C;
+    transition: 0.3s ease-in-out;
+}
+
+.verReservas-acciones .btn-delete:hover {
+    background-color: #FECACA;
+}
+
+.btn-setting{
+  background-color: #ccc;
+  color: var(--btn-pcs-hover);
+  transition: 0.3s ease-in-out;
+}
+.btn-setting:hover {
+  background-color: var(--gray-color);
+}
+
+/* SVG dentro de los botones */
+.verReservas-acciones .btn svg {
+    width: 18px;
+    height: 18px;
+    vertical-align: middle;
+}
+
+/* Botones deshabilitados */
+.verReservas-acciones .disabled {
+    background-color: #E5E7EB;
+    color: #9CA3AF;
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+.verReservas-acciones .btn-edit.disabled:hover,
+.verReservas-acciones .btn-delete.disabled:hover {
+    background-color: #E5E7EB;
+}
+
+.verReservas-acciones .disabled svg {
+    color: inherit;
+    fill: currentColor;
 }
 
 .entregar-carro {
@@ -1282,12 +1420,6 @@ body > main {
   opacity: 0.7;
 }
 
-
-
-
-/* .vr-fila-cumplida .vr-fuerte { 
-  font-weight: 600; 
-} */
 .verReservas-status {
   display: inline-block;
   padding: 4px 12px;
@@ -1315,24 +1447,13 @@ body > main {
   color: #5B6B7A;
 }
 
-/* .verReservas-status.reservado{
-  background-color: var(--secondary-color-background);
-  box-shadow: 0 0 3px var(--secondary-color);
-  color: var(--secondary-color);
-} */
-
 .verReservas-acciones {
   display: flex;
   justify-content: center;
   gap: 10px;
 }
 
-/* RESERVAS BOTONES PROFESOR */
-.btn-delete.disabled,
-.btn-edit.disabled {
-  background-color: var(--gray-color);
-  cursor: not-allowed;
-}
+
 
 /* ---POPOVER GENERAL--- */
 
@@ -1606,27 +1727,44 @@ body > main {
   max-width: 600px;
   margin: 40px auto;
   padding: 30px;
-  background-color: var(--light-color);
+  background-color: var(--white-color);
+  border: var(--border-cards);
   border-radius: 12px;
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
 }
 
 .form-header {
-  margin-bottom: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 5px;
+  margin-bottom: 5px;
 }
 
-.form-header h1 {
-  margin: 0 0 8px;
-  font-size: 28px;
-  color: var(--navy);
+.form-crudChip{
+  /* width: fit-content; */
+  padding: 5px 8px;
+  font-family: var(--font-family-titles);
+  border-radius: var(--borderRadius-cards-children);
+  font-size: 12px;
   text-transform: uppercase;
+  letter-spacing: 1.1px;
+  font-weight: 900;
+  color: var(--white-color);
+
+}
+.form-chipPcs{
+  background-color: var(--btn-pcs-hover);
+}
+.form-chipAulas{
+  background-color: var(--verde-fuerte-color);
+}
+.form-chipCarts{
+  background-color: var(--secondary-color);
 }
 
-.form-header p {
-  margin: 0;
-  color: var(--navy-2);
-  font-size: 15px;
-}
+
+
 
 .create-form {
   display: flex;
@@ -1646,6 +1784,7 @@ body > main {
 }
 
 .form-group input,
+.form-group textarea,
 .form-group select {
   width: 100%;
   box-sizing: border-box;
@@ -1660,7 +1799,8 @@ body > main {
 }
 
 .form-group input:focus,
-.form-group select:focus {
+.form-group select:focus,
+.form-group textarea:focus {
   outline: 2px solid rgba(4, 157, 72, 0.3);
   border-color: var(--primary-color);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
@@ -1719,7 +1859,7 @@ body > main {
 
 
 /* ======================== */
-.form-page {
+/* .form-page {
   max-width: 600px;
   margin: 40px auto;
   padding: 30px;
@@ -1790,7 +1930,7 @@ body > main {
 
 .btn-back:hover {
   background-color: #f2f2f2;
-}
+} */
 
 /* CREAR RESERVAS | CARROS */
 

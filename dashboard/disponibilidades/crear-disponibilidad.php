@@ -79,8 +79,8 @@
 
 <main class="form-page">
     <div class="form-header">
-        <h1>🕜Crear Disponibilidad</h1>
-        <p>Seleccione los datos requeridos para la disponibilidad</p>
+        <span class="form-crudChip form-chipAulas">Crear Disponibilidad</span>
+        <p class="dh-welcome-label">Seleccione los datos requeridos para la disponibilidad</p>
     </div>
 
     <form class="create-form" method="post">
@@ -93,7 +93,7 @@
             <input style="cursor: not-allowed;" type="text" name="nombre" id="nombre" value="<?php echo $aula['nombre'] ?>">
         </div>
         <div class="form-group">
-            <label for="capacidad">Dia <span style="font-style: italic;">(Desde)</span>:</label>
+            <label for="capacidad">Dia <span style="font-style: italic;">(Inicio)</span>:</label>
             <select id="dia_desde" name="dia_desde" required>
                 <option value="">Seleccionar</option>
                 <?php for ($dia = 1; $dia <= 7; $dia++) { ?>
@@ -104,7 +104,7 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="created_at">Dia <span style="font-style: italic;">(Hasta)</span>:</label>
+            <label for="created_at">Dia <span style="font-style: italic;">(Fin)</span>:</label>
             <select id="dia_hasta" name="dia_hasta" required>
                 <option value="">Seleccionar</option>
                 <?php for ($dia = 1; $dia <= 7; $dia++) { ?>
@@ -115,17 +115,16 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="hora_inicio">Horario <span style="font-style: italic;">(Desde)</span>:</label>
+            <label for="hora_inicio">Horario <span style="font-style: italic;">(Inicio)</span>:</label>
             <input type="time" name="hora_inicio" id="hora_inicio" required>
         </div>
         <div class="form-group">
-            <label for="hora_fin">Horario <span style="font-style: italic;">(Hasta)</span>:</label>
+            <label for="hora_fin">Horario <span style="font-style: italic;">(Fin)</span>:</label>
             <input type="time" name="hora_fin" id="hora_fin" required>
         </div>
 
         <div class="form-actions">
             <button class="btn-action" type="submit">Crear Disponibilidad</button>
-            <a class="btn-back" href="../aulas/ver-aulas.php">Volver</a>
         </div>
     </form>
 </main>

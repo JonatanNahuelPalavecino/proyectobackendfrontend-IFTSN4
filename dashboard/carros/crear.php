@@ -39,13 +39,13 @@
 
     <main class ="form-page">
         <div class ="form-header">
-            <h1>🛒 Crear Carro</h1> 
-            <p>Añade un nuevo carro al sistema. Por defecto, cada carro soporta un máximo de 30 notebooks.</p>
+            <h2 class="form-crudChip form-chipCarts">Nuevo Carro</h2> 
+            <p class="dh-welcome-label">Añade un nuevo carro al sistema. (Máximo de 30 notebooks)</p>
         </div>
 
         <form method="POST" class ="create-form">
             <div class="form-group">
-                <label for="nombre">Identificador del Carro:</label>
+                <label for="nombre">Nombre del Carro:</label>
                 <input type="text" name="nombre" id="nombre" placeholder="Ej: Carro Móvil 1" minlength="4" required>
             </div>
         
