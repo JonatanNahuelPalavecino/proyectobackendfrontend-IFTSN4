@@ -141,8 +141,6 @@ $titulo = 'Reserva de Carros | SIRAUCA - Sistema de Reserva de Aulas y Carros';
             <button class="btn-action" type="submit" class="auth-button">Confirmar reserva</button>
         </div>
 
-        <button class="btn reserva-carro-button" type="submit" class="auth-button">Reservar</button>
-
     </form>
 </main>
 
