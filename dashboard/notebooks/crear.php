@@ -33,6 +33,7 @@
                 $crearNotebook->execute([$nombreNotebook, $numeroSerie, $carro]);
 
                 notify("Creación de notebook con éxito");
+                redirect("/dashboard/notebooks/ver-notebooks.php");
                 // sendMailNotify(
                 //     ['nombre' => NAME_SISTEMA, 'email' => MAIL_USERNAME],
                 //     'Gestion de notebooks',

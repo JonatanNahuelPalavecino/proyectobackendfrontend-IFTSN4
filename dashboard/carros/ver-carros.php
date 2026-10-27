@@ -13,6 +13,12 @@ if (!$usuario || $usuario['rol'] !== 'admin') {
 $titulo = "Inventario de Carros || Sistema";
 
 $carros = getInventarioCarrosCompleto($pdo);
+
+foreach ($carros as $indice => $carro) {
+    $total = getTotalComputadorasenCarrosById($pdo, $carro['id']);
+    $carros[$indice]['computadorasAsignadas'] = $total;
+}
+
 ?>
 
 <?php require_once __DIR__ . "/../../components/header.php"; ?>
@@ -43,6 +49,51 @@ $carros = getInventarioCarrosCompleto($pdo);
 
     <section class="verReservas-container">
         <?php if (!empty($carros)): ?>
+            <table class="table-reservas" border="1">
+                <thead>
+                    <tr>
+                        <th>Carro</th>
+                        <th>Descripcion</th>
+                        <th>Capacidad</th>
+                        <th>Computadoras Asignadas</th>
+                        <th>Fecha de Creación</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($carros as $carro): ?>
+                        <tr>
+                            <td>
+                                <strong><?= htmlspecialchars($carro['nombre']) ?></strong>
+                            </td>
+
+                            <td>
+                                <?= htmlspecialchars($carro['descripcion']) ?>
+                            </td>
+
+                            <td>
+                                <?= htmlspecialchars($carro['capacidad']) ?>
+                            </td>
+
+                            <td>
+                                <?= htmlspecialchars($carro['computadorasAsignadas']) ?>
+                            </td>
+
+                            <td>
+                                <?= !empty($carro['created_at']) ? htmlspecialchars(date("d/m/Y", strtotime($carro['created_at']))) : '-' ?>
+                            </td>
+
+                            <?php if ($carro["estado"] == "reservado" || $carro["estado"] == "entregado"): ?>
+                                <td>
+                                    <span>Editar</span>
+                                    <span>Eliminar</span>
+                                </td>
+                            <?php else: ?>
+                                <td>
+                                    <a href="<?= BASE_URL ?>/dashboard/carros/modificar.php?id=<?= $carro['id'] ?>">Editar</a>
+                                    <button popovertarget="eliminar-carro-<?php echo $carro['id'] ?>">Eliminar</button>
+                                </td>
+                            <?php endif ?>
             <article class="vr-tabla-card">
                 <table class="vr-table">
                     <thead>

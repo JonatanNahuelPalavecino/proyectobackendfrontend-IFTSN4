@@ -1455,10 +1455,6 @@ body > main {
 
 
 
-/* ---VER AULAS--- */
-
-/* SEGUIR DESDE VER AULAS. VER LA POSIBILIDAD DE REUTILZAR CSS DE VER RESERVAS  */
-
 /* ---POPOVER GENERAL--- */
 
 .popover-eliminar {
@@ -1716,6 +1712,14 @@ body > main {
 .cant-green {
   color: var(--verde-brillante);
   font-weight: 500;
+}
+
+.aula-seleccionada {
+    border: 2px solid var(--primary-color);
+}
+
+.calendar-day.selected {
+    background-color: var(--primary-color);
 }
 
 /* FORMULARIOS DE PC - NOTEBOOKS */

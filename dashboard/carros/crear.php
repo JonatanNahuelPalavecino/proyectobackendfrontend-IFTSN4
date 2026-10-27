@@ -26,8 +26,8 @@
                 $crearCarro = $pdo->prepare($sql);
                 $crearCarro-> execute([$nombre_carro,$descripcion_carro, $capacidad]);
 
-                notify("Carro '$nombre_carro' creado exitosamente", "success");
-                redirect ('/dashboard/carros/crear.php');
+                notify("Carro creado exitosamente", "success");
+                redirect ('/dashboard/carros/ver-carros.php');
             } catch (Exception $error){
                 notify ("Hubo un error al guardar en la base de datos.", "error");
             }

@@ -20,11 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $comentario = trim($_POST['comentario']);
     $user_id = $usuario['id'];
 
-    $sqlItemsCarro = "SELECT computers.id, computers.nombre, numero_serie, carts.nombre AS pertenece_a_carro FROM carts JOIN computers ON carts.id = computers.cart_id WHERE carts.id = ?";
-    $consulta = $pdo->prepare($sqlItemsCarro);
-    $consulta->execute([$cart_id]);
-
-    $tieneComputadoras = $consulta->fetchAll(PDO::FETCH_ASSOC);
+    $tieneComputadoras = getComputadorasenCarrosById($pdo, $cart_id);
 
     $error = validateInputsCreateOrEditReservationsCarros($cart_id, $fecha, $comentario, $tieneComputadoras, $pdo);
 
@@ -41,11 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $idReservaDeCarro = crearReservaCarro($pdo, $user_id, $cart_id, $fecha, $comentario);
 
-            foreach ($tieneComputadoras as $computadora) {
-                $sqlInsertComputadoras = "INSERT INTO cart_delivery_items (cart_reservation_id, nombre_computadora, numero_serie) VALUES (?, ?, ?)";
-                $registrarComputadorasDeLaReservaDelCarro = $pdo->prepare($sqlInsertComputadoras);
-                $registrarComputadorasDeLaReservaDelCarro->execute([$idReservaDeCarro, $computadora["nombre"], $computadora["numero_serie"]]);
-            }
+            guardarRegistroDeNotebookDeCarroReservado($pdo, $tieneComputadoras, $idReservaDeCarro);
+
 
             // Camino Feliz: Todo salió bien
             if ($idReservaDeCarro) {
@@ -95,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
-$titulo = 'Reservar Carro Móvil | IFTS N° 4';
+$titulo = 'Reserva de Carros | SIRAUCA - Sistema de Reserva de Aulas y Carros';
 ?>
 
 <?php require __DIR__ . '/../../../components/header.php'; ?>
@@ -147,6 +140,8 @@ $titulo = 'Reservar Carro Móvil | IFTS N° 4';
         <div class="form-actions">
             <button class="btn-action" type="submit" class="auth-button">Confirmar reserva</button>
         </div>
+
+        <button class="btn reserva-carro-button" type="submit" class="auth-button">Reservar</button>
 
     </form>
 </main>

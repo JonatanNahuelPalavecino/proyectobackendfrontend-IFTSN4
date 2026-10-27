@@ -9,7 +9,7 @@ if (!$usuario) {
     redirect('/login.php');
 }
 
-$titulo = 'Dashboard | SIRAUCA - Sistema de Reserva de Aulas y Carros del IFTS N° 4';
+$titulo = 'Dashboard | SIRAUCA - Sistema de Reserva de Aulas y Carros';
 
 if ($usuario['rol'] === "admin") {
 
