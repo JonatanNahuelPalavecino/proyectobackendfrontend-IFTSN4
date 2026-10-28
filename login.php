@@ -41,7 +41,7 @@
 
     $slides = [
         [
-            "imagen" => "assets/images/aula_informatica.png",
+            "imagen" => "assets/images/aula_comun.png",
             "texto" => "Gestioná y reservá espacios fácilmente"
         ],
         [
