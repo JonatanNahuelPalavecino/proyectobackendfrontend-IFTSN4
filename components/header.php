@@ -26,7 +26,7 @@
         <section class="logo">
             <img
                 class="logo-img"
-                src="<?= BASE_URL ?>/assets/images/ifts_logo.png"
+                src="<?= BASE_URL ?>/assets/images/sirauca_logo.png"
                 alt="Logo"
             >
             <article class="logo-container">

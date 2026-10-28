@@ -11,14 +11,25 @@
     include __DIR__ . "/components/header.php";
 ?>
 
-<main class= "container-home">
-    <h1>SIRAUCA</h1>
-    <h4>Sistema Integral de Reserva de Aulas y Carros</h4>
-    <div class= "container-img">
-        <div class= "img-overlay"></div>
-        <img src="<?= BASE_URL ?>/assets/images/ifts_fondo2.jpg">
-        <a class="btn-home" href="<?= BASE_URL ?>/login.php">Ingresar</a>
-    </div>
+<main class= "home">
+    <section class="home-content">
+        <h1 class="home-title">SIRAUCA</h1>
+        
+        <span class="home-lineDivisor"></span>
+
+
+        <h2 class="home-subtitle">Sistema Integral de Reservas de <span class="home-textAulas">Aulas</span> y <span class="home-textCarts">Carros</span></h2>
+
+
+        <p class="home-description">Simplificá la gestión de reservas de aulas y carros tecnológicos con un sistema diseñado para optimizar la organización de los profesores y del instituto.</p>
+
+        <article class="home-actions" style ="display: flex; gap: 5px;">
+            <a class="btn-home" href="<?= BASE_URL ?>/login.php">Ingresar ⮕</a>
+            <a class="btn-comoFunciona" href="<?= BASE_URL ?>/como-funciona.php">¿Como funciona?</a>
+        </article>
+
+        
+    </section>
 </main>
 
 <?php
