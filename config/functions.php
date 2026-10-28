@@ -336,6 +336,66 @@ function crearReservaCarro($conn, $user_id, $cart_id, $fecha, $comentario)
     return false;
 }
 
+// ---Funciones para Reserva de carros ----------------
+
+function getCarroReservable($pdo, $id) {
+    $consulta = "SELECT * FROM carts WHERE id = ?";
+    $resultado = $pdo->prepare($consulta);
+    $resultado->execute([$id]);
+    
+    return $resultado->fetch(PDO::FETCH_ASSOC);
+}
+
+function isCarrosDisponiblesDia($pdo, $carrosId, $fecha) {
+    $consulta = "SELECT COUNT(*) as ocupado FROM cart_reservations WHERE cart_id = ? AND fecha = ?";
+    $sentencia = $pdo->prepare($consulta);
+    
+    $sentencia->execute([$carrosId, $fecha]);
+    $resultado = $sentencia->fetch(PDO::FETCH_ASSOC);
+
+    return $resultado['ocupado'] == 0;
+}
+
+function crearDiasCalendarioCarros($pdo, $carro, $mes) {
+    $dias = [];
+    $primerDia = $mes . '-01';
+    $totalDias = (int) date('t', strtotime($primerDia));
+    
+    // Obtenemos la fecha actual para bloquear el pasado
+    $hoy = date('Y-m-d');
+    
+    // Definimos el rango de días de la semana (1 = Lunes, 5 = Viernes)
+    $diaDesde = $carro['dia_desde'] ?? 1; 
+    $diaHasta = $carro['dia_hasta'] ?? 5; 
+
+    for ($i = 1; $i <= $totalDias; $i++) {
+        $fecha = $mes . '-' . str_pad($i, 2, '0', STR_PAD_LEFT);
+        $diaSemana = (int) date('N', strtotime($fecha));
+        
+        $esPasado = $fecha < $hoy;
+        $habilitado = ($diaSemana >= $diaDesde && $diaSemana <= $diaHasta);
+        
+        $completo = false;
+        
+        // Solo vamos a la base de datos si el día es en el futuro y es de Lunes a Viernes
+        if ($habilitado && !$esPasado) {
+            $estaLibre = isCarrosDisponiblesDia($pdo, $carro['id'], $fecha);
+            $completo = !$estaLibre; // Si NO está libre, marcamos como Completo
+        }
+
+        $dias[] = [
+            'numero' => $i,
+            'fecha' => $fecha,
+            'es_pasado' => $esPasado,
+            'habilitado' => $habilitado,
+            'completo' => $completo,
+            'disponible' => ($habilitado && !$esPasado && !$completo)
+        ];
+    }
+    return $dias;
+}
+//----------------------------------------------------------
+
 function getAulasReservables($pdo)
 {
     $consulta = $pdo->query(
