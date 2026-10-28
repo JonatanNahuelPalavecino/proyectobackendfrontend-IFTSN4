@@ -41,12 +41,16 @@
 
     $slides = [
         [
-            "imagen" => "assets/images/imagen_instituto.png",
-            "texto" => "Reservá tu aula fácilmente"
+            "imagen" => "assets/images/aula_informatica.png",
+            "texto" => "Gestioná y reservá espacios fácilmente"
         ],
         [
-            "imagen" => "assets/images/ifts_fondo2.jpg",
-            "texto" => "Desarrollado por sus estudiantes"
+        "imagen" => "assets/images/carrito_notebooks.png",
+        "texto" => "Gestioná tus recursos de forma inteligente"
+        ],
+        [
+            "imagen" => "assets/images/campus_moderno.png",
+            "texto" => "Más organización para tus actividades académicas"
         ],
     ];
 ?>
