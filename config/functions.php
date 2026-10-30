@@ -28,8 +28,8 @@ function getTotalCarts($conn)
 
 function getCartById($conn, $cart_id)
 {
-    $consulta = $conn->prepare("SELECT * FROM carts WHERE id = :cart_id");
-    $consulta->execute(['cart_id' => $cart_id]);
+    $consulta = $conn->prepare("SELECT * FROM carts JOIN cart_reservations ON cart_reservations.id = (SELECT MAX(cr.id) FROM cart_reservations AS cr WHERE cr.cart_id = carts.id) WHERE carts.id = ?");
+    $consulta->execute([$cart_id]);
     return $consulta->fetch(PDO::FETCH_ASSOC);
 }
 
@@ -148,11 +148,24 @@ function getAllCarts($conn)
 
 function getAllNotebooks($conn)
 {
-    $sql = "SELECT pc.id, pc.nombre, pc.numero_serie, pc.created_at, pc.cart_id ,ca.nombre AS carro
-                FROM computers pc
-                LEFT JOIN carts ca 
-                on pc.cart_id = ca.id 
-                ORDER BY pc.id ASC";
+    $sql = "SELECT 
+            pc.id,
+            pc.nombre,
+            pc.numero_serie,
+            pc.created_at,
+            pc.cart_id,
+            ca.nombre AS carro,
+            cr.estado AS estado_carro
+        FROM computers pc
+        LEFT JOIN carts ca
+            ON pc.cart_id = ca.id
+        LEFT JOIN cart_reservations cr
+            ON cr.id = (
+                SELECT MAX(cr2.id)
+                FROM cart_reservations cr2
+                WHERE cr2.cart_id = ca.id
+            )
+        ORDER BY pc.id ASC";
 
     return $conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 }

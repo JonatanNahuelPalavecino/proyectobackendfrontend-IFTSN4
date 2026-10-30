@@ -73,7 +73,7 @@
     <form class="create-form" method="POST">
         
         <div class="form-group">
-            <label for="id">ID del Carro (No modificable):</label>
+            <label for="id">Id:</label>
             <input type="text" name="id" id="id" readonly style="cursor: not-allowed;" value="<?= htmlspecialchars($carro['id']) ?>">
         </div>
 
@@ -83,12 +83,12 @@
         </div>
         
         <div class="form-group">
-            <label for="descripcion">Descripción (Opcional):</label>
-            <textarea name="descripcion" id="descripcion" rows="3"><?= htmlspecialchars($carro['descripcion'] ?? '') ?></textarea>
+            <label for="descripcion">Descripción:</label>
+            <textarea style="resize: none;" name="descripcion" id="descripcion" rows="3"><?= htmlspecialchars($carro['descripcion'] ?? '') ?></textarea>
         </div>
         
         <div class="form-group">
-            <label>Capacidad del Carro:</label>
+            <label>Capacidad:</label>
             <input type="text" readonly style="cursor: not-allowed;" value="<?= htmlspecialchars($carro['capacidad']) ?> notebooks fijas">
         </div>
 

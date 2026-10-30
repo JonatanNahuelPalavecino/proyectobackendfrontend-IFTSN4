@@ -8,10 +8,10 @@ require_once __DIR__ . '/PHPMailer/PHPMailer.php';
 require_once __DIR__ . '/PHPMailer/SMTP.php';
 
 
-define('MAIL_USERNAME', 'reservas.ifts@gmail.com');
+define('MAIL_USERNAME', 'sirauca.reservas@gmail.com');
 define('NAME_SISTEMA', 'Sistema Integral de Reserva de Aulas y Carros');
-define('PASSWORD_SISTEMA', 'pvteoyejadjjzhgm');
-define('ASUNTO_SISTEMA', 'SIRAUCA | IFTS N°4');
+define('PASSWORD_SISTEMA', 'xejbndqgfdswzdmd');
+define('ASUNTO_SISTEMA', 'SIRAUCA | Sistema Integral de Reserva de Aulas y Carros');
 
 
 function sendMailNotify( array $destinatario, string $asunto, string $mensaje):bool
