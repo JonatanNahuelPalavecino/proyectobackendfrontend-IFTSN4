@@ -24,13 +24,18 @@
         redirect('/dashboard/aulas/ver-aulas.php');
     }
 
-    $sql = 'SELECT * FROM classrooms WHERE id = ?';
+    $sql = "SELECT classrooms.*, CASE WHEN reservations.fecha >= CURDATE() THEN 'reservada' ELSE 'disponible' END AS estado FROM classrooms LEFT JOIN reservations ON reservations.id = (SELECT MAX(r.id) FROM reservations r WHERE r.classroom_id = classrooms.id) WHERE classrooms.id = ?";
     $consulta = $pdo->prepare($sql);
     $consulta->execute([$id]);
     $aula = $consulta->fetch();
 
     if (!$aula) {
         notify('El aula no existe.', 'error');
+        redirect('/dashboard/aulas/ver-aulas.php');
+    };
+
+    if ($aula['estado'] === 'reservada') {
+        notify('El aula esta reservada y no puede ser editada.', 'error');
         redirect('/dashboard/aulas/ver-aulas.php');
     };
 

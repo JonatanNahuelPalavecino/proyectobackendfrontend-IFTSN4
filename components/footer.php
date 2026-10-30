@@ -12,7 +12,7 @@
             <div class="footer-content">
                 <h3>CONTACTO</h3>
                 <ul>
-                    <li><span class="footer-icon">✉</span><a href="mailto:">sirauca@gmail.com</a></li>
+                    <li><span class="footer-icon">✉</span><a href="mailto:">sirauca.reservas@gmail.com</a></li>
                     <li><span class="footer-icon">🕒</span>Lunes a Viernes de <br>18 a 22 hs</li>
                 </ul>
             </div>
