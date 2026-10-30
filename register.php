@@ -87,7 +87,7 @@
     <form class="auth-form" method="post">
         <h3 class="auth-title">Registrarse</h3>
         <div class="auth-field">
-            <label class="auth-label" for="nombre">Nombre:</label>
+            <label class="auth-label" for="nombre">Nombre Completo:</label>
             <input class="auth-input" type="text" id="nombre" name="nombre" placeholder="Ingresa tu nombre" required>
         </div>
         <div class="auth-field">

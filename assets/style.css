@@ -1,6 +1,8 @@
+/*=============================================================================================================*/
+/*============================================== BASE =========================================================*/
+/*=============================================================================================================*/
 @import url("https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
-/* ---BASE--- */
 
 * {
   margin: 0;
@@ -8,10 +10,12 @@
   box-sizing: border-box;
 }
 
-/* ---VARIABLES--- */
+/*=============================================================================================================*/
+/*============================================== VARIABLES ROOT ===============================================*/
+/*=============================================================================================================*/
 
 :root {
-  --primary-color: #049d48;
+  --primary-color: #068c42;
   --secondary-color: #0a618b;
   --success-color: #28a745;
   --danger-color: #dc3545;
@@ -65,15 +69,17 @@
   --btn-excel-hover: #f3f6f4;
   --btn-edit-hover: #4ab278;
 
-  --verde-suave-background: #08803f2f;
-  --verde-fuerte-color: #065f2e;
+  --verde-suave-background: #e4f5eb;
+  --verde-fuerte-color: #04823d;
   --verde: #28a745;;
   --verde-oscuro: #167a3b;
   --navy: #0f1b2d;
   --navy-2: #16324a;
 }
 
-/* ---LAYOUT--- */
+/*=============================================================================================================*/
+/*============================================== LAYOUT ======================================================*/
+/*=============================================================================================================*/
 
 body {
   min-height: 100dvh;
@@ -92,8 +98,9 @@ body > main {
   min-width: 0;
 }
 
-/* ---NOTIFICATION--- */
-
+/*=============================================================================================================*/
+/*============================================== NOTIFICATION  ================================================*/
+/*=============================================================================================================*/
 .notification {
   position: fixed;
   z-index: 1000;
@@ -131,7 +138,9 @@ body > main {
   transform: translateY(1rem);
 }
 
-/* ---HEADER--- */
+/*=============================================================================================================*/
+/*============================================== HEADER =======================================================*/
+/*=============================================================================================================*/
 
 .header {
   grid-area: header;
@@ -142,19 +151,22 @@ body > main {
   padding: 1rem 2rem;
   border-radius: 24px;
   color: var(--light-color);
-  background: linear-gradient(135deg, #0f3d2e, #145a3f) ;
+  background: linear-gradient(135deg, #0a3d2e, #148a5c);
 }
 
 .logo {
   display: flex;
   align-items: center;
+  
 }
 
 .logo-img {
   width: 60px;
+  border-radius: 8px;
   height: 60px;
   margin-right: 1rem;
-  object-fit: contain;
+  object-fit: fill;
+  box-shadow: 0px 0px 8px 1px var(--verde-fuerte-color);
 }
 
 .logo-container {
@@ -182,7 +194,9 @@ body > main {
   font-weight: normal;
 }
 
-/* ---SLIDER--- */
+/*=============================================================================================================*/
+/*============================================== SLIDER =======================================================*/
+/*=============================================================================================================*/
 
 .slider {
   position: relative;
@@ -285,7 +299,9 @@ body > main {
   opacity: 1;
 }
 
-/* ---LOGIN--- */
+/*=============================================================================================================*/
+/*============================================== LOGIN ========================================================*/
+/*=============================================================================================================*/
 
 .auth-page {
   display: grid;
@@ -309,9 +325,9 @@ body > main {
 
 .auth-title {
   margin-bottom: 2rem;
-  color: var(--primary-color);
+  color: var(--verde);
   font-family: var(--font-family-heading);
-  font-size: 2.5rem;
+  font-size: 2.8rem;
   text-align: center;
   text-shadow: 0px 0px 1px var(--gray-color);
 }
@@ -361,17 +377,13 @@ body > main {
 }
 
 .auth-button, .reserva-carro-button {
-  /* padding: 11px 20px; */
   width: 200px;
   margin: 0px auto;
-  /* border-radius: 8px; */
   font-size: 15px;
   font-weight: 600;
-  /* cursor: pointer; */
   text-decoration: none;
   transition: 0.3s ease-in-out;
-  /* border: none; */
-  background-color: var(--primary-color);
+  background-color: var(--verde);
   color: var(--white-color);
 }
 
@@ -551,7 +563,9 @@ body > main {
   font-size: 0.78rem;
 }
 
-/* ---FOOTER--- */
+/*=============================================================================================================*/
+/*================================================ FOOTER =====================================================*/
+/*=============================================================================================================*/
 
 .footer {
   border-radius: 28px;
@@ -606,7 +620,6 @@ body > main {
   list-style: none;
 }
 
-
 .footer-content li {
   display: flex;
   gap: 10px;
@@ -659,7 +672,9 @@ body > main {
 .footer-bottom b {
   color: var(--celeste-brillante-color);
 }
-/* ===== RESPONSIVE ===== */
+/*=============================================================================================================*/
+/*============================================== RESPONSIVE (MOVERLO ABAJO DE TODO) ==============================================*/
+/*=============================================================================================================*/
 @media (max-width: 950px) {
   .footer-top { grid-template-columns: 1fr 1fr; }
 }
@@ -676,7 +691,9 @@ body > main {
 
 }
 
-/* ---HOME--- */
+/*=============================================================================================================*/
+/*============================================== HOME INDEX ===================================================*/
+/*=============================================================================================================*/
 
 .home {
   height: 100vh;
@@ -706,7 +723,6 @@ body > main {
   display: flex;
   flex-direction: column;
   width: min(540px, 90%);
-  /* border: 2px solid red; */
   gap: 30px;
   margin: 0 50px;
   padding: 50px 0;
@@ -759,9 +775,7 @@ body > main {
 .btn-home {
   display: flex;
   align-items: center;
-
   color: #fff;
-  /* transform: translateX(-50%); */
   text-decoration: none;
   padding: 12px 30px;
   border-radius: 6px;
@@ -790,76 +804,322 @@ body > main {
   transform: translateY(-7px);
 }
 
-/* ---COMO FUNCIONA--- */
+/*=============================================================================================================*/
+/*============================================== ¿COMO FUNCIONA? ==============================================*/
+/*=============================================================================================================*/
 
 .cf {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
+  gap: 1.9rem;
 }
 
-.cf-title {
-  color: var(--primary-color);
-  font-family: var(--font-family-heading);
-  font-size: 2.5rem;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 3px;
+.cf-titulo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
   text-align: center;
+  padding-top: 6px;
 }
 
-.cf-section {
+.cf-titulo h2{
+  font-family: var(--font-family-title);
+  /* text-transform: uppercase; */
+  letter-spacing: 1.8px;
+  font-size: 2.1rem;
+  font-weight: 900;
+}
+.cf-titulo p {
+  font-family: var(--font-family-description);
+  font-size: 1.1rem;
+  color: var(--description-color);
+  font-weight: 300;
+}
+
+.cf-que-es {
+  max-width: 1000px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(370px, 1fr));
+  align-items: center;
+  gap: 30px;
+  padding: 35px 40px;
+  border-radius: 18px;
+  background-color: var(--white-color);
+  border: var(--border-cards);
+  border-left: 5px solid var(--verde);
+  box-shadow: 0 6px 24px rgba(15, 31, 58, .08);
+}
+
+.cf-siglas{
+  background-color: var(--verde-suave-background);
+  padding: 20px 25px;
+  border-radius: var(--borderRadius-cards-pattern);
+  color: var(--verde-fuerte-color);
+  font-size: 1.5rem;
+  font-weight: 800;
+  font-family: var(--font-family-title);
+  text-align: center;
+  letter-spacing: 1px;
+
+}
+.cf-siglas small{
+  display: block;
+  font-size: 0.8rem;
+  color: var(--navy);
+  font-family: var(--font-family-description);
+  font-weight: 700;
+  letter-spacing: .5px;
+  margin-top: 6px;
+}
+
+.cf-que-es h3 {
+  font-family: var(--font-family-title);
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+  color: var(--navy);
+  font-weight: 800;
+}
+.cf-que-es p {
+  font-family: var(--font-family-description);
+  color: var(--description-color);
+  font-weight: 400; 
+}
+.cf-que-es p b {
+  color: var(--navy);
+}
+
+.cf-develop{
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.cf-developers{
+  display: flex;
+  gap: 8px;
+}
+.cf-developer {
+  padding: 5px 10px;
+  background-color: var(--secondary-color-background);
+  border-radius: var(--borderRadius-cards-pattern);
+  color: var(--secondary-color);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.cf-guia {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.cf-guia-head {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding: 15px 10px;
+  border-radius: var(--borderRadius-cards-pattern);
+}
+.cf-guia-head h3 {
+  font-family: var(--font-family-title);
+  color: var(--navy);
+  font-size: 1.2rem;
+}
+
+.cf-guia-head span {
+  font-size: 0.9rem;
+  font-family: var(--font-family-description);
+  font-weight: 400;
+}
+.cf-guia-head svg {
+  width: 35px;
+  height: 35px;
+}
+
+.cf-guia-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 20px;
+}
+
+.cf-card{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 15px;
+  padding: 22px 20px 40px;
+  background-color: var(--white-color);
+  border-radius: var(--borderRadius-cards-children);
+  border: var(--border-cards);
+  box-shadow: 0 6px 24px rgba(15, 31, 58, .08);
+  line-height: 20px;
+  transition: .3s transform, .3s box-shadow;
+}
+
+.cf-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(15,31,58,.13);
+}
+
+.cf-card p {
+  font-family: var(--font-family-description);
+  color: var(--description-color);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+.cf-card span {
+  padding: 6px 12px;
+  border-radius: 50%;
+}
+
+/* AULAS */
+.guia-aula .cf-guia-head span {
+  color: var(--verde-fuerte-color);
+}
+
+.guia-aula .cf-guia-head {
+  background-color: var(--verde-suave-background);
+  border: 1px solid #28a74652;
+}
+.guia-aula svg {
+  color: var(--verde-fuerte-color);
+}
+.guia-aula .cf-card span{
+  box-shadow: 0px 1px 5px var(--verde-fuerte-color);
+  background-color: var(--verde-fuerte-color);
+  color: var(--white-color);
+} 
+
+.guia-aula .cf-card p b {
+  color: var(--verde-fuerte-color);
+}
+
+/* CARROS */
+.guia-cart .cf-guia-head span {
+  color: var(--secondary-color);
+}
+.guia-cart .cf-guia-head{
+  background-color: var(--secondary-color-background);
+  border: 1px solid #0a608b50;
+}
+.guia-cart svg {
+  color: var(--secondary-color);
+}
+.guia-cart .cf-card {
+  padding: 22px 20px 15px;
+}
+
+.guia-cart .cf-card span {
+  box-shadow: 0px 1px 5px var(--secondary-color);
+  background-color: var(--secondary-color);
+  color: var(--white-color);
+}
+
+.guia-cart .cf-card p b {
+  color: var(--secondary-color);
+}
+
+/* EDITAR O CANCELAR RESERVA */
+.guia-edit svg {
+  color: #f7733d; 
+}
+
+.guia-edit .cf-guia-head {
+  background-color: #fff6e0;
+  border: 1px solid #f7723d7a;
+}
+
+.guia-edit .cf-guia-head span {
+  color: #f7733d; 
+} 
+
+.guia-edit .cf-card span { 
+  background-color:#f7733d ;
+  color: var(--white-color);
+  box-shadow: 0 0 5px #f7733d;
+}
+.guia-edit .cf-card p b {
+  color: #f7733d; 
+
+}
+
+.cf-guia-alert{
+  margin-top: 16px;
+  display: flex;
+  align-items: flex-start;
+  text-align: center;
+  gap: 12px; 
+  font-size: 0.94rem;
+
+  border-radius: var(--borderRadius-cards-pattern);
+  background-color: #fff6e0;
+  padding: 14px 18px;
+  border: 1px solid #f7723d7a;
+  color: #5c4400
+}
+.cf-guia-alert span {
+  font-size: 1.2rem; 
+  line-height: 1;
+}
+
+.cf-dudas{
+  text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  padding: 1rem;
-  border-radius: 10px;
+  gap: 16px;
+  max-width: 780px; 
+  width: 100%; 
+  margin: 0 auto;
+  padding: 36px 32px;
+  border-radius: var(--borderRadius-cards-pattern);
+  background-color: var(--navy-2);
+  color: var(--white-color);
+}
+.cf-dudas h3 {
+  font-size: 1.4rem;
+  font-family: var(--font-family-title);
+  font-weight: 600;
 }
 
-.cf-subtitle {
-  color: var(--secondary-color);
-  font-family: var(--font-family-heading);
-  font-size: 1.5rem;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  text-align: center;
-}
-
-.cf-article {
-  display: flex;
-  gap: 2rem;
-  color: var(--dark-color);
-  font-family: var(--font-family);
+.cf-dudas p {
   font-size: 1rem;
-  text-align: center;
-  line-height: 1.5rem;
+  font-family: var(--font-family-description);
+  color: #ffffffa4;
 }
 
-.cf-description {
-  color: var(--dark-color);
-  font-family: var(--font-family);
-  font-size: 1rem;
-  text-align: center;
-  line-height: 1.5rem;
-  max-width: 600px;
-  background-color: var(--info-color);
-  border-radius: 25px;
-  padding: 2rem;
-}
-
-.cf-link {
-  color: var(--light-color);
+.cf-dudas a {
   text-decoration: none;
-  font-family: var(--font-family);
-  font-size: 1rem;
+  padding: 12px 20px;
+  background-color: var(--verde);
+  border-radius: var(--borderRadius-cards-pattern);
+  color: var(--white-color);
+  font-family: var(--font-family-description);
+  font-weight:600;
+  transition: transform .3s ease-in-out, box-shadow .3s ease-in-out, background-color .4s ease-in-out;
 }
 
-/*--- DASHBOARD ---*/
+.cf-dudas a:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 2px 10px #ffffff42;
+  background-color: var(--btn-border-excelHover);
+}
+
+@media (max-width:600px){
+  .cf-developers {
+      flex-direction: column;
+      align-items: flex-start;
+  }
+}
+
+
+/*=============================================================================================================*/
+/*================================================= DASHBORAD =================================================*/
+/*=============================================================================================================*/
 
 .dashboard-header {
   padding: 20px 10px;
@@ -910,7 +1170,6 @@ body > main {
 }
 
 /* CARDS DASHBOARD */
-
 .dashboard-stats {
   padding: 20px 10px;
   display: grid;
@@ -931,7 +1190,6 @@ body > main {
   font-size: 1.5rem;
 }
 
-
 .container-smallEmoji {
     display: inline-flex;
     align-items: center;
@@ -939,7 +1197,6 @@ body > main {
     width: 55px;
     height: 55px;
     border-radius: var(--borderRadius-cards-children);
-
 }
 .container-smallPcs{
   background-color: #ccc;
@@ -961,11 +1218,40 @@ body > main {
     flex-shrink: 0;
 }
 
+.stat-iconAulas {
+  background-color: var(--verde-suave-background);
+  color: var(--verde-fuerte-color);
+  box-shadow: 0px 0px 3px var(--verde-fuerte-color)
+}
+.stat-iconCarts {
+  background-color: var(--secondary-color-background);
+  color: var(--secondary-color);
+  box-shadow: 0px 0px 3px var(--secondary-color)
+}
+.stat-iconUsers {
+  background-color: var(--navy);
+  color: var(--white-color);
+  box-shadow: 0px 0px 3px var(--navy)
+}
+.stat-iconNotebooks {
+  background-color: var(--gray-color);
+  color: var(--white-color);
+  box-shadow: 0px 0px 3px var(--gray-color);
+}
 
-.stat-icon {
-  padding: 5px 10px;
-  border-radius: 10px;
-  box-shadow: 0 0 3px var(--gray-color);
+.stat-containerMicro-icon{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  border-radius: var(--borderRadius-cards-pattern);
+}
+
+.stat-micro-icon{
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
 }
 
 .stat-number {
@@ -1106,10 +1392,6 @@ body > main {
 .btn-gestion-carts:hover {
   background-color: var(--btn-carts-hover);
 }
-
-
-
-
 
 .db-reservas-cards {
   display: grid;
@@ -1280,7 +1562,9 @@ body > main {
 
 }
 
-/* ---VER RESERVAS--- */
+/*=============================================================================================================*/
+/*================================================= VER RESERVAS ==============================================*/
+/*=============================================================================================================*/
 
 .verReservas-header {
   padding: 20px 10px;
@@ -1448,8 +1732,9 @@ body > main {
     
 }
 
+
 .verReservas-acciones .btn-edit:hover {
-    background-color: var(--btn-edit-hover)
+    background-color: #01ff124c ;
 }
 
 .verReservas-acciones .btn-delete {
@@ -1554,7 +1839,9 @@ body > main {
 
 
 
-/* ---POPOVER GENERAL--- */
+/*=============================================================================================================*/
+/*============================================== POPOVER GENERAL ==============================================*/
+/*=============================================================================================================*/
 
 .popover-eliminar {
   width: min(90%, 420px);
@@ -1641,7 +1928,9 @@ body > main {
   text-decoration: none;
 }
 
-/* ---HORARIO DE RESERVAS--- */
+/*=============================================================================================================*/
+/*============================================== HORARIO RESERVAS =============================================*/
+/*=============================================================================================================*/
 
 .horario-contenedor {
   display: flex;
@@ -1709,7 +1998,9 @@ body > main {
   background-color: var(--btn-aulas-hover);
 }
 
-/* ---CALENDARIO DE RESERVAS--- */
+/*=============================================================================================================*/
+/*============================================ CALENDARIO RESERVAS ============================================*/
+/*=============================================================================================================*/
 
 .reservation-calendar {
   padding: 1.5rem;
@@ -1821,7 +2112,9 @@ body > main {
     background-color: var(--primary-color);
 }
 
-/* FORMULARIOS DE PC - NOTEBOOKS */
+/*=============================================================================================================*/
+/*============================================== FORMULARIO CRUDS==============================================*/
+/*=============================================================================================================*/
 .form-page {
   max-width: 600px;
   margin: 40px auto;
@@ -1861,9 +2154,6 @@ body > main {
 .form-chipCarts{
   background-color: var(--secondary-color);
 }
-
-
-
 
 .create-form {
   display: flex;
@@ -1957,81 +2247,10 @@ body > main {
 }
 
 
-/* ======================== */
-/* .form-page {
-  max-width: 600px;
-  margin: 40px auto;
-  padding: 30px;
-  background-color: var(--light-color);
-  border-radius: 12px;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
-}
 
-.form-header {
-  margin-bottom: 28px;
-}
-
-.form-header h1 {
-  margin: 0 0 8px;
-  font-size: 28px;
-  color: var(--navy);
-  text-transform: uppercase;
-}
-
-.form-header p {
-  margin: 0;
-  color: var(--navy-2);
-  font-size: 15px;
-}
-
-.form-info {
-  margin: 0;
-  padding: 12px;
-  border-radius: 7px;
-  background-color: var(--vacio-color);
-  color: #666;
-  font-size: 14px;
-}
-
-.form-actions {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 8px;
-}
-
-.btn-action,
-.btn-back {
-  padding: 11px 20px;
-  border-radius: 7px;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  text-decoration: none;
-  transition: 0.2s;
-}
-
-.btn-action {
-  border: none;
-  background-color: var(--primary-color);
-  color: var(--white-color);
-}
-
-.btn-action:hover {
-  background-color: var(--secondary-color);
-}
-
-.btn-back {
-  border: 1px solid #ccc;
-  background-color: #fff;
-  color: #444;
-}
-
-.btn-back:hover {
-  background-color: #f2f2f2;
-} */
-
-/* CREAR RESERVAS | CARROS */
+/*=============================================================================================================*/
+/*============================================== CREAR RESERVAS | CARROS ======================================*/
+/*=============================================================================================================*/
 
 .reserva-carro {
   display: flex;

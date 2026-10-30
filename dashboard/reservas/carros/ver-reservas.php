@@ -59,7 +59,7 @@
 
                 <span class="vr-divisor"></span>
 
-                <span class="vr-logo">SISTEMA</span>
+                <span class="vr-logo">ADMINISTRADOR</span>
             </article>
         <?php else: ?>
             <article class="vr-containerInfo">
