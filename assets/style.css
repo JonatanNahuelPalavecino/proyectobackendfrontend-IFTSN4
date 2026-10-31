@@ -305,7 +305,7 @@ body > main {
 
 .auth-page {
   display: grid;
-  grid-template-columns: minmax(0, 70fr) minmax(260px, 30fr);
+  grid-template-columns: minmax(0, 55fr) minmax(260px, 30fr);
   gap: var(--layout-gap);
 }
 
@@ -317,7 +317,7 @@ body > main {
   border-radius: var(--borderRadius-cards-children);
   border: var(--border-cards);
   width: 100%;
-  max-width: 420px;
+  /* max-width: 4s20px; */
   min-width: 0;
   margin: 0 auto;
   padding: 2rem;
@@ -417,6 +417,7 @@ body > main {
   color: var(--title-color);
   font-size: 14px;
   font-weight: 500;
+  text-align: center;
 }
 
 .auth-link {
@@ -618,6 +619,7 @@ body > main {
 
 .footer-content ul {
   list-style: none;
+  word-break: break-all;
 }
 
 .footer-content li {
@@ -672,24 +674,7 @@ body > main {
 .footer-bottom b {
   color: var(--celeste-brillante-color);
 }
-/*=============================================================================================================*/
-/*============================================== RESPONSIVE (MOVERLO ABAJO DE TODO) ==============================================*/
-/*=============================================================================================================*/
-@media (max-width: 950px) {
-  .footer-top { grid-template-columns: 1fr 1fr; }
-}
- 
-@media (max-width: 560px) {
-  .footer { 
-    padding: 32px 22px 18px; 
-  }
-  
-  .footer-top{ 
-    grid-template-columns: 1fr; 
-    gap: 28px; 
-  }
 
-}
 
 /*=============================================================================================================*/
 /*============================================== HOME INDEX ===================================================*/
@@ -826,7 +811,6 @@ body > main {
 
 .cf-titulo h2{
   font-family: var(--font-family-title);
-  /* text-transform: uppercase; */
   letter-spacing: 1.8px;
   font-size: 2.1rem;
   font-weight: 900;
@@ -1109,12 +1093,6 @@ body > main {
   background-color: var(--btn-border-excelHover);
 }
 
-@media (max-width:600px){
-  .cf-developers {
-      flex-direction: column;
-      align-items: flex-start;
-  }
-}
 
 
 /*=============================================================================================================*/
@@ -1314,7 +1292,6 @@ body > main {
 .dashboard-reservas-container {
   background-color: var(--white-color);
   border: var(--border-cards);
-  /* box-shadow: var(--boxShadow-cards-pattern); */
   border-radius: var(--borderRadius-cards-pattern);
   padding: 20px 10px;
 }
@@ -1322,7 +1299,6 @@ body > main {
 .db-reservas-header {
   display: flex;
   align-items: center;
-  /* border: 2px solid red; */
   margin-bottom: 10px;
 }
 .db-reservas-title {
@@ -1350,12 +1326,6 @@ body > main {
 .btn-delete:hover {
   background-color: var(--btn-delete-hover);
 }
-/* .btn-edit {
-  background-color: var(--btn-color-edit);
-}
-.btn-edit:hover {
-  background-color: var(--btn-edit-hover);
-} */
 
 .btn-gestion-pcs {
   background-color: var(--btn-color-pcs);
@@ -1368,7 +1338,6 @@ body > main {
 .btn-excel {
   color: var(--title-color);
   border: 1px solid var(--btn-border-excel);
-  /* box-shadow: 0 0 5px #C9D5CE; */
   background-color: var(--btn-color-excel);
   transition: all 0.3s ease-in-out;
 }
@@ -1405,9 +1374,9 @@ body > main {
   align-items: center;
   gap: 10px;
   padding: 10px;
-  /* border: 2px solid black; */
   border-radius: var(--borderRadius-cards-children);
   box-shadow: var(--boxShadow-cards-children);
+  word-break: break-all;
 }
 
 .db-reserva-iconCart {
@@ -1511,20 +1480,16 @@ body > main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: center; */
   gap: 16px;
-  /* margin-top: 10px; */
   border-radius: var(--borderRadius-cards-children);
   padding: 60px 0px;
   border: 1px dashed;
-  /* background-color: var(--vacio-color);  */
   text-align: center;
   font-weight: bold;
 }
 .no-results-aulas {
   background-color: var(--verde-suave-background);
   border-color: var(--verde-fuerte-color);
-  /* color: var(--verde-fuerte-color); */
 }
 .no-results-carts {
   background-color: var(--secondary-color-background);
@@ -1538,7 +1503,6 @@ body > main {
 
 .text-sinResultsAulas {
   font-size: 15px;
-  /* font-weight: 800; */
   text-shadow: 0px 0px 1px var(--verde);
   font-style: italic;
   color: var(--verde-fuerte-color);
@@ -1546,7 +1510,6 @@ body > main {
 }
 .text-sinResultsCarts {
   font-size: 15px;
-  /* font-weight: 900; */
   text-shadow: 0px 0px 1px var(--secondary-color);
   font-style: italic;
   color: var(--secondary-color);
@@ -1837,8 +1800,6 @@ body > main {
   gap: 10px;
 }
 
-
-
 /*=============================================================================================================*/
 /*============================================== POPOVER GENERAL ==============================================*/
 /*=============================================================================================================*/
@@ -1950,6 +1911,7 @@ body > main {
   justify-content: flex-start;
   align-items: center;
   gap: 2rem;
+  flex-wrap: wrap;
 }
 
 .horario-label {
@@ -2008,6 +1970,9 @@ body > main {
   background-color: var(--white-color);
   border: var(--border-cards);
   border-radius: var(--borderRadius-cards-pattern);
+  /* word-break: break-all; */
+  overflow-x: auto; /* Activa el scroll horizontal cuando el contenido desborda */
+  -webkit-overflow-scrolling: touch;
 }
 
 .calendar-navigation {
@@ -2025,10 +1990,11 @@ body > main {
 }
 
 .calendar-table {
-  width: 100%;
+  min-width: 1320px;
   border-collapse: separate;
   border-spacing: 0.35rem;
   table-layout: fixed;
+  
 }
 
 .calendar-table th {
@@ -2277,4 +2243,98 @@ body > main {
   background-color: var(--white-color);
   border-radius: var(--borderRadius-cards-pattern);
   padding: 20px;
+}
+
+
+/*=============================================================================================================*/
+/*============================================== RESPONSIVE (MOVERLO ABAJO DE TODO) ==============================================*/
+/*=============================================================================================================*/
+@media (max-width: 950px) {
+  .footer-top { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 930px){
+  .auth-page {
+    grid-template-columns: 1fr;
+  }
+
+  .vr-containerInfo {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .vr-divisor {
+    display: none;
+  }
+
+  .verReservas-header .dh-actions {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+} 
+
+@media (max-width: 800px) {
+  .dh-welcome {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .dh-welcome .dh-actions{
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  .reserva-carro-form{
+    width: 400px;
+  }
+  
+}
+ 
+@media (max-width: 600px) {
+  .footer { 
+    padding: 32px 22px 18px; 
+  }
+  
+  .footer-top{ 
+    grid-template-columns: 1fr; 
+    gap: 28px; 
+  }
+
+  .cf-developers {
+      flex-direction: column;
+      align-items: flex-start;
+  }
+  
+  
+  .dashboard-reservas .dh-actions{
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  .db-reservas-header{
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .db-reservas-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .db-reservas-item {
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: wrap ;
+  }
+
+  
+
+ 
+}
+
+@media (max-width:450px){
+  .db-reserva-inline{
+    flex-direction: column;
+    align-items: flex-start;
+  }
+   .db-reserva-inline .db-reserva-chipActiva {
+    margin-left: 0px;
+  }
 }
