@@ -13,7 +13,7 @@
         redirect('/dashboard/');
     }
 
-    $titulo = "Editar Disponibilidad de Aula | Reservá tu aula";
+    $titulo = "Editar Disponibilidad de Aula | SIRAUCA - Sistema Integral de Reservas de Aulas y Carros";
 
     $id = $_GET['id'] ?? '';
 
@@ -88,7 +88,7 @@
         </div>
         <div class="form-group">
             <label for="nombre">Nombre Aula</label>
-            <input style="cursor: not-allowed;" type="text" name="nombre" id="nombre" value="<?php echo $aula['nombre'] ?>">
+            <input style="cursor: not-allowed;" type="text" name="nombre" id="nombre" readonly value="<?php echo $aula['nombre'] ?>">
         </div>
         <div class="form-group">
             <label for="capacidad">Dia (Inicio):</label>

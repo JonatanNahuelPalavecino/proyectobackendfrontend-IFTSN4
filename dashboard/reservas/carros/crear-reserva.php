@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Notificacion Profesor
                 sendMailNotify(
                     ['nombre' => $usuario['nombre'], 'email' => $usuario['email']],
-                    'Sistema de Reservas',
+                    'Reserva de Carro creada con éxito!',
                     notifyOperationReservCarroProf(
                         ['title' => '¡Reserva de carro exitosa!', 'subtitle' => 'Los datos de tu reserva son:'],
                         $tieneComputadoras[0]['pertenece_a_carro'],
@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
-$titulo = 'Reserva de Carros | SIRAUCA - Sistema de Reserva de Aulas y Carros';
+$titulo = 'Reserva de Carros | SIRAUCA - Sistema Integral de Reservas de Aulas y Carros';
 ?>
 
 <?php require __DIR__ . '/../../../components/header.php'; ?>

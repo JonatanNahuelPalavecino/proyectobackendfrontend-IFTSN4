@@ -12,7 +12,7 @@
         redirect('/dashboard/');
     }
 
-    $titulo = "Crear Notebook | Reservá tu aula";
+    $titulo = "Crear Notebook | SIRAUCA - Sistema Integral de Reservas de Aulas y Carros";
     
     //ACA PUEDE ENTRAR SOLO ADMIN, YA QUE EL USER NO PUEDE CREAR NOTEBOOKS
     $allCarts = getAllCarts($pdo);
@@ -36,7 +36,7 @@
                 redirect("/dashboard/notebooks/ver-notebooks.php");
                 // sendMailNotify(
                 //     ['nombre' => NAME_SISTEMA, 'email' => MAIL_USERNAME],
-                //     'Gestion de notebooks',
+                //     '¡Se creó una nueva notebook en el Sistema!',
                 //     notifyOperationNotebookAdmin(
                 //     ['title' => '¡Se creó una nueva notebook en el Sistema!', 'subtitle' => 'Los datos de la notebook son:'],
                 //     $nombreNotebook,

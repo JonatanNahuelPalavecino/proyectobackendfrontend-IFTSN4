@@ -11,10 +11,10 @@
     }
 
     if ($usuario['rol'] === "admin") {
-        $titulo = "Total de Reservas | Reserva tu carro";
+        $titulo = "Total de Reservas | SIRAUCA - Sistema Integral de Reservas de Aulas y Carros";
         $reservas_admin = getReservasCarrosAdmin($pdo);
     } else {
-        $titulo = "Mis reservas | Reserva tu carro";
+        $titulo = "Mis reservas | SIRAUCA - Sistema Integral de Reservas de Aulas y Carros";
         $reservas_user = getDetalleReservasCarrosByUser($pdo, $usuario['id']);
     }
 

@@ -42,7 +42,7 @@ function getTotalNotebooks($conn)
 
 function getTotalReservasAulasToday($conn)
 {
-    $sql = "SELECT COUNT(*) AS Total FROM reservations WHERE fecha = CURDATE()";
+    $sql = "SELECT COUNT(*) AS Total FROM reservations WHERE fecha >= CURDATE()";
     $consulta = $conn->prepare($sql);
     $consulta->execute();
     $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
@@ -51,7 +51,7 @@ function getTotalReservasAulasToday($conn)
 
 function getTotalReservasCarrosToday($conn)
 {
-    $sql = "SELECT COUNT(*) AS Total FROM cart_reservations WHERE fecha = CURDATE()";
+    $sql = "SELECT COUNT(*) AS Total, estado FROM cart_reservations WHERE fecha >= CURDATE() AND estado = 'reservado'";
     $consulta = $conn->prepare($sql);
     $consulta->execute();
     $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
@@ -134,7 +134,7 @@ function getDetalleReservasCarrosToday($conn)
                 FROM cart_reservations r
                 INNER JOIN users u ON r.user_id = u.id
                 INNER JOIN carts c ON r.cart_id = c.id
-                WHERE fecha = CURDATE()
+                WHERE fecha = CURDATE() AND r.estado = 'reservado'
                 ORDER BY fecha ASC";
     $consulta = $conn->prepare($sql);
     $consulta->execute();

@@ -9,7 +9,7 @@
         redirect('/dashboard/');
     }
     
-    $titulo = "Modificar Carro || Reserva tu aula";
+    $titulo = "Modificar Carro | SIRAUCA - Sistema Integral de Reservas de Aulas y Carros";
 
     $id =$_GET['id']?? '';
 

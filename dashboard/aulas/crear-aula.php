@@ -12,7 +12,7 @@ if (!$usuario || $usuario['rol'] !== 'admin') {
     redirect('/dashboard/');
 }
 
-$titulo = "Crear Aula | Reservá tu aula";
+$titulo = "Crear Aula | SIRAUCA - Sistema Integral de Reservas de Aulas y Carros";
 
 //ACA PUEDE ENTRAR SOLO ADMIN, YA QUE EL USER NO PUEDE CREAR AULAS
 
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
            sendMailNotify(
                 ['nombre' => NAME_SISTEMA, 'email' => MAIL_USERNAME],
-                "Gestión de aulas",
+                "¡Se creó una nueva aula en el Sistema!",
                 notifyOperationAulaAdmin(
                     ['title' => '¡Se creó una nueva aula en el Sistema!', 'subtitle' => 'Los datos del aula son:'],
                     $nombre_aula,

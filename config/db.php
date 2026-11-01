@@ -2,12 +2,12 @@
 
     session_start();
 
-    define('BASE_URL', '/TP-integrador-Lopez-Luna_Palavecino');
+    define('BASE_URL', '/sirauca');
 
     $host = "127.0.0.1";
     $username = "root";
     $password = "";
-    $db = 'sistema_reserva_aulas';
+    $db = 'sirauca_db';
     $puerto = "3306";
     $charset = 'utf8mb4';
 
