@@ -10,7 +10,7 @@
         redirect('/dashboard/');
     }
 
-    $titulo = "Administrar Aulas | Reservá tu aula";
+    $titulo = "Administrar Aulas | Sistema Integral de Reservas de Aulas y Carros";
 
     $consulta = $pdo->query("SELECT classrooms.id, classrooms.nombre, classrooms.capacidad, classrooms.created_at, classroom_schedules.dia_desde, classroom_schedules.dia_hasta, classroom_schedules.hora_inicio, classroom_schedules.hora_fin, CASE WHEN EXISTS (SELECT 1 FROM reservations WHERE reservations.classroom_id = classrooms.id AND reservations.fecha >= CURDATE()) THEN 'reservada' ELSE 'disponible' END AS estado_reserva FROM classrooms LEFT JOIN classroom_schedules ON classroom_schedules.classroom_id = classrooms.id ORDER BY classrooms.id");
     $aulas = $consulta->fetchAll();

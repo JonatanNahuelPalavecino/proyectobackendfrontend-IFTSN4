@@ -3,7 +3,7 @@
 require_once __DIR__ . "/config/functions.php";
 require_once __DIR__ . "/config/db.php";
 
-$titulo = "¿Cómo funciona? | SIRAUCA - Sistema de Reserva de Aulas y Carros del IFTS N° 4";
+$titulo = "¿Cómo funciona? | SIRAUCA - Sistema Integral de Reservas de Aulas y Carros";
  
 include __DIR__ . "/components/header.php";
 ?>
@@ -26,9 +26,9 @@ include __DIR__ . "/components/header.php";
             <article class="cf-develop">
                 <b>Desarrollado por:</b>
                 <article class="cf-developers">
-                    <span class="cf-developer">Jonatan Palavecino</span>
-                    <span class="cf-developer">Damián Luna</span>
-                    <span class="cf-developer">Daniel Lopez</span>
+                    <a class="cf-developer" href="https://www.jonatanpalavecino.com.ar/" target="_blank">Jonatan Palavecino</a>
+                    <a class="cf-developer" href="https://www.linkedin.com/in/damian-luna-dev/" target="_blank">Damián Luna</a>
+                    <a class="cf-developer" href="https://www.linkedin.com/in/daniellopez-i/" target="_blank">Daniel Lopez</a>
                 </article>
             </article>
         </article>
@@ -161,7 +161,7 @@ include __DIR__ . "/components/header.php";
     <article class ="cf-dudas">
         <h3>¿Te quedaron algunas dudas adicionales?</h3>
         <p>Si tenés alguna pregunta o necesitás ayuda adicional, no dudes en contactarnos por mail.</p>
-        <a href="mailto:sirauca@gmail.com">✉ sirauca@gmail.com</a>
+        <a href="mailto:sirauca.reservas@gmail.com">✉ sirauca.reservas@gmail.com</a>
     </article>
 
 </main>

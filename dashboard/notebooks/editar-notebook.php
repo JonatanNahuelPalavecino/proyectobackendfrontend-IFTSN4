@@ -68,6 +68,8 @@
         }
     }
 
+    $titulo = "Editar Notebook | SIRAUCA - Sistema Integral de Reservas de Aulas y Carros";
+
 ?>
 
 <?php

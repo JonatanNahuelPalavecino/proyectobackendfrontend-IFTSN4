@@ -42,7 +42,7 @@
 
         sendMailNotify(
                 ['nombre' => NAME_SISTEMA, 'email' => MAIL_USERNAME],
-                "Gestión de aulas",
+                "¡Se eliminó un aula en el Sistema!",
                 notifyOperationAulaAdmin(
                     ['title' => '¡Se eliminó un aula en el Sistema!', 'subtitle' => 'Los datos del aula eliminada eran:'],
                     $aula['nombre'],

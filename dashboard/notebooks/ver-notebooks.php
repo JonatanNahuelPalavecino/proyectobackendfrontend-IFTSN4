@@ -9,7 +9,7 @@ if (!$usuario || $usuario['rol'] !== 'admin') {
     redirect('/dashboard/');
 }
 
-$titulo = "Gestion Notebooks | Reservá tu aula ";
+$titulo = "Administrar Notebooks | SIRAUCA - Sistema Integral de Reservas de Aulas y Carros";
 
 //ACA PUEDE ENTRAR SOLO ADMIN, YA QUE EL USER NO PUEDE VER NOTEBOOKS
 

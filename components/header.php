@@ -1,7 +1,7 @@
 <?php
 
     if (!isset($titulo)) {
-        $titulo = "SIRAUCA - Sistema de Reserva de Aulas y Carros del IFTS N° 4";
+        $titulo = "Inicio | SIRAUCA - Sistema de Reserva de Aulas y Carros del IFTS N° 4";
     }
 
 ?>
@@ -16,7 +16,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Caacupe+One&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/style.css">
-    <link rel="shortcut icon" href="<?php echo BASE_URL; ?>/assets/images/ifts_logo.png" type="image/png">
+    <!-- <link rel="shortcut icon" href="<?php echo BASE_URL; ?>/assets/images/ifts_logo.png" type="image/png"> -->
+    <link rel="shortcut icon" href="<?php echo BASE_URL; ?>/assets/images/sirauca_logo.png" type="image/png">
     <script src="<?php echo BASE_URL; ?>/assets/js/aside.js" defer></script>
     <title><?php echo $titulo; ?></title>
 </head>

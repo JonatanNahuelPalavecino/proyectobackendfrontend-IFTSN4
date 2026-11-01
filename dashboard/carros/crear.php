@@ -10,7 +10,7 @@
         redirect('/dashboard/index.php');
     }
     
-    $titulo = "Crear carro || Reserva tu aula";
+    $titulo = "Crear carro | SIRAUCA - Sistema Integral de Reservas de Aulas y Carros";
 
     //LOGICA BACK-END -> CREATE carro
     if ($_SERVER['REQUEST_METHOD']=== 'POST'){

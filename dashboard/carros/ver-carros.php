@@ -10,7 +10,7 @@ if (!$usuario || $usuario['rol'] !== 'admin') {
     redirect("/dashboard/index.php");
 }
 
-$titulo = "Inventario de Carros || Sistema";
+$titulo = "Administar Carros | SIRAUCA - Sistema Integral de Reservas de Aulas y Carros";
 
 $carros = getInventarioCarrosCompleto($pdo);
 

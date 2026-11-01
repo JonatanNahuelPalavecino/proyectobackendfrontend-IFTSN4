@@ -10,10 +10,10 @@ if (!$usuario) {
 }
 
 if ($usuario['rol'] === "admin") {
-    $titulo = "Total de Reservas | Reservá tu aula";
+    $titulo = "Total de Reservas | SIRAUCA - Sistema Integral de Reservas de Aulas y Carros";
     $reservasTotales = getDetalleReservasAulas($pdo);
 } else {
-    $titulo = "Mis Reservas | Reservá tu aula";
+    $titulo = "Mis Reservas | SIRAUCA - Sistema Integral de Reservas de Aulas y Carros";
     $reservasPropias = getDetalleReservasAulasByUser($pdo, $usuario['id']);
 }
 

@@ -13,7 +13,7 @@
         redirect('/dashboard/aulas/ver-aulas.php');
     }
 
-    $titulo = "Editar Aula | Reservá tu aula";
+    $titulo = "Editar Aula | SIRAUCA - Sistema Integral de Reservas de Aulas y Carros";
 
     //ACA PUEDE ENTRAR SOLO ADMIN, YA QUE EL USER NO PUEDE EDITAR AULAS
 
@@ -55,7 +55,7 @@
                 
                 sendMailNotify(
                 ['nombre' => NAME_SISTEMA, 'email' => MAIL_USERNAME],
-                "Gestión de aulas",
+                "¡Se editó un aula en el Sistema!",
                 notifyOperationAulaAdmin(
                     ['title' => '¡Se editó un aula en el Sistema!', 'subtitle' => 'Los datos nuevos del aula son:'],
                     $nombre_aula,

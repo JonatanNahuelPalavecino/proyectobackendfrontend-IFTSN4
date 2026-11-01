@@ -34,7 +34,7 @@
     }
 
     $carros = getCarrosDisponibles($pdo);
-    $titulo = 'Modifica tu reserva de Carro | SIRAUCA - Sistema de Reserva de Aulas y Carros';
+    $titulo = 'Modifica tu reserva de Carro | SIRAUCA - Sistema Integral de Reservas de Aulas y Carros';
 
     if ($_SERVER['REQUEST_METHOD'] === "POST") {
         $cart_id = trim($_POST['cart_id']);

@@ -30,8 +30,9 @@
   --aside-closed-width: 76px;
   --layout-gap: 1rem;
 
-  --description-footer-color: #a9bfe6 ;
-  --celeste-brillante-color : #4da3ff;
+  --description-footer-color: #a9bfe6;
+  --description-footer-color-green: #95c0a2;
+  --celeste-brillante-color: #4da3ff;
 
   /* Nuevos variables globales  de dashboard */
   --padding-cards: 20px;
@@ -55,7 +56,7 @@
   --btn-color-aulas: #08803f;
   --btn-color-carts: #1d5ba8;
   --btn-color-pcs: #4b5b6c;
-  --btn-color-delete: #FEE2E2;
+  --btn-color-delete: #fee2e2;
   --btn-color-excel: #ffffff;
   --btn-color-edit: #5cbf88;
 
@@ -65,13 +66,13 @@
   --btn-aulas-hover: #065f2e;
   --btn-carts-hover: #174a88;
   --btn-pcs-hover: #364454;
-  --btn-delete-hover: #B91C1C;
+  --btn-delete-hover: #b91c1c;
   --btn-excel-hover: #f3f6f4;
   --btn-edit-hover: #4ab278;
 
   --verde-suave-background: #e4f5eb;
   --verde-fuerte-color: #04823d;
-  --verde: #28a745;;
+  --verde: #28a745;
   --verde-oscuro: #167a3b;
   --navy: #0f1b2d;
   --navy-2: #16324a;
@@ -157,7 +158,6 @@ body > main {
 .logo {
   display: flex;
   align-items: center;
-  
 }
 
 .logo-img {
@@ -176,17 +176,15 @@ body > main {
 }
 
 .logo-title {
-  margin: 0;
-  color: white;
-  font-family: var(--font-family-heading);
   font-size: 2rem;
-  letter-spacing: 2px;
-  font-weight: bold;
+  font-weight: 800;
+  letter-spacing: 6px;
+  color: var(--white-color);
 }
 
 .logo-subtitle {
   margin: 0;
-  color: white;
+  color: var(--description-footer-color-green);
   font-family: var(--font-family);
   font-style: italic;
   font-size: 1rem;
@@ -332,7 +330,8 @@ body > main {
   text-shadow: 0px 0px 1px var(--gray-color);
 }
 
-.auth-field, .reserva-carro-group {
+.auth-field,
+.reserva-carro-group {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -340,12 +339,15 @@ body > main {
   margin-bottom: 1.2rem;
 }
 
-.auth-label, .reserva-carro-label {
+.auth-label,
+.reserva-carro-label {
   font-weight: 600;
   color: var(--dark-color);
 }
 
-.auth-input, .reserva-carro-input, .reserva-carro-textarea {
+.auth-input,
+.reserva-carro-input,
+.reserva-carro-textarea {
   width: 100%;
   box-sizing: border-box;
   padding: 11px 13px;
@@ -356,7 +358,7 @@ body > main {
   transition:
     border-color 0.2s,
     box-shadow 0.2s;
-        font-family: var(--font-family-description);
+  font-family: var(--font-family-description);
 }
 
 .auth-input:focus {
@@ -376,7 +378,8 @@ body > main {
   gap: 8px;
 }
 
-.auth-button, .reserva-carro-button {
+.auth-button,
+.reserva-carro-button {
   width: 200px;
   margin: 0px auto;
   font-size: 15px;
@@ -564,6 +567,17 @@ body > main {
   font-size: 0.78rem;
 }
 
+.side-nav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.side-nav-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
 /*=============================================================================================================*/
 /*================================================ FOOTER =====================================================*/
 /*=============================================================================================================*/
@@ -572,11 +586,11 @@ body > main {
   border-radius: 28px;
   padding: 44px 52px 20px;
   border-radius: 25px;
-  background: linear-gradient(135deg, #0a1f4d,#12409a) ;
+  background: linear-gradient(135deg, #0a1f4d, #12409a);
   color: var(--light-color);
 }
 
-.footer-top{
+.footer-top {
   display: grid;
   grid-template-columns: 1.5fr 1fr 1fr;
   gap: 40px;
@@ -603,9 +617,8 @@ body > main {
   line-height: 1.6;
   color: var(--description-footer-color);
   max-width: 300px;
-  transition: color .3s;
+  transition: color 0.3s;
   user-select: none;
-
 }
 
 .footer-content h3 {
@@ -631,9 +644,8 @@ body > main {
   line-height: 1.5;
   color: var(--description-footer-color);
   transition: color 0.3s;
-  user-select: none
+  user-select: none;
 }
-
 
 .footer-content .footer-icon {
   flex-shrink: 0;
@@ -645,7 +657,7 @@ body > main {
 .footer-content a {
   text-decoration: none;
   color: var(--description-footer-color);
-  transition: color .3s;
+  transition: color 0.3s;
 }
 
 .footer-content a:hover,
@@ -675,7 +687,6 @@ body > main {
   color: var(--celeste-brillante-color);
 }
 
-
 /*=============================================================================================================*/
 /*============================================== HOME INDEX ===================================================*/
 /*=============================================================================================================*/
@@ -689,22 +700,22 @@ body > main {
   overflow: hidden;
   border-radius: 24px;
 
- background:
-        linear-gradient(
-            90deg,
-            rgba(3, 12, 35, 0.98) 0%,
-            rgba(5, 24, 58, 0.90) 35%,
-            rgba(0, 45, 100, 0.300) 50%,
-            rgba(9, 69, 143, 0.150) 100%,
-            transparent 100%
-        ),
-        url("../assets/images/aula_home_1.png");
+  background:
+    linear-gradient(
+      90deg,
+      rgba(3, 12, 35, 0.98) 0%,
+      rgba(5, 24, 58, 0.9) 35%,
+      rgba(0, 45, 100, 0.3) 50%,
+      rgba(9, 69, 143, 0.15) 100%,
+      transparent 100%
+    ),
+    url("../assets/images/aula_home_1.png");
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;  
+  background-repeat: no-repeat;
 }
 
-.home-content{
+.home-content {
   display: flex;
   flex-direction: column;
   width: min(540px, 90%);
@@ -719,43 +730,39 @@ body > main {
   font-size: 4rem;
   letter-spacing: 10px;
   font-weight: 900;
-
 }
-
 
 .home-lineDivisor {
-    display: block;
-    width: 180px;
-    height: 5px;
-    background: var(--verde);
-    border-radius: 10px;
+  display: block;
+  width: 180px;
+  height: 5px;
+  background: var(--verde);
+  border-radius: 10px;
 }
 
-.home-subtitle{
+.home-subtitle {
   font-family: var(--font-family-title);
   font-size: 20px;
   letter-spacing: 1.2px;
   font-weight: 600;
-
 }
 
-.home-textAulas{
+.home-textAulas {
   font-size: 22px;
   color: var(--verde);
 }
 
-.home-textCarts{
+.home-textCarts {
   font-size: 22px;
-  color: #0047a3; 
+  color: #0047a3;
 }
 
-.home-description{
+.home-description {
   font-family: var(--font-family-description);
   color: var(--description-color);
   line-height: 25px;
   font-weight: 500;
 }
-
 
 .btn-home {
   display: flex;
@@ -767,7 +774,9 @@ body > main {
   font-size: 1.2rem;
   font-weight: 600;
   background-color: var(--verde);
-  transition: transform 0.8s ease, background-color 0.3s ease-in-out;
+  transition:
+    transform 0.8s ease,
+    background-color 0.3s ease-in-out;
 }
 .btn-home:hover {
   background-color: var(--btn-border-excelHover);
@@ -782,7 +791,9 @@ body > main {
   font-weight: 600;
   border: 1px solid var(--white-color);
   padding: 12px 30px;
-  transition: transform 0.8s ease, background-color 0.3s ease-in-out;
+  transition:
+    transform 0.8s ease,
+    background-color 0.3s ease-in-out;
 }
 .btn-comoFunciona:hover {
   background-color: #919cab44;
@@ -809,7 +820,7 @@ body > main {
   padding-top: 6px;
 }
 
-.cf-titulo h2{
+.cf-titulo h2 {
   font-family: var(--font-family-title);
   letter-spacing: 1.8px;
   font-size: 2.1rem;
@@ -834,10 +845,10 @@ body > main {
   background-color: var(--white-color);
   border: var(--border-cards);
   border-left: 5px solid var(--verde);
-  box-shadow: 0 6px 24px rgba(15, 31, 58, .08);
+  box-shadow: 0 6px 24px rgba(15, 31, 58, 0.08);
 }
 
-.cf-siglas{
+.cf-siglas {
   background-color: var(--verde-suave-background);
   padding: 20px 25px;
   border-radius: var(--borderRadius-cards-pattern);
@@ -847,15 +858,14 @@ body > main {
   font-family: var(--font-family-title);
   text-align: center;
   letter-spacing: 1px;
-
 }
-.cf-siglas small{
+.cf-siglas small {
   display: block;
   font-size: 0.8rem;
   color: var(--navy);
   font-family: var(--font-family-description);
   font-weight: 700;
-  letter-spacing: .5px;
+  letter-spacing: 0.5px;
   margin-top: 6px;
 }
 
@@ -869,19 +879,19 @@ body > main {
 .cf-que-es p {
   font-family: var(--font-family-description);
   color: var(--description-color);
-  font-weight: 400; 
+  font-weight: 400;
 }
 .cf-que-es p b {
   color: var(--navy);
 }
 
-.cf-develop{
+.cf-develop {
   margin-top: 8px;
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
-.cf-developers{
+.cf-developers {
   display: flex;
   gap: 8px;
 }
@@ -892,6 +902,7 @@ body > main {
   color: var(--secondary-color);
   font-weight: 600;
   font-size: 0.9rem;
+  text-decoration: none;
 }
 
 .cf-guia {
@@ -930,7 +941,7 @@ body > main {
   gap: 20px;
 }
 
-.cf-card{
+.cf-card {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -939,14 +950,16 @@ body > main {
   background-color: var(--white-color);
   border-radius: var(--borderRadius-cards-children);
   border: var(--border-cards);
-  box-shadow: 0 6px 24px rgba(15, 31, 58, .08);
+  box-shadow: 0 6px 24px rgba(15, 31, 58, 0.08);
   line-height: 20px;
-  transition: .3s transform, .3s box-shadow;
+  transition:
+    0.3s transform,
+    0.3s box-shadow;
 }
 
 .cf-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(15,31,58,.13);
+  box-shadow: 0 12px 30px rgba(15, 31, 58, 0.13);
 }
 
 .cf-card p {
@@ -972,11 +985,11 @@ body > main {
 .guia-aula svg {
   color: var(--verde-fuerte-color);
 }
-.guia-aula .cf-card span{
+.guia-aula .cf-card span {
   box-shadow: 0px 1px 5px var(--verde-fuerte-color);
   background-color: var(--verde-fuerte-color);
   color: var(--white-color);
-} 
+}
 
 .guia-aula .cf-card p b {
   color: var(--verde-fuerte-color);
@@ -986,7 +999,7 @@ body > main {
 .guia-cart .cf-guia-head span {
   color: var(--secondary-color);
 }
-.guia-cart .cf-guia-head{
+.guia-cart .cf-guia-head {
   background-color: var(--secondary-color-background);
   border: 1px solid #0a608b50;
 }
@@ -1009,7 +1022,7 @@ body > main {
 
 /* EDITAR O CANCELAR RESERVA */
 .guia-edit svg {
-  color: #f7733d; 
+  color: #f7733d;
 }
 
 .guia-edit .cf-guia-head {
@@ -1018,46 +1031,45 @@ body > main {
 }
 
 .guia-edit .cf-guia-head span {
-  color: #f7733d; 
-} 
+  color: #f7733d;
+}
 
-.guia-edit .cf-card span { 
-  background-color:#f7733d ;
+.guia-edit .cf-card span {
+  background-color: #f7733d;
   color: var(--white-color);
   box-shadow: 0 0 5px #f7733d;
 }
 .guia-edit .cf-card p b {
-  color: #f7733d; 
-
+  color: #f7733d;
 }
 
-.cf-guia-alert{
+.cf-guia-alert {
   margin-top: 16px;
   display: flex;
   align-items: flex-start;
   text-align: center;
-  gap: 12px; 
+  gap: 12px;
   font-size: 0.94rem;
 
   border-radius: var(--borderRadius-cards-pattern);
   background-color: #fff6e0;
   padding: 14px 18px;
   border: 1px solid #f7723d7a;
-  color: #5c4400
+  color: #5c4400;
 }
 .cf-guia-alert span {
-  font-size: 1.2rem; 
+  font-size: 1.2rem;
   line-height: 1;
 }
 
-.cf-dudas{
+.cf-dudas {
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 16px;
-  max-width: 780px; 
-  width: 100%; 
+  max-width: 780px;
+  width: 100%;
   margin: 0 auto;
   padding: 36px 32px;
   border-radius: var(--borderRadius-cards-pattern);
@@ -1083,17 +1095,18 @@ body > main {
   border-radius: var(--borderRadius-cards-pattern);
   color: var(--white-color);
   font-family: var(--font-family-description);
-  font-weight:600;
-  transition: transform .3s ease-in-out, box-shadow .3s ease-in-out, background-color .4s ease-in-out;
+  font-weight: 600;
+  transition:
+    transform 0.3s ease-in-out,
+    box-shadow 0.3s ease-in-out,
+    background-color 0.4s ease-in-out;
 }
 
-.cf-dudas a:hover{
+.cf-dudas a:hover {
   transform: translateY(-2px);
   box-shadow: 0 2px 10px #ffffff42;
   background-color: var(--btn-border-excelHover);
 }
-
-
 
 /*=============================================================================================================*/
 /*================================================= DASHBORAD =================================================*/
@@ -1169,47 +1182,47 @@ body > main {
 }
 
 .container-smallEmoji {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 55px;
-    height: 55px;
-    border-radius: var(--borderRadius-cards-children);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 55px;
+  height: 55px;
+  border-radius: var(--borderRadius-cards-children);
 }
-.container-smallPcs{
+.container-smallPcs {
   background-color: #ccc;
   color: var(--btn-pcs-hover);
 }
-.container-smallAulas{
+.container-smallAulas {
   background-color: var(--verde-suave-background);
   color: var(--verde-fuerte-color);
 }
 
-.container-smallCarts{
+.container-smallCarts {
   background-color: var(--secondary-color-background);
   color: var(--secondary-color);
 }
 
-.small-emoji{
-    width: 25px;
-    height: 25px;
-    flex-shrink: 0;
+.small-emoji {
+  width: 25px;
+  height: 25px;
+  flex-shrink: 0;
 }
 
 .stat-iconAulas {
   background-color: var(--verde-suave-background);
   color: var(--verde-fuerte-color);
-  box-shadow: 0px 0px 3px var(--verde-fuerte-color)
+  box-shadow: 0px 0px 3px var(--verde-fuerte-color);
 }
 .stat-iconCarts {
   background-color: var(--secondary-color-background);
   color: var(--secondary-color);
-  box-shadow: 0px 0px 3px var(--secondary-color)
+  box-shadow: 0px 0px 3px var(--secondary-color);
 }
 .stat-iconUsers {
   background-color: var(--navy);
   color: var(--white-color);
-  box-shadow: 0px 0px 3px var(--navy)
+  box-shadow: 0px 0px 3px var(--navy);
 }
 .stat-iconNotebooks {
   background-color: var(--gray-color);
@@ -1217,7 +1230,7 @@ body > main {
   box-shadow: 0px 0px 3px var(--gray-color);
 }
 
-.stat-containerMicro-icon{
+.stat-containerMicro-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1226,7 +1239,7 @@ body > main {
   border-radius: var(--borderRadius-cards-pattern);
 }
 
-.stat-micro-icon{
+.stat-micro-icon {
   width: 20px;
   height: 20px;
   flex-shrink: 0;
@@ -1364,7 +1377,7 @@ body > main {
 
 .db-reservas-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
   gap: 20px;
   padding: 15px 0;
 }
@@ -1495,11 +1508,10 @@ body > main {
   background-color: var(--secondary-color-background);
   border-color: var(--secondary-color);
 }
-.no-results-pcs{
+.no-results-pcs {
   background-color: var(--gray-color);
   border-color: var(--btn-pcs-hover);
 }
-
 
 .text-sinResultsAulas {
   font-size: 15px;
@@ -1516,13 +1528,12 @@ body > main {
   text-transform: uppercase;
 }
 
-.text-sinResultsPcs{
+.text-sinResultsPcs {
   font-size: 15px;
   text-shadow: 0px 0px 1px var(--btn-color-pcs);
   font-style: italic;
   color: var(--btn-pcs-hover);
   text-transform: uppercase;
-
 }
 
 /*=============================================================================================================*/
@@ -1644,8 +1655,8 @@ body > main {
 .vr-table tbody tr.vr-fila-activa {
   color: var(--verde-fuerte-color);
   font-family: var(--font-family-description);
-  background: #F0F8F3;
-  font-weight: 400; 
+  background: #f0f8f3;
+  font-weight: 400;
 }
 .vr-table tbody tr.vr-fila-activa td {
   border-bottom-color: #dcebe2;
@@ -1655,28 +1666,27 @@ body > main {
 }
 
 .vr-table tbody tr.vr-fila-pendiente {
-  background-color: #F0F5FA;
+  background-color: #f0f5fa;
   color: var(--btn-color-carts);
   font-family: var(--font-family-description);
   font-weight: 400;
 }
 .vr-table tbody tr.vr-fila-pendiente td {
-   border-bottom-color: #dcdceb; 
+  border-bottom-color: #dcdceb;
 }
 .vr-table tbody tr.vr-fila-pendiente:hover {
-  background-color: #E6EFF8;
+  background-color: #e6eff8;
 }
 
 /* Fila finalizada */
-.vr-table tbody tr.vr-fila-finalizada td { 
+.vr-table tbody tr.vr-fila-finalizada td {
   font-family: var(--font-family-description);
-  color: #b1bac2; 
+  color: #b1bac2;
 }
 
 .vr-table .col-centro {
   text-align: center;
 }
-
 
 /* SVGS - EDITAR - ELIMINAR - CONFIGURACION */
 .verReservas-acciones {
@@ -1685,32 +1695,30 @@ body > main {
   justify-content: center;
   align-items: center;
   gap: 10px;
-  white-space: nowrap
+  white-space: nowrap;
 }
 
 .verReservas-acciones .btn-edit {
-    color: var(--verde-fuerte-color);
-    background-color: var(--verde-suave-background);
-    transition: 0.3s ease-in-out;
-    
+  color: var(--verde-fuerte-color);
+  background-color: var(--verde-suave-background);
+  transition: 0.3s ease-in-out;
 }
 
-
 .verReservas-acciones .btn-edit:hover {
-    background-color: #01ff124c ;
+  background-color: #01ff124c;
 }
 
 .verReservas-acciones .btn-delete {
-    background-color: #FEE2E2;
-    color: #B91C1C;
-    transition: 0.3s ease-in-out;
+  background-color: #fee2e2;
+  color: #b91c1c;
+  transition: 0.3s ease-in-out;
 }
 
 .verReservas-acciones .btn-delete:hover {
-    background-color: #FECACA;
+  background-color: #fecaca;
 }
 
-.btn-setting{
+.btn-setting {
   background-color: #ccc;
   color: var(--btn-pcs-hover);
   transition: 0.3s ease-in-out;
@@ -1721,26 +1729,26 @@ body > main {
 
 /* SVG dentro de los botones */
 .verReservas-acciones .btn svg {
-    width: 18px;
-    height: 18px;
-    vertical-align: middle;
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
 }
 
 /* Botones deshabilitados */
 .verReservas-acciones .disabled {
-    background-color: #E5E7EB;
-    color: #9CA3AF;
-    cursor: not-allowed;
-    opacity: 0.8;
+  background-color: #e5e7eb;
+  color: #9ca3af;
+  cursor: not-allowed;
+  opacity: 0.8;
 }
 .verReservas-acciones .btn-edit.disabled:hover,
 .verReservas-acciones .btn-delete.disabled:hover {
-    background-color: #E5E7EB;
+  background-color: #e5e7eb;
 }
 
 .verReservas-acciones .disabled svg {
-    color: inherit;
-    fill: currentColor;
+  color: inherit;
+  fill: currentColor;
 }
 
 .entregar-carro {
@@ -1777,21 +1785,20 @@ body > main {
   color: var(--white-color);
 }
 
-
 /* CHIPS DE COLUMNA 'ESTADO' DE CARROS */
 .verReservas-status.vr-chipActivo {
-  background: #E1F0E8; 
-  color: #065F2E;
+  background: #e1f0e8;
+  color: #065f2e;
   box-shadow: 0 0 3px var(--verde-fuerte-color);
 }
-.verReservas-status.vr-chipPendiente{
+.verReservas-status.vr-chipPendiente {
   background-color: var(--secondary-color-background);
   box-shadow: 0 0 3px var(--secondary-color);
   color: var(--secondary-color);
 }
-.verReservas-status.vr-chipFinalizado{
-  background: #E9EDEB; 
-  color: #5B6B7A;
+.verReservas-status.vr-chipFinalizado {
+  background: #e9edeb;
+  color: #5b6b7a;
 }
 
 .verReservas-acciones {
@@ -1994,7 +2001,6 @@ body > main {
   border-collapse: separate;
   border-spacing: 0.35rem;
   table-layout: fixed;
-  
 }
 
 .calendar-table th {
@@ -2071,11 +2077,11 @@ body > main {
 }
 
 .aula-seleccionada {
-    border: 2px solid var(--primary-color);
+  border: 2px solid var(--primary-color);
 }
 
 .calendar-day.selected {
-    background-color: var(--primary-color);
+  background-color: var(--primary-color);
 }
 
 /*=============================================================================================================*/
@@ -2099,7 +2105,7 @@ body > main {
   margin-bottom: 5px;
 }
 
-.form-crudChip{
+.form-crudChip {
   /* width: fit-content; */
   padding: 5px 8px;
   font-family: var(--font-family-title);
@@ -2109,15 +2115,14 @@ body > main {
   letter-spacing: 1.1px;
   font-weight: 900;
   color: var(--white-color);
-
 }
-.form-chipPcs{
+.form-chipPcs {
   background-color: var(--btn-pcs-hover);
 }
-.form-chipAulas{
+.form-chipAulas {
   background-color: var(--verde-fuerte-color);
 }
-.form-chipCarts{
+.form-chipCarts {
   background-color: var(--secondary-color);
 }
 
@@ -2212,8 +2217,6 @@ body > main {
   background-color: #f2f2f2;
 }
 
-
-
 /*=============================================================================================================*/
 /*============================================== CREAR RESERVAS | CARROS ======================================*/
 /*=============================================================================================================*/
@@ -2245,15 +2248,16 @@ body > main {
   padding: 20px;
 }
 
-
 /*=============================================================================================================*/
 /*============================================== RESPONSIVE (MOVERLO ABAJO DE TODO) ==============================================*/
 /*=============================================================================================================*/
 @media (max-width: 950px) {
-  .footer-top { grid-template-columns: 1fr 1fr; }
+  .footer-top {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
-@media (max-width: 930px){
+@media (max-width: 930px) {
   .auth-page {
     grid-template-columns: 1fr;
   }
@@ -2270,46 +2274,44 @@ body > main {
     margin-left: 0;
     margin-top: 10px;
   }
-} 
+}
 
 @media (max-width: 800px) {
   .dh-welcome {
     flex-direction: column;
     align-items: flex-start;
   }
-  .dh-welcome .dh-actions{
+  .dh-welcome .dh-actions {
     margin-left: 0;
     margin-top: 10px;
   }
 
-  .reserva-carro-form{
+  .reserva-carro-form {
     width: 400px;
   }
-  
 }
- 
+
 @media (max-width: 600px) {
-  .footer { 
-    padding: 32px 22px 18px; 
+  .footer {
+    padding: 32px 22px 18px;
   }
-  
-  .footer-top{ 
-    grid-template-columns: 1fr; 
-    gap: 28px; 
+
+  .footer-top {
+    grid-template-columns: 1fr;
+    gap: 28px;
   }
 
   .cf-developers {
-      flex-direction: column;
-      align-items: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
   }
-  
-  
-  .dashboard-reservas .dh-actions{
+
+  .dashboard-reservas .dh-actions {
     margin-left: 0;
     margin-top: 10px;
   }
 
-  .db-reservas-header{
+  .db-reservas-header {
     flex-direction: column;
     align-items: flex-start;
   }
@@ -2321,20 +2323,16 @@ body > main {
   .db-reservas-item {
     flex-direction: column;
     align-items: flex-start;
-    flex-wrap: wrap ;
+    flex-wrap: wrap;
   }
-
-  
-
- 
 }
 
-@media (max-width:450px){
-  .db-reserva-inline{
+@media (max-width: 450px) {
+  .db-reserva-inline {
     flex-direction: column;
     align-items: flex-start;
   }
-   .db-reserva-inline .db-reserva-chipActiva {
+  .db-reserva-inline .db-reserva-chipActiva {
     margin-left: 0px;
   }
 }

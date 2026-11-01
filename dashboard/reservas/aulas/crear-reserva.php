@@ -42,7 +42,7 @@ if ($aulaSeleccionada && $fechaSeleccionada) {
     );
 }
 
-$titulo = "Reserva de Aula | SIRAUCA - Sistema de Reserva de Aulas y Carros";
+$titulo = "Reserva de Aula | SIRAUCA - Sistema Integral de Reservas de Aulas y Carros";
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             //ADMIN
             sendMailNotify(
                 ['nombre' => NAME_SISTEMA, 'email' => MAIL_USERNAME],
-                "Gestion de Reservas de Aula",
+                "¡Se registro una nueva reserva de aula!",
                 notifyOperationReservAulaAdmin(
                     ['title' => '¡Se registro una nueva reserva de aula!', 'subtitle' => 'Los datos de la reserva son:'],
                     $usuario['nombre'],
@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             // PROFESOR
             sendMailNotify(
                 ['nombre' => $usuario['nombre'], 'email' => $usuario['email']],
-                "Sistema Reservas IFTS N°4",
+                "¡Reserva de aula creada exitosamente!",
                 notifyOperationReservAulaProf(
                     ['title' => '¡Reserva de aula creada exitosamente!', 'subtitle' => 'Los datos de tu reserva son:'],
                     $aulaSeleccionada['nombre'],

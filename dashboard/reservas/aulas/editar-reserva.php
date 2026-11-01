@@ -110,7 +110,7 @@
 
                 sendMailNotify(
                     ['nombre' => NAME_SISTEMA, 'email' => MAIL_USERNAME],
-                    'Gestión de Reservas de Aula',
+                    '¡Se modificó una reserva de aula!',
                     notifyOperationReservAulaAdmin(
                         [
                             'title' => '¡Se modificó una reserva de aula!',
@@ -126,7 +126,7 @@
 
                 sendMailNotify(
                     ['nombre' => $usuario['nombre'], 'email' => $usuario['email']],
-                    'Sistema Reservas IFTS N°4',
+                    '¡Modificaste tu reserva!',
                     notifyOperationReservAulaProf(
                         [
                             'title' => '¡Modificaste tu reserva!',
@@ -177,7 +177,7 @@
         );
     }
 
-    $titulo = 'Modifica tu reserva de Aula | SIRAUCA - Sistema de Reserva de Aulas y Carros';
+    $titulo = 'Modifica tu reserva de Aula | SIRAUCA - Sistema Integral de Reservas de Aulas y Carros';
 ?>
 
 <?php include __DIR__ . "/../../../components/header.php"; ?>

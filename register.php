@@ -62,7 +62,7 @@
         }
     }
 
-    $titulo = "Registrarse | SIRAUCA - Sistema de Reserva de Aulas y Carros del IFTS N° 4";
+    $titulo = "Registrarse | SIRAUCA - Sistema Integral de Reservas de Aulas y Carros";
 
     $slides = [
         [
